@@ -1,0 +1,105 @@
+% Load core style
+\usepackage{./styles/mystylecore}
+
+% Include babel (Standard)
+% Change primary language (on the right) to that of the document's
+\usepackage[english,portuguese]{babel}
+
+\addto\captionsportuguese{\renewcommand{\contentsname}{Problemas Resolvidos}}
+\addto\captionsenglish{\renewcommand{\contentsname}{Solved Problems}}
+
+% Manipulation of titles (chapters, sections, ...)
+\usepackage[explicit]{titlesec}
+
+% Using suggested title formats (ctex.org/.../titlesec.pdf)
+
+\titleformat{\subsection}[runin]
+    {\normalfont\bfseries}
+    {\uline{#1.}}
+    {0pt}
+    {}
+    
+\titlespacing{\subsection}
+    {\parindent}{1.5ex plus .1ex minus .2ex}{1em}
+
+% Include links to pages from Table of Contents
+\usepackage[linktocpage=true]{hyperref}
+
+% Include AMS's math utils (Standard)
+\usepackage[centertags,sumlimits,intlimits,namelimits]{amsmath}
+
+\allowdisplaybreaks
+\predisplaypenalty=10000
+
+% Enhance amsmath (Standard)
+\usepackage{mathtools}
+
+% Include extra math symbols
+\usepackage{amssymb}
+
+% Include extra math fonts (such as BlackBoard)
+\usepackage{amsfonts}
+
+% Include underline utility \uline
+\usepackage[normalem]{ulem}
+
+% Include AMS's theorem utility (includes proof environment)
+\usepackage{amsthm}
+
+
+
+% SOLUTION'S PENALTIES
+\widowpenalty=8000
+\clubpenalty=3000
+
+
+
+% SOLUTION'S ENVIRONMENTS
+\newenvironment{problemset}[1]
+    {
+    \section{#1}}
+    {}
+
+\newenvironment{problem}[1]
+    {
+    \subsection{#1}}
+    {\\}
+
+\newenvironment{solution}
+    {\begin{proof}[Solução]}
+    {\end{proof}}
+
+\newenvironment{anchor}
+    {$\downharpoonright$}
+    {$\upharpoonleft$\\}
+
+\newenvironment{note}
+    {\small \begin{anchor}}
+    {\end{anchor}}
+
+\newenvironment{smallnote}
+    {\footnotesize \begin{anchor}}
+    {\end{anchor}}
+
+\newenvironment{quickproof}
+    {Prova. \begin{anchor}}
+    {\end{anchor}}
+
+\newenvironment{lemma}[1][Lema]
+    {\bigskip\uline{#1} }
+    {\\}
+
+\newenvironment{observation}[1]
+    {\bigskip\uline{#1.} \begin{note}}
+    {\end{note}}
+
+
+
+% SOLUTION'S COMMANDS
+\newcommand*{\suchthat}{\,:\,}
+
+\newcommand*{\coprime}{\perp}
+
+\newcommand*{\mdc}{\ensuremath{\text{mdc}}}
+
+\newcommand*{\mmc}{\ensuremath{\text{mmc}}}

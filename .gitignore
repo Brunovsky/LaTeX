@@ -5,3 +5,5 @@
 *.gz
 *.bz2
 *.dvi
+*.out
+*.toc
