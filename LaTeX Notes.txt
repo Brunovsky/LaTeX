@@ -1,0 +1,4197 @@
+###################################################
+##### (1.1) Getting started > Introduction
+###################################################
+
+
+
+$ Engines $
+
+tex, latex
+Original engines, support DVI output.
+
+xetex, xelatex
+Engines with support for Unicode input and .ttf and .otf fonts.
+
+luatex, lualatex
+Engines with support for Unicode input with embedded Lua support
+
+pdftex, pdflatex
+Engines with support for PDF output generation
+
+MiKTeX
+LaTeX package distribution for windows.
+
+TeX live
+A cross-platform LaTeX distribution.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (1.2) Getting started > Installation
+###################################################
+
+
+$ Editors $
+
+Texmaker, TeXstudio, TeXworks.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.1) Common Elements > Document Structure
+###################################################
+
+
+
+$ Document class $
+
+\documentclass
+\documentclass[OPTIONS]{CLASS}
+
+Declares the document class type, and further options (optional).
+
+Common:
+\documentclass{article}
+\documentclass[12pt,a4paper,oneside]{article}
+\documentclass[12pt,a4paper,titlepage,twoside,leqno]{article}
+
+#### CLASS
+Specifies document class. One only
+
+	article
+		- usual
+	report
+	book
+	...
+
+#### OPTIONS
+Optional.
+Specifies document options. Comma separated.
+Bold is default options for article class.*
+
+	[10pt], 11pt, 12pt, ...
+		- document default font size
+	[a4paper], a5paper, letterpaper, ...
+		- document paper size. Default for pdfLaTeX is a4paper
+	leqno
+		- numbers the formulas on the left side instead of the right side
+	[notitlepage], titlepage
+		- do or do not create new page after first document title page
+	twocolumn
+		- typeset document in two columns instead of just one
+	[oneside], twoside
+		- single or double sided output (not relevant for printing)
+	landscape
+		- changes the layout of the document to print in landscape mode
+	fleqn
+		- typesets formulas left-aligned instead of center-aligned
+	draft
+		- indicate hyphenation and justification problems
+		- do not build images, only include frame for them
+
+
+
+
+
+
+
+
+
+
+$ Package $
+
+\usepackage{PACKAGE}
+\usepackage[OPTIONS]{PACKAGE}
+
+Includes designated package into the document.
+Options are package specific.
+
+! Search for "> Package NAME" in this document to find places that NAME appears in.
+
+Most Important packages:
+
+inputenc, lmodern, babel, geometry, amsmath, mathtools, amsthm, hyperref, cleverref,
+graphicx, array,
+
+
+
+
+
+
+
+
+
+
+$ Environment $
+
+\begin{ENVIRONMENT}, \end{ENVIRONMENT}
+
+Everything in between \begin and \end will be affected by the ENVIRONMENT settings.
+
+! Search for "> Environment NAME" in this document to find places that NAME appears in.
+
+
+
+
+
+
+
+
+
+
+$ Header $
+
+\title, \author, \date, \maketitle
+\title{TITLE}
+\author{AUTHOR}
+\date{DATE}
+
+Declares the document's title, author and date.
+Finally \maketitle typesets the document's header, with title, author and date.
+
+
+
+
+
+
+
+
+
+
+$ Document Environment $
+
+\begin{document}, \end{document}
+
+Declares the beginning and end of the document's contents, respectively.
+
+> Environment document
+
+
+
+
+
+
+
+
+
+
+$ Abstract Environment $
+
+\begin{abstract}, \end{abstract}
+
+\abstractname
+\renewcommand{\abstractname}{My Abstract Title}
+
+Declares the beginning and end of the article's abstract section.
+The default title \abstractname is "Abstract", it may be changed with renewcommand.
+
+> Environment abstract
+
+
+
+
+
+
+
+
+
+
+$ Sections $
+
+\part, \chapter, \section, \subsection, \subsubsection, \paragraph, \subparagraph
+
+DEPTH   levels				DEFAULT NUMBERING
+ -1  =  \part				Part I, Part II, ...
+  0  =  \chapter			Decimal numbering
+  1  =  \section 			Decimal numbering
+  2  =  \subsection 		Decimal numbering
+  3  =  \subsubsection 		Decimal numbering
+  4  =  \paragraph
+  5  =  \subparagraph
+
+(1) \...{NAME}
+(2) \...[Alternative]{NAME}
+(3) \setcounter{secnumdepth}{X}
+(4) \setcounter{tocdepth}{X}
+(5) \...*{NAME}
+
+Sectioning commands for the document.
+All types of sections are opened and never closed.
+
+Use (1) to open a section with NAME in the document.
+Use (2) when NAME is long. Alternative will be the placeholder in the Table of Contents.
+
+Numbering by default is set to depth 3, that is, levels -1 through 3 get numbered,
+paragraphs do not. To change numbering depth, use (3).
+
+To specify the depth of the Table of Contents, use (4).
+
+To specify an unnumbered section which is not included in the Table of Contents,
+use (5).
+
+> Package unnumberedtotoc: to add unnumbered section to the Table of Contents.
+
+
+
+
+
+
+
+
+
+
+$ Table of Contents $
+
+\tableofcontents, \listoffigures, \listoftables
+
+\contentsname, \listfigurename, \listtablename
+\renewcommand{\...name}{NAME}
+
+Prints the Table of Contents of the entire document in this location.
+The other two print a list of figures and a list of tables.
+
+These tables' default name may be changed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.2) Common Elements > Text Formatting
+###################################################
+
+
+
+$ Spacing $
+
+\linespread{FACTOR}
+
+Changes the default line spread in the document.
+Default FACTOR is 1.
+FACTOR 1.3 is "one and a half" line spacing.
+FACTOR 1.6 is "double" line spacing.
+
+> Package setspace: better line spacing control.
+
+
+
+
+
+~
+
+Use '~' instead of ' ' for a whitespace which cannot be newlined.
+Useful if it is important for two words to be read on the same line, as separating them
+might affect readability.
+
+
+
+
+
+\hfill
+\vfill
+
+Insert an horizontal stretched space. Everything after gets pushed to the right margin.
+Insert a vertical stretched space. Everything is pushed to the end of the page.
+
+
+
+
+
+\mbox{TEXT}
+\fbox{TEXT}
+
+The given TEXT cannot be hyphenated or broken into multiple lines.
+The fbox additionally adds a box around TEXT.
+
+
+
+
+
+{}
+
+Prohibit a symbol ligature, like f{}f instead of ff.
+
+
+
+
+
+\slash
+/\hspace{0pt}
+\slash\hspace{0pt}
+
+Using '/' prohibits newlining, \slash allows newlining after it.
+To allow hyphenation of the second word, use the one of the other forms.
+
+
+
+
+
+
+
+
+
+
+$ Quotes $
+
+The characters " " are different entities.
+
+A `quote' in LaTeX.
+A ``quote'' in LaTeX.
+
+
+
+
+
+
+
+
+
+
+$ Macros $
+\newcommand{\COMMAND}[ARGC]{BODY}
+\renewcommand{\COMMAND}[ARGC]{BODY}
+
+Creates a macro command with given name \COMMAND.
+The macro may take a number of arguments given by ARGC. If ARGC is 0 it should be ommited.
+BODY is the macro body. The arguments may be accessed by #1, #2, ...
+
+
+
+
+
+
+
+
+
+
+\textsubscript{TEXT}
+\textsuperscript{TEXT}
+
+For subscripting and superscripting text (not math).
+
+
+
+
+
+
+
+
+
+
+$ Dashes Hyphens $
+
+(1) -		Hyphen 			Inter-word
+(2) --		En Dash 		Page range
+(3) --- 	Em Dash 		Punctuation dash
+(4) $-$		Math minus
+
+Use 1,2,3 naturally. Use 4 inside math mode.
+
+
+
+
+
+
+
+
+
+
+$ Ellipsis $
+
+...				Three very close dots
+\ldots			An ellipsis
+\textellipsis 	Allows spacing between dots to vary
+
+
+
+
+
+
+
+
+
+
+$ Default strings $
+\today			Current date
+\tex, \LaTeX, \LaTeXe
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.3) Common Elements > Paragraph Formatting
+###################################################
+
+
+
+$ Paragraph Alignment $
+
+JUSTIFICATION 	ENVIRONMENT		COMMAND
+Left			flushleft		\raggedright
+Right			flushright		\raggedleft
+Center			center 			\centering
+
+All text between \begin{ENV} and \end{ENV} will be justified accordingly.
+Use commands as {\COMMAND{} TEXT}.
+
+> Environment flushleft
+> Environment flushright
+> Environment center
+
+
+
+
+
+
+
+
+
+
+$ Paragraph Indentation $
+
+\parindent, \setlength{\parindent}{LENGTH}
+\parskip, \setlength{\parskip}{LENGTH}
+
+Example: \setlength{\parskip}{1cm plus4mm minus3mm} (10mm +4/-3mm)
+
+Define the default paragraph indentation length with \parindent.
+Define the default space between paragraphs with \parskip.
+Changing \parindent and \parskip may affect tables and lists as well.
+
+> Package parskip: better managing of paragraph independent
+indentation and line spacing.
+
+
+
+
+
+\indent, \noindent
+
+Force paragraph indentation with \indent or \noindent.
+
+
+
+
+
+\hangindent=X
+\leftskip, \rightskip
+
+Indent by X every line of the following paragraph.
+Add additional space at the left or right sides of each line of the following paragraph.
+
+
+
+
+
+
+
+
+
+
+$ Paragraph Section $
+
+\paragraph{TITLE} TEXT
+\paragraph{TITLE} \hspace{0pt} \\
+\paragraph{TITLE} ~\\
+
+In the first syntax, TEXT is written directly in front of TITLE.
+To write TEXT in a new line, use the second or third syntax.
+
+
+
+
+
+
+
+
+
+
+$ Manual Breaks $
+
+\newline, \\, \\*, \\[EXTRA-SPACE], \\*[EXTRA-SPACE]
+
+Variants that force break the line.
+\newline and \\ are usually equivalent.
+\\* newlines and prevents a page break.
+The EXTRA-SPACE argument changes the default space between the lines.
+
+Also: \linebreak[N], \par.
+
+
+
+
+
+
+
+
+
+
+$ Verbatim $
+
+\begin{verbatim}, \end{verbatim}
+
+Everything written within the environment is reproduced verbatim,
+including spaces, newlines, indentation, ...
+Once in the environment only the command \end{verbatim} is recognized.
+
+> Package verbatim
+> Environment verbatim
+
+
+
+
+
+\verb
+\verbDELIM TEXT DELIM
+
+Prints TEXT verbatim. DELIM should be just 1 character, such as ',' or '.'
+
+
+
+
+
+
+
+
+
+
+$ URL $
+
+\url{URL}
+
+Provided by package hyperref or url.
+
+> Package hyperref: The URL is clickable in the PDF.
+> Package url: The URL is not clickable
+
+
+
+
+
+
+
+
+
+
+$ Comment $
+
+% COMMENT
+
+COMMENT is not interpreted by the engine.
+For multiline comments:
+
+> Package comment
+> Package verbatim
+> Environment comment
+
+
+
+
+
+
+
+
+
+
+$ Quoting Text $
+
+> Environment quote: for short quotation
+> Environment quotation: for longer quotations
+> Environment verse: for poetry
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.5) Common Elements > Fonts
+###################################################
+
+
+
+$ Font Families $
+
+rm      - serif
+sf      - sans serif
+tt      - monospace
+\familydefault, \rmdefault, \sfdefault, \ttdefault
+
+Default font is \defaultfamily = \rmdefault = Computer Modern.
+Can be changed with \renewcommand{\familydefault}{FAMILY}
+
+
+
+
+
+
+
+
+
+
+$ Font Style $
+
+\emph{TEXT}
+\emph{EMPHASIZED \emph{NOT EMPHASIZED
+Switch: {\em ...}
+
+Emphasize a portion of text dynamically.
+
+
+
+
+
+\textit{TEXT}
+Switch: {\itshape ...}
+
+Italicize a portion of text.
+
+
+
+
+
+\textbf{TEXT}
+Switch: {\bfseries ...}
+
+Bold a portion of text.
+
+
+
+
+
+\textsc{TEXT}
+Switch: {\scshape ...}
+
+Write a portion of text with small capitals.
+
+
+
+
+
+\textrm{TEXT}, \textsf{TEXT}, \texttt{TEXT}
+Switches: {\rmfamily ...}, {\sffamily ...}, {\ttfamily ...}
+
+Writes a portion of text with a different font family.
+
+
+
+
+
+\underline{TEXT}
+\uline{TEXT}
+
+Writes a portion of text underlined. The second form is preferred because of line breaks.
+
+> Package ulem: underline emphasis. Provides \uline.
+
+
+
+
+
+
+
+
+
+
+$ Font Size $
+
+\tiny, \scriptsize, \footnotesize, \small, \normalsize, \large, \Large, \LARGE, \huge, \Huge
+
+These switches modify the default text size.
+Use as {\switch TEXT}.
+
+
+
+
+
+
+
+
+
+
+$ Common Fonts $
+
+ All Serif                  Package         Code
+Computer Modern Roman       -default-       cmr
+Latin Modern Roman          lmodern         lmr
+TeX Gyre Termes             tgtermes        qtm
+Times                       times           ptm
+
+Default is Computer Modern Roman. I suggest lmodern everywhere.
+To use lmodern everywhere, include:
+
+§ \usepackage{lmodern}
+
+> Package lmodern
+> Package tgtermes
+> Package times
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.6) Common Elements > List Structures
+###################################################
+
+
+
+$ Default Lists $
+
+\begin{itemize}, \end{itemize},
+\begin{enumerate}, \end{enumerate},
+\begin{description}, \end{description},
+\item
+
+Lists can be created with environments and can be nestes within each other.
+Maximum depth four by default, more with packages.
+The TeX engines automatically indent nested lists and items within those lists.
+
+> Environment itemize: bullet list
+> Environment enumerate: numbered list
+> Environment description: descriptive list
+
+To add an item to a list simply write \item. Everything afterwards is that item's text.
+
+
+
+
+
+
+
+
+
+
+$ Other Lists $
+
+> Environment labeling
+> Package scrextend
+
+\item [LABEL] TEXT
+
+Allows each item to take a label. Then the list is organized in two columns,
+the first with the labels and the second with the text.
+
+
+
+
+
+> Environment tasks
+> Package tasks
+
+\begin{tasks}(N), \end{tasks}
+\task TEXT
+
+Makes a horizontal list.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.7) Common Elements > Special Characters
+###################################################
+
+
+
+$ Input encoding $
+
+To use utf-8 encoding, include:
+
+§ \usepackage[utf8]{inputenc}
+
+Remember to change your editors settings for decoding/encoding the TeX file.
+
+
+
+
+
+
+
+
+
+
+$ Special Text Characters $
+
+$       \$
+
+%       \%
+
+{       \{}
+
+}       \}
+
+¶       \P
+
+|       \textbar
+
+<       \textless
+
+>       \textgreater
+
+£       \pounds
+
+#       \#
+
+&       \&
+
+S       §
+
+†       \dag
+
+\       \textbackslash
+
+/       '/' or \slash
+
+®       \textregistered
+
+©       \copyright
+
+~       \~{}
+
+€       \euro{} or '€'
+REQUIRES \usepackage[gen]{eurosym}, \DeclareUnicodeCharacters{20AC}{\euro{}}
+
+Package textcomp guarantees the complicated symbols are pretty.
+\textasciicircum, \textasciitilde, \textasteriskcentered, \textbackslash,
+\textbar, \textbraceleft, \textbraceright, \textbullet, \textcopyright,
+\textdagger, \textdaggerdbl, \textdollar, \textellipsis, \textemdash,
+\textendash, \textexclamdown, \textgreater, \textless, \textordfeminine,
+\textordmasculine, \textparagraph, \textperiodcentered, \textquestiondown,
+\textquoteddblleft, \textquoteddblright, \textquoteleft, \textquoteright,
+\textregistered, \textsection, \textsterling, \texttrademark, \textunderscore,
+\textvisiblespace
+
+> Packate textcomp
+> Package pifont
+> Package eurosym
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.8) Common Elements > Internationalization
+###################################################
+
+
+
+$ Language $
+
+> Package babel
+
+§ \usepackage{babel} | \usepackage[portuges]{babel}
+
+Add support for portuguese.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.10) Common Elements > Tables
+###################################################
+
+
+
+$ Table $
+
+\begin{tabular}[pos]{tablespec}
+\end{tabular}
+
+> Environment tabular
+
+The tabular environment begins a text table.
+
+The pos argument specifies position relative to surrounding text
+b: bottom, c: center, t: top.
+If the table is in a paragraph of its own this is irrelevant.
+
+The tablespec argument describes the table columns (the number of columns is deduced).
+
+l               left-justified column
+c               centered column
+r               right-justified column
+p{'width'}      for wrapping cells
+m{'width'}      for wrapping cells
+b{'width'}      for wrapping cells
+|               vertical line column
+||              double vertical line column
+
+The | and || columns are like the lcr columns, but are very thin and feel like separators.
+
+
+Within the environment:
+
+&               Column separator
+\\              Start new row
+\hline          Horizontal line spanning all columns. Write after \\
+\newline        Newline within a cell
+\cline{i-j}     Partial horizontal line, spanning just columns i to j
+
+
+See also:
+> Package tabularx
+> Package tabulary
+
+
+For further options check documentation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.12) Common Elements > Page Layout
+###################################################
+
+
+
+ ____________________________________
+|                                    |
+|                                    |
+|                                    |
+|                                    |
+|                                    |
+|                                    |
+|                                    |
+|                                    |
+|                                    |
+|                PAGE                |
+|                                    |
+|                                    |
+|                                    |
+|                                    |
+|               LAYOUT               |
+|                                    |
+|                                    |
+|                                    |
+|                                    |
+|                                    |
+|                                    |
+|                                    |
+|                                    |
+|                                    |
+|____________________________________|
+
+
+To render a frame marking margins,
+\usepackage{showframe}  or  \usepackage[showframe]{geometry}
+
+> Package showframe
+
+
+
+$ Geometry $
+
+The geometry package allows customization of page size and layout.
+\usepackage[OPTIONS]{geometry}
+
+> Package geometry
+
+
+
+
+
+
+
+
+
+
+$ Manual Page Formatting $
+
+\newpage            End current page, start new one
+\pagebreak          Breaks current page at this point
+\pagebreak[N]
+\nopagebreak        Stops the page from being broken at this point
+\nopagebreak[N]
+\clearpage          Ends the current page, flushes floats
+
+
+To avoid widow lines (single lines at the beginning of a page):
+\widowpenalty=X        X higher, higher penalty. 10000 MAX
+Recommended: 2000
+Also: \usepackage[all]{nowidow}
+> Package nowidow
+
+To avoid orphan lines (single lines at the end of a page):
+\clubpenalty=X         X higher, higher penalty. 10000 MAX
+Recommended: 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.13) Common Elements > Page Headers and Footers
+###################################################
+
+
+
+$ Page Details $
+
+\thepage            Current page number
+\leftmark           Current chapter name: "CHAPTER 3. TITLE"
+\rightmark          Current section name: "1.6. TITLE"
+\chaptername        The name chapter in the current language: "Chapter"
+\thechapter         Chapter number
+\thesection         Section number
+
+
+
+
+
+
+
+
+
+
+$ Page Style $
+
+\pagestyle{STYLE}
+\thispagestyle{STYLE}
+
+The first applies the style to all pages, the second to the current page.
+
+Styles:
+
+empty               Header blank, Footer blank
+plain               Header blank, Footer contains page number in center
+headings            Header section name + page number, Footer blank
+myheadings          Page number top right, Header writable
+
+
+
+\markright{TEXT}
+
+Changes the contents of the header to TEXT.
+
+
+> Package lastpage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.14) Common Elements > Importing Graphics
+###################################################
+
+
+To import external graphics, use package graphicx
+
+> Package graphicx
+
+Extensions supported: .pdf, .png, .jpeg
+To include a graphics image img.jpeg:
+
+\includegraphics[OPTIONS]{img.jpeg}
+
+Options:
+
+height=X, width=X,
+width=\linewidth,
+width=.5\linewidth,
+...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.14) Common Elements > Floats, Figures, Tables, Captions
+###################################################
+
+
+
+$ Floats $
+
+Floats are not part of the normal system of text.
+They are placed in the part of the page reserved specifically for them.
+They are captioned and numbered, and can be refered to form anywhere in the document.
+Automatic floats: table, figure.
+
+The engine will attempt to print the float at the current position, if there is
+not enough room it will print it at the top of the next page.
+
+
+Figure Float
+
+\begin{figure}[PLACEMENT]
+\end{figure}
+
+
+Table Float
+
+\begin{table}[PLACEMENT]
+\begin{tabular} ... \end{tabular}
+\end{table}
+
+> Environment figure
+> Environment table
+
+
+
+Placement can be multiple of:
+h           Place FLOAT approximately here.
+t           Position FLOAT at the top of the page.
+b           Position FLOAT at the bottom of the page.
+p           Put on a special page for FLOATs only.
+!           Override internal parameters LaTeX uses for determining "good" positions.
+H           Places FLOAT exactly here. REQUIRES \usepackage{float}
+
+You decide which placement permissions to give to LaTeX.
+
+
+
+
+
+> Package float
+
+To get a thin border around all figures:
+
+\usepackage{float}
+\floatstyle{boxed}
+\restylefloat{figure}
+
+
+
+
+
+> Package placeins
+
+To create a float barrier that queued floats cannot pass:
+
+\usepackage{placeins}
+\FloatBarrier
+
+Use \usepackage[section]{placeins} to include a FloatBarrier at every section start.
+
+
+
+
+
+See also:
+> Package flafter
+> Package endfloat
+> Package caption
+
+
+
+
+
+
+
+
+
+
+$ Captions $
+
+\caption{TEXT}
+\caption[SHORT]{LONG}
+
+Use inside a float environment the add caption TEXT.
+The location of this command dictates the location of the caption.
+
+Unnumbered captions
+Simply do not enclose TEXT within \caption.
+
+
+
+
+
+See also:
+> Package sidecap
+> Package floatrow
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.15) Common Elements > Footnotes and Margin Notes
+###################################################
+
+
+
+$ Footnotes $
+
+Some random thing.\footnote{TEXT}
+
+Creates a footnote marker at the end of "Some random thing", and the footnote text
+will appear in a footnote in the same page.
+
+Reset counter
+
+Every Section:
+\makeatletter
+\@addtoreset{footnote}{section}
+\makeatother
+
+Every Page:
+\usepackage{perpage}
+\MakePerPage{footnote}
+
+> Package perpage
+
+See also:
+> Package footmisc: \usepackage[bottom]{footmisc}
+
+
+
+
+
+
+
+
+
+
+$ Margin notes $
+
+\marginpar{TEXT}
+\marginpar[LEFT VARIANT]{RIGHT VARIANT}
+
+TEXT will be placed in the right side margin for oneside documents,
+and for twoside documents on the outside margin (biggest one).
+For two-column layout it is placed in the nearest margin, naturally.
+
+
+
+
+
+
+
+
+
+
+$ TODO Notes $
+
+\usepackage{todonotes}
+\todo{TODO NOTE}
+
+> Package todonotes
+
+
+
+
+
+See also:
+> Package mparhack
+> Package marginnote
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.16) Common Elements > Hyperlinks
+###################################################
+
+
+
+Access to hyperlinks given by
+
+\usepackage{hyperlinks}
+> Package hyperlinks
+
+
+
+\hyperref[LABEL]{LINK}
+
+This makes the ref a link to LABEL. It is clickable in the resulting PDF.
+
+
+
+\url{URL}
+
+This makes a URL link in the PDF.
+
+
+
+\href{URL}{DESCRIPTION}
+
+Shows the string DESCRIPTION and makes a URL link in the PDF.
+
+
+
+\hypertarget{LABEL}{TARGET CAPTION}
+
+Creates an anchor, allowing some other part of the document to link here.
+
+
+
+\hyperlink{LABEL}{LINK CAPTION}
+
+Links to an anchor.
+
+
+
+\urlstyle{same}
+
+Print URLs with the same font as surrounding text.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (2.17) Common Elements > Labels and Cross Referencing
+###################################################
+
+
+
+You can easily reference anything that is numbered:
+sections, figures, equations, ...
+
+The commands for labeling and referencing do not depend on what is being referenced.
+
+Labeling and referencing is a two-step process.
+First the compiler has to store the \labels with the right number
+to be used for referencing, then update all \refs with the right number.
+
+
+
+
+
+
+
+
+
+
+$ Labels $
+
+\label{MARKER}
+
+Give the object to reference a marker, a name.
+
+
+
+\ref{MARKER}
+
+Reference the object marked before. Prints the number that was assigned to the object.
+
+
+
+\pageref{MARKER}
+
+Prints the number of the page where the object is.
+
+
+
+
+
+
+
+
+
+
+$ Labeling Practice $
+
+Common practice: add a few letters to the label describing what you are referencing.
+
+ch              chapter
+sec             section
+subsec          subsection
+fig             figure
+tab             table
+eq              equation
+lst             code listing
+itm             enumerated list item
+alg             algorithm
+app             appending subsection
+
+\label{fig:myfigure}
+\label{alg:thatalgorithm}
+
+
+
+
+
+
+
+
+
+
+$ Labeling Floats $
+
+To label a float, add the label inside the float's caption:
+\caption{CAPTION \label{MARKER}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (3.1) Mechanics > Errors and Warnings
+###################################################
+
+
+
+$ Errors $
+
+General Format:
+
+! ERROR
+l.# INPUT
+
+ERROR - Message describing the error found.
+# - The line number in the .tex file.
+INPUT - The input LaTeX as processing when it found the error.
+
+
+
+
+
+The LaTeX Engine pauses and waits for an answer:
+x           eXit        Stop and exit the program
+q           Quiet       Carry on quietly, and don't bother me with errors.
+e           Editor      Stop, reposition the text in my editor to the line #.
+h           Help        Try giving me more help
+i INPUT     Input       Input the correction in place of the error and carry on.
+r           Run         Do not stop, plow through errors, exit if too many pile up.
+
+
+
+
+
+
+
+
+
+
+$ Common Errors $
+
+ERROR> Too many }s
+! Too many }'s.
+
+Up to line # there are more formatting { than }, which is prohibited.
+
+
+
+ERROR> Undefined control sequence
+! Undefined control sequence.
+
+The command or command format given in the line # is not recognized by the engine.
+Probably a typo, or the command does not accept the given format.
+
+
+
+ERROR> Not in Mathematics Mode
+! Missing $ inserter
+
+A character that is reserved for use in math mode was inserted in normal text.
+Or a special character was found that needs to be entered in a special way
+(goto Special Characters)
+Or you're using the wrong character encoding
+
+
+
+ERROR> Runaway argument
+Runaway argument?
+...
+
+Usually a missing }. The engine is expecting more input for a given command,
+but what you provide that command with does not agree with what it is expecting.
+
+
+
+ERROR> Underfull hbox
+Underful \hbox (badness X) ...
+...
+
+Not an error exactly. The contents of the box are small, so that the line where it
+is to be inserted would be spaced out very badly and look ugly.
+
+
+
+
+ERROR> Overfull hbox
+Overfull \hbox (X too wide) ...
+...
+
+The contents of the hbox are such that the line where it is written in cannot
+include the hbox without going out the margin.
+
+
+
+ERROR> Missing package
+! LaTeX Error: File `FILE' not found.
+...
+
+The engine did not find the package request by \usepackage{PACKAGE}.
+You should be able to configure your engine or your package supplier
+to automatically download missing packages from the internet.
+
+
+
+ERROR> No error message, no compile
+
+One common cause of pdfLaTeX getting stuck is forgetting to include \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (3.2) Mechanics > Lengths
+###################################################
+
+
+
+$ Length $
+
+In TeX, a length is
+
+- A floating point number followed by a UNIT,
+optionally followed by stretching values.
+
+3.5pt plus 1pt minus 2pt
+5cm plus 2pt
+
+- A floating point factor followed by a macro that expands to a length.
+1.7\textwidth
+.5\textheight
+
+Default length: 1pt
+
+
+
+\setlength{\somelength}{LENGTH}
+
+Change the value of a length variable \somelength.
+
+
+
+\addtolength{\somelength}{LENGTH}
+
+Adds LENGTH to the value of the length variable \somelength
+
+
+
+\newlength{\mylength}
+
+Create a new length variable
+
+
+
+\settowidth{\mylength}{some text}
+\settoheight{\mylength}{some text}
+\settodepth{\mylength}{some text}
+\usepackage{calc}
+\settototalheight{\mylength}{some text}
+
+Set a length to a size of a text.
+
+> Package calc
+
+
+
+\the\somelength
+
+Print a length value
+
+
+
+
+
+
+
+
+
+
+$ Units $
+
+Abbrev          Definition                  Value in pt
+pt              --                          1
+mm              A millimeter                2.84 = 7227/2540
+cm              A centimer                  28.4 = 7227/2540
+in              An inch                     72.27
+ex              Roughly the height of an x in the current font
+em              Roughly the width of an M in the current font
+Others: bp, pc, dd, cc, nd, nc, sp
+
+Default unit: pt
+
+
+
+
+
+
+
+
+
+
+$ Boxes $
+
+They have three dimensions, given in units:
+
+height          The length between the baseline and the top of the box.
+depth           The length between the baseline and the bottom of the box.
+width           Width of the box.
+
+
+
+
+
+$ Paragraph box, Parbox $
+
+\parbox[pos][height][contentpos]{width}{TEXT}
+\usepackage{pbox}
+\pbox[pos][height]{width}{TEXT}
+
+> Package pbox
+
+Creates a paragraph box.
+
+width: the width of the paragraph box.
+The TEXT, which is written in a single line,
+is broken into lines and justified so that it fits inside the box.
+
+contentpos: how the TEXT is to be justified inside the box. Optional
+c   center
+t   top
+b   bottom
+s   spread
+Irrelevant if the box height is unspecified or the box is small.
+
+height: height of the parbox. Optional
+
+pos: which baseline inside the box to align with the baseline outside the box.
+c   center
+t   top
+b   bottom
+
+
+
+
+
+$ Makebox, Mbox $
+
+\mbox{text}
+\makebox[width][pos]{text}
+
+pos: how to fill the box
+c   center
+l   flushleft
+r   flushright
+s   spread
+
+width: the box width
+
+
+
+
+
+$ Framebox, Fbox $
+
+\fbox{text}
+\framebox[width][pos]{text}
+
+Additionally draws a box around its contents.
+
+Lengths related to fboxes:
+\fboxsep: distance between the frame and the content
+\fboxrule: the thickness of the 
+
+See also:
+\fcolorbox
+
+
+
+
+
+$ Savebox, Usebox $
+
+(1) \newsavebox{NAME}
+(2) \savebox{NAME}{CONTENT}
+(3) \usebox{NAME}
+
+(1) Creates a placeholder for storing content. Then (2) stores the specified
+content in the placeholder, not rendering it in the document. Then (3)
+renders the placeholder in the document at the present position.
+
+
+
+
+
+$ Fancybox, Doublebox, Ovalbox, Shadowbox $
+
+\usepackage{fancybox}
+\doublebox, \ovalbox, \shadowbox
+
+> Package fancybox
+
+
+
+
+
+
+
+
+
+
+$ Default Lengths $
+
+\baselineskip 
+The normal vertical distance between lines in a paragraph.
+
+\baselinestretch 
+A factor multiplying \baselineskip.
+Has to be set with \renewcommand{\baselinestretch}{factor}
+
+\columnsep 
+The distance between columns.
+
+\columnwidth 
+The width of the column.
+
+\evensidemargin 
+The margin for 'even' pages (think of a printed booklet).
+
+\linewidth 
+The width of a line in the local environment.
+
+\oddsidemargin 
+The margin for 'odd' pages (think of a printed booklet).
+
+\paperwidth 
+The width of the page.
+
+\paperheight 
+The height of the page.
+
+\parindent 
+The normal paragraph indentation.
+
+\parskip 
+The extra vertical space between paragraphs.
+
+\tabcolsep 
+The default separation between columns in a tabular environment.
+
+\textheight 
+The height of text on the page.
+
+\textwidth 
+The width of the text on the page.
+
+\topmargin 
+The size of the top margin.
+
+\unitlength 
+Units of length in picture environment.
+
+
+
+
+
+
+
+
+
+
+$ Fixed Lengths $
+
+\hspace{LENGTH}, \vspace{LENGTH}
+\hspace*{LENGTH}, \vspace*{LENGTH}
+
+Inserts a fixed-length space.
+If the space should be kept even if it falls at the end or the start
+of a line, use \hspace* instead.
+
+To preserve space at the top or the bottom of a page, use \vspace* instead.
+
+
+
+\smallskip
+Inserts a small space in vertical mode (between two paragraphs).
+
+\medskip
+Inserts a medium space in vertical mode (between two paragraphs).
+
+\bigskip
+Inserts a big space in vertical mode (between two paragraphs).
+
+
+
+
+
+$ Stretch, Fill Line $
+
+\stretch{FACTOR}
+
+Stretches until all the remaining space on a line is filled up.
+
+
+
+  Horizontal stretch:
+TEXT \hspace{\stretch{1}} TEXT \hspace{\stretch{4}} TEXT
+
+becomes ...
+
+TEXT    TEXT                TEXT
+
+
+
+  Vertical stretch:
+TEXT
+\vspace{\stretch{1}}
+TEXT
+\vspace{\stretch{3}}
+TEXT
+
+becomes ...
+
+TEXT
+
+TEXT
+
+
+
+TEXT
+
+
+
+Also:
+\vfill  <=>  \vspace{\stretch{1}}
+\hfill  <=>  \hspace{\stretch{1}}
+
+Also, to fill a line:
+\hfill      -  produces empty space.
+\dotfill    -  produces dots.
+\hrulefill  -  produces a rule.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (3.3) Mechanics > Counters
+###################################################
+
+
+
+$ New counter $
+
+\newcounter{NAME}
+
+Creates a counter NAME that is set to zero.
+
+
+
+\newcounter{NAME}{counter}
+
+Creates a counter NAME which will be reset to 0 everytime counter is increased.
+
+
+
+\stepcounter{NAME}
+
+Increments by 1 the counter NAME.
+
+
+
+\addtocounter{NAME}{number}
+
+Increments by number the counter NAME.
+
+
+
+\refstepcounter{NAME}
+
+Increments by 1 the ref counter NAME.
+
+
+
+\setcounter{NAME}{number}
+
+Sets the counter NAME to number.
+
+
+
+
+
+
+
+
+
+
+$ Counter access $
+
+\theNAME
+
+Prints a formatted string related to the counter.
+
+
+
+\value{NAME}
+
+Returns a counter internal value to by used for calculations. Not printable.
+
+
+
+\arabic{NAME}
+
+Returns the counter interval value arabic number equivalent. Printable.
+
+
+
+
+
+
+
+
+
+
+$ Counter Style $
+
+\arabic             1, 2, 3, 4, ...
+\alph               a, b, c, d, ...
+\Alph               A, B, C, D, ...
+\roman              i, ii, iii, iv, ...
+\Roman              I, II, III, IV, ...
+\fnsymbol           Aimed at footnotes, prints a sequence of symbols.
+
+
+
+
+
+
+
+
+
+
+$ Default Counters $
+
+part, chapter, section, subsection, subsubsection, paragraph, subparagraph
+page, figure, table, footnote, mpfootnote,
+
+> Environment enumerate
+enumi, enumii, enummiii, enumiv
+
+> Environment eqnarray
+equation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (3.5) Mechanics > Rules
+###################################################
+
+
+
+$ Rules, Struts $
+
+\rule[raise]{width}{thickness}
+
+Creates a simple black box in the current line.
+
+width: width of the box.
+thickness: height of the box.
+raise: distance of the box above the baseline. Optional.
+
+
+
+\rule[-.3\baselineskip]{0pt}{\baselineskip}
+
+A struct: nonvisible, guarantees a line of text has a certain minimal height.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (4.1) Technical Texts > Mathematics
+###################################################
+
+
+
+Main mathematics packages:
+
+> Package amsmath
+Introduces several new commands and environments, more powerful and flexible.
+
+> Package mathtools
+Includes amsmath, fixes some issues and add settings, symbols and environments.
+
+§ \usepackage[intlimits]{amsmath}
+§ \usepackage{mathtools}
+
+> Package amsfonts
+> Package latexsym
+> Package amssymb
+Include extra math symbols
+
+
+
+
+
+
+
+
+
+
+$ Math Mode $
+
+Two different ways to present mathematical text:
+
+text            inline, within the rest of the text
+displayed       outline, in a line of its own
+
+
+Mathematical Mode:
+
+TYPE                    Inline          Displayed equations
+LaTeX shorthand         \( ... \)       \[ ... \]
+TeX shorthand           $ ... $         $$ ... $$
+Environment             math            displaymath
+                                        equation (equations auto numbered)
+                                        equation* (suppressed numbering) (amsmath)
+
+> Environment displaymath
+> Environment equation
+> Environment equation*
+
+Suggestion: use $ ... $ for inline math, and equation or equation* for display math.
+
+
+Within Math Mode:
+
+Most spaces and line breaks are meaningless.
+Empty lines are not allowed. One paragraph per formula.
+Each letter is the name of a variable.
+
+
+
+\displaystyle
+
+When in inline math mode $ ... $ some large symbols get compacted to be smaller
+in height, where in display math they would otherwise be taller.
+To increase the height of the line and use the display equivalent of a symbol S,
+write \displaystyle S.
+
+To force this behavior everywhere, write \everymath{\displaystyle}.
+
+
+
+
+
+
+
+
+
+
+$ Math Symbol List $
+
+Includes only common and semi-common elementary symbols.
+
+
+
+$ Greek Alphabet $
+\alpha          \Alpha
+\beta           \Beta
+\gamma          \Gamma          \varGamma
+\delta          \Delta          \varDelta
+\epsilon        \Epsilon        \varepsilon
+\zeta           \Zeta
+\eta            \Eta
+\theta          \Theta          \vartheta, \varTheta
+\iota           \Iota
+\kappa          \Kappa          \varkappa
+\lambda         \Lambda         \varLambda
+\mu             \Mu
+\nu             \Nu
+\xi             \Xi
+\omicron        \Omicron
+\pi             \Pi             \varpi, \varPi
+\rho            \Rho            \varrho
+\sigma          \Sigma          \varSigma
+\tau            \Tau
+\upsilon        \Upsilon        \varUpsilon
+\phi            \Phi            \varphi, \varPhi
+\chi            \Chi
+\psi            \Psi            \varPsi
+\omega          \Omega          \varOmega
+
+
+
+$ Binary Operators $
+\pm                 Plus or minux
+\mp                 Minus or plus
+\times              Multiplication x
+\ast                Asterisk *
+\div                Division symbol ./.
+\cdot               Multiplication .
+\dotplus            Plus symbol with a dot
+
+
+
+$ Set Operators $
+\cap                Set Intersection
+\cup                Set Union
+\Cap                Double set intersection
+\Cup                Double set union
+\uplus              Set Union + (Set partition)
+\sqcap              Set Intersection rectangular
+\sqcup              Set Union rectangular
+\varnothing         Empty set
+\setminus           Set exclusion
+
+\sqsubset
+\subset             Proper subset of
+\sqsupset
+\supset             Includes proper set (inverted)
+\sqsubseteq
+\subseteqq
+\subseteq           Subset of
+\sqsupseteq
+\supseteqq
+\supseteq           Includes set (inverted)
+\nsubseteq          Not subset of
+\nsupseteq          Not includes set
+
+\in                 Contained in
+\ni                 Contains the (inverted)
+\notin              Not contained in
+
+
+
+$ Logical Operators $
+\wedge              Logical And
+\vee                Logical Or
+\barwedge           Logical And with Bar
+\veebar             Logical Or with Bar
+\forall
+
+\therefore          Therefore (triple dots)
+\because            Because (triple dots)
+
+\forall             For all (inverted A)
+\exists             Exists (inverted E)
+
+\neg                --, Negation
+
+\vdash              |-
+\dashv              -|
+
+
+
+$ Relation, Comparison Operators $
+<                   Less than
+>                   Greater than
+\leqslant
+\leq                Less than or equals
+\geqslant
+\geq                Greater than or equals
+\lll                <<<
+\ggg                >>>
+
+
+\prec
+\preceq             Majorated by
+\succ
+\succeq             Majorates
+
+=                   Equals
+\doteq              Dot equals
+\equiv              Equivalent, Congruent (triple bars)
+
+\sim                Similar (one ~)
+\thicksim
+\approx             Approximately (two ~)
+\simeq              Very similar (one ~ one -)
+\cong               Congruent (one ~ two -)
+
+\models             |=
+
+
+
+$ Number Sets, Math Alphabets $
+\mathbb{P}          Prime
+\mathbb{N}          Natural
+\mathbb{Z}          Integer
+\mathbb{Q}          Rational
+\mathbb{R}          Real
+\mathbb{C}          Complex
+\mathbb{I}          Imaginary
+
+\mathbb{ }          Math BlackBoard         amsfonts, amssymb
+\mathfrak{ }        Fraktur                 eufrak
+\mathcal{ }         Math Cal                euscript w/ option mathcal
+\mathscr{ }         Math Scr                euscript w/ option mathcal
+
+\textup{ }          Text Upright
+\mathrm{ }          Math Upright
+\mathbf{ }          Math Bold
+
+All of the above may be used as switches: {\mathrm d x}, ...
+
+
+
+$ Complex, Analysis $
+\partial            Partial derivative symbol
+\Re                 Real R
+\Im                 Imaginary I
+\infty              Infinity
+
+
+
+$ Circles $
+\bullet             Small filled circle
+\circ               Circle    (with big equivalent)
+\oplus              Circle +  (with big equivalent)
+\otimes             Circle x  (with big equivalent)
+\odot               Circle .  (with big equivalent)
+\circledcirc        Circled circle
+\circledast         Circled *
+\oslash             Circle /
+\ominus             Circle -
+\circleddash        Circled -
+
+
+
+$ Triangles $
+\triangle
+\triangledown
+\bigtriangleup      Triangle Symbol
+\bigtriangledown    Triangle Symbol inverted
+\triangleleft       Triangle Pointing Left
+\triangleright      Triangle Pointing Right
+\blacktriangleleft, \blacktriangleright
+
+
+
+
+$ Angles $
+\angle              Clean angle symbol
+\measuredangle      Measured angle symbol
+\sphericalangle     Standing measured angle symbol
+\perp               Perpendicular _|_
+\parallel           Parallel ||
+\shortparallel
+
+
+
+$ Miscellanious figures $
+\star               Filled Star
+\bigstar            Big filled star
+\lozenge            Standing lozenge
+\blacklozenge       Filled standing lozenge
+\square             Small blank square (halmos)
+\blacksquare        Filled small square (halmos)
+\diamond            Tilted square
+
+
+
+$ Arrows $
+\longmapsto         |---->
+\mapsto             |-->
+\to                 -->
+\leadsto            ~~~->
+
+\leftarrow          <-----
+\rightarrow         ----->
+\Leftarrow          <====
+\Rightarrow         ====>
+\leftrightarrow     <--->
+\Leftrightarrow     <===>
+
+\uparrow
+\downarrow
+\Uparrow
+\Downarrow
+\updownarrow
+\Updownarrow
+\nearrow            NorthEast arrow
+\searrow            SouthEast arrow
+\nwarrow            NorthWest arrow
+\swarrow            SouthWest arrow
+
+
+\leftharpoonup      /_____
+\leftharpoondown
+\rightharpoonup     _____/
+\rightharpoondown
+                       b
+\xleftarrow[a]{b}   <------
+                       a
+                       b
+\xrightarrow[a]{b}  ------>
+                       a
+
+\dashrightarrow     - - ->
+\dashleftarrow      <- - -
+\leftleftarrows     2 left arrows
+\rightrightarrows   2 right arrows
+\leftrightarrows    left over right arrow
+\rightleftarrows    right over left arrow
+...
+
+
+
+$ Variable Sized Symbols $
+\sum                Summation Sigma
+\prod               Product
+\coprod             Inverted Product
+\int                Integral
+\iint               Double Integral
+\iiint              Triple Integral
+\iiiint             Quadruple Integral
+\idotsint           Integral ... Integral
+\oint               Countour Integral
+
+\bigcap             Big Intersection
+\bigcup             Big Union
+\bigsqcup
+\biguplus           Big Partition
+
+\bigvee             Big Or
+\bigwedge           Big And
+\bigodot            Big Circle .
+\bigotimes          Big Circle x
+\bigoplus           Big Circle +
+\bigominus          Big Circle -
+
+
+
+$ Functions $
+\cos, \sin, \tan
+\arccos, \arcsin, \arctan
+\cosh, \sinh, \tanh
+\sec, \csc, \cot, \coth
+\lim, \sup, \inf, \liminf, \limsup
+\exp, \arg, \ker
+\min, \max
+\det, \dim, \deg, \gcd
+\log, \ln, \hom
+
+
+\bmod               Modulus 'mod'
+\pmod{b}            Modulus '(mod b)'
+
+
+
+$ Grouping $
+\lgroup             Big (
+\rgroup             Big )
+
+
+
+$ Math Accents, Bars $
+\vec{a}             --> Vector
+\bar{a}             --- Length
+\hat{a}             ^ Hat
+\acute{a}           ´
+\grave{a}           `
+\dot{a}             . Dot
+\ddot{a}            .. Double dot
+\check{a}           v
+\tilde{a}           ~
+
+\widetilde{ab}      ~ WideTilde ab
+\widehat{ab}        ^ WideHat ab
+\overleftarrow{ab}  <-- Vector ab pointing left
+\overrightarrow{ab} --> Vector ab pointing right, eqv. vec
+\overline{ab}       | over ab, eqv. bar
+\underline{ab}      | under ab
+\overbrace{ab}      { over ab
+\underbrace{ab}     } under ab
+\overbracket{ab}    [ over ab
+\underbracket{ab}   ] under ab
+\overset{a}{bc}     a over bc
+\underset{a}{bc}    a under bc
+
+
+
+$ Others $
+\cdots              Triple horizontal dots
+\ddots              Triple diagonal dots
+\vdots              Triple vertical dots
+
+\dagger             Dagger symbol
+\ddagger            Double dagger symbol
+
+\imath, \jmath      i and j without upper dots
+\mho                Inverted omega
+\wp                 Fancy Gamma
+
+\not                Not Modifier, apply slash to following symbol.
+
+\lfloor             |_ Left floor
+\rfloor             _| Right floor
+\lceil              Left ceiling
+\rceil              Right ceiling
+
+\langle, \rangle
+
+
+
+
+
+
+
+
+
+
+$ Powers, Indices $
+
+Subscripting:   TEXT_S     TEXT_{SUBSCRIPT}
+Superscripting: TEXT^S     TEXT^{SUPERSCRIPT}
+
+
+
+
+
+
+
+
+
+
+$ Fractions $
+
+\frac{UP}{DOWN}
+           UP
+becomes  ------
+          DOWN
+
+To force display style use  \dfrac{}{}
+To force  inline style use  \tfrac{}{}
+
+
+
+^UP/_DOWN
+         UP  /
+becomes     /
+           /  DOWN
+
+
+
+\usepackage{xfrac}
+\sfrac{UP}{DOWN}
+
+> Package xfrac
+
+becomes UP /
+          / DOWN
+
+
+
+$ Continued Fractions $
+
+\cfrac{1}{a1 + \cfrac{1}{a2 + \cfrac{1}{a3 + ...}}}
+
+becomes a continued fraction.
+
+
+
+
+
+
+
+
+
+
+$ Binomials $
+
+\binom{UP}{DOWN}
+          / UP \
+becomes  |      |
+          \DOWN/
+
+To force display style use  \dbinom{}{}
+To force  inline style use  \tbinom{}{}
+
+
+
+
+
+
+
+
+
+
+$ Roots $
+
+\sqrt{abc}          Square root over abc
+\sqrt[n]{abc}       N-th root over abc
+
+This root image does not close at the end of abc.
+
+
+
+
+
+
+
+
+
+
+$ Big Symbols Manipulation $
+
+Summation
+\sum_{i = 0}^{n}
+
+Creates a Sigma Summation with i = 0 at the bottom and n at the top.
+In display style this means i = 0 goes right under the Sigma, and n right over.
+In inline style both go to the right of the Sigma, and n goes over i = 0.
+
+To allow say 0<i<m and 0<j<n under the Sigma, use
+_{\substack{0<i<m \\ 0<j<n}}
+
+
+
+Integrals
+\int\limits_a^b
+
+To write an integral that ranges from a to b.
+Shorthand: load amsmath with intlimits options.
+
+For bigger integrals use bigints package.
+
+> Package bigints
+
+
+
+Limits
+\lim_{x\to b} 1/x.
+
+The x -> b is placed underneath the lim word.
+To place it in front, textstyle, use \lim\nolimits.
+
+
+
+
+
+
+
+
+
+
+$ Automatic Sizing $
+
+\left, \right, \middle
+
+
+
+The miraculous:
+\left( ..... \right)
+
+The syze of ( and ) or whichever other delimiters are used instead
+will be adjusted to the size of the contents .....
+
+
+
+Inside of the contents one may use
+\middle|
+
+The syze of | or whichever character is used will be adjusted to the right size.
+
+
+
+
+
+$ Manual Sizing $
+
+With:
+\big, \Big, \bigg, \Bigg
+
+All apply only to the next character.
+
+
+
+
+
+
+
+
+
+
+$ Matrices, Arrays $
+
+\begin{matrix} . & . & . \\ . & . & . \\ . & . & . \end{matrix}
+\begin{matrix*}[r] ... ... ... \end{matrix*}
+
+Use the matrix environment to create a matrix.
+Separate columns with & and lines with \\.
+To specify the alignment of the columns, use environment matrix*.
+
+
+All matrix environments center columns by default.
+Starred versions allow for alignment specification (l, c, r mostly).
+
+               NAME        Delimiters
+> Environment matrix
+> Environment pmatrix         ( )
+> Environment bmatrix         [ ]
+> Environment Bmatrix         { }
+> Environment vmatrix         | |
+> Environment Vmatrix         || ||
+
+
+
+The array environment is essentialy a tabular environment in math mode.
+Check the tabular help for more info.
+
+> Environment array
+Use just like tabular.
+
+
+
+To insert a small matrix inside a line,
+and not increase leading:
+
+> Environment smallmatrix
+Use just like any other matrix.
+
+
+
+To construct a multiple cases "matrix", say a function taking multiple values,
+or the entries of a linear system of equations:
+
+> Environment cases
+Use just like a matrix.
+
+> Environment dcases
+Display style cases environment.
+The starred version writes the second column of each line in normal roman font.
+
+
+
+
+
+$ Spacing $
+
+\quad       Covers a horizontal space equal to the current font
+\qquad      Double the previous amount
+
+\,          small space         3/18 of a quad
+\:          medium space        4/18 of a quad
+\;          large space         5/18 of a quad
+\!          negative space     -3/18 of a quad
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (4.2) Technical Texts > Advanced Mathematics
+###################################################
+
+
+
+$ Equation $
+
+The equation environment automatically numbers equations.
+
+> Environment equation
+
+To reference the equations naturally, label them with eq:NAME
+and reference the with \eqref.
+
+To get enumeration at the section level,
+\numberwithin{equation}{section}
+
+To get enumeration at the subsection level,
+\numberwithin{equation}{subsection}
+
+
+
+$ Subordinate equation numbering $
+
+To number subordinate equations in a numbered equation environment,
+place the part of the document containing them in a subequation environment.
+
+> Environment subequations
+
+To reference the equations they have to be labeled at their own line.
+
+
+
+
+
+
+
+
+
+
+$ Above and below $
+
+\stackrel{TOP}{MIDDLE}
+\vphantom
+
+
+
+
+
+
+
+
+
+
+$ Align $
+
+The align environment enters equation mode and automatically aligns
+the contents of each align according to the & symbols.
+
+align environment automatically numbers each line.
+To prevent numbering of a line, se \nonumber or \notag.
+
+align* environment automatically suppresses numbering of equations.
+To for number a specific line, use \tag{...}
+
+> Environment align
+
+These environments "support" multiple "equation columns", each of which
+is aligned. separate the columns with a further &.
+
+
+
+
+
+$ Multline $
+
+> Environment multline
+
+First line is left aligned, last line is right aligned.
+Equations numbers aligned vertically with first line, not centered.
+
+
+
+
+
+$ Alignat $
+
+> Environment alignat
+
+Takes an argument specifying a number of columns.
+
+
+
+
+
+See also:
+> Environment flalign
+> Environment gather
+> Environment gathered
+> Environment split
+
+
+
+
+
+
+
+
+
+
+$ Indented Equations $
+
+Set fleqn in the document class and specify a value for \mathindent.
+\setlength{\mathindent}{...}
+
+
+
+
+
+
+
+
+
+
+$ Page breaks in Math Environments $
+
+To allow pages breaks inside math environments, use
+\allowdisplaybreaks[n]. n = 0..4, the higher the more permissive.
+
+To force a page break inside a math environment, use \displaybreak.
+
+
+
+
+
+
+
+
+
+
+$ Box Equations $
+
+\boxed{EQUATION}
+
+Simply boxes given equation.
+
+\Aboxed{EQUATION}
+
+To be used with align environment, allows alignment mark & inside EQUATION.
+
+
+
+
+
+
+
+
+
+
+$ Text in Math Display $
+
+\intertext
+To add a small text line in a math environment.
+
+\shortintertext
+Reduces vertical white space.
+
+
+
+
+
+$ Vertical White Space $
+
+Four parameters control vertical white space around displayed math:
+
+\abovedisplayskip (12pt)
+\belowdisplayskip (12pt)
+\abovedisplayshortskip (0pt)
+\belowdisplayshortskip (7pt)
+
+Set them after \begin{document}
+
+
+
+
+
+
+
+
+
+
+$ Define Operators $
+
+\DeclareMathOperator{COMMAND}{NAME}
+\DeclareMathOperator*{COMMAND}{NAME}
+
+Declares a math operator.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (4.3) Technical Texts > Theorems
+###################################################
+
+
+
+The main package is \usepackage{amsthm}
+
+> Package amsthm
+
+§ \usepackage{amsthm}
+
+
+
+
+
+$ New Theorem $
+
+\newtheorem{name}{description}
+
+Creates a new theorem class environment with name name.
+description is the text to be printed just before the theorem's counter.
+
+
+\newtheorem{name}{description}[numberby]
+
+numberby is section, subsection, ..., the section level at which the
+numbering of the theorem class should take place.
+
+
+\newtheorem{name}[counter]{description}
+
+The theorem class will use the variable counter for its numbering.
+
+
+\newtheorem*{name}{description}
+
+The theorem class will not be numbered.
+
+
+
+
+
+
+
+
+
+
+$ Proof $
+
+> Environment proof
+
+\begin{proof}[name (opt)]
+
+Begins an environment proof. It starts by writing Proof in italics and ends
+with a tombstone (halmos).
+
+
+
+To specify where to put the tombstone, use \qedhere.
+
+To change the proof name everywhere,
+\renewcommand*{\proofname}{newname}
+
+
+
+
+
+$ Theorem Style $
+
+\theoremstyle{stylename}
+
+Choose the output of the environments defined by \newtheorem.
+
+plain           **Theorem 1.** _Theorem text_           BOLD / italic
+definition      **Definition 2.** Definition text       BOLD / plain
+remark          _Remark_ 3. Remark text                 italic / plain
+
+
+
+Create a new style:
+
+\newtheoremstyle{stylename} % name of the style to be used
+  {spaceabove}              % measure of space to leave above the theorem.
+  {spacebelow}              % measure of space to leave below the theorem.
+  {bodyfont}                % name of font to use in the body of the theorem
+  {indent}                  % measure of space to indent
+  {headfont}                % name of head font
+  {headpunctuation}         % punctuation between head and body
+  {headspace}               % space after theorem head; " " = normal interword space
+  {headspec}                % Manually specify head
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (4.5) Technical Texts > Algorithms
+###################################################
+
+
+
+> Package algorithm
+> Environment algorithm
+
+We use package algorithmicx:
+> Package algorithmicx
+> Package algpseudocode
+
+Or package program:
+> Package program
+
+
+
+$ Algorithmicx $
+
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+
+> Environment algorithmic
+
+The algorithmic environment provides an area to write algorithms.
+Math mode can be used inside the environment.
+
+
+If constructs:
+\If {condition} text \EndIf
+\If {condition} text [\Else text] \EndIf
+\If {condition} text [\ElsIf {condition} text] [\Else text] \EndIf
+
+Loop constructs:
+\For {condition} text \EndFor
+\ForAll {condition} text \EndFor
+\While {condition} text \EndWhile
+\Repeat text \Until {condition}
+\Loop text \EndLoop
+
+Preconditions and postconditions:
+\Require text
+\Ensure text
+
+Statements:
+\State text (causes a new line)
+
+Functions:
+\Function{name}{params} body \EndFunction
+\Return text
+\Call{name}{params}
+
+Comments:
+\Comment {text}
+
+
+
+Defining environments:
+
+\algblock[block]{start}{end}
+
+
+
+
+
+
+
+
+
+
+$ Algorithm $
+
+\usepackage[numberby]{algorithm}
+
+numberby - Which section level to number algorithms by
+
+Provides environment algorithm, which is a float for numbered algorithms.
+
+\begin{algorithm}
+\caption{...}
+\label{alg:...}
+\begin{algorithmic}
+...
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\listofalgorithms
+Prints a list of algorithm environments in the document, with page and caption.
+
+
+
+
+
+
+
+
+
+
+$ Code $
+
+> Package listings
+
+> Environment lstlisting
+
+Skipping through this for now...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### (9.1) Miscellaneous > Modular Documents
+###################################################
+
+
+
+$ Project Structure $
+
+1. Create directory ROOT only for the project.
+2. Create IMG and TEX subdirectories.
+3. Create first document in TEX, say base.tex
+
+
+
+
+
+$ Multiple Files $
+
+\input{filename}
+\include{filename}
+
+
+
+Similarities:
+
+Both stop processing the base file at the point of the command and start
+processing filename.tex, processing its content in accordance with the
+formatting options in the base file. Thus you can keep formatting options
+and actual content in separate files.
+
+Both commands accept full absolute pathnames and relative pathnames.
+
+
+
+
+Differences:
+
+\include statements cannot be nested. \input statement can be nested.
+A file F which is \included in base.tex cannot \include any other file.
+
+\include forces a page break. \input does not.
+
+\input accepts filename and filename.tex.
+\include only accepts filename.
+
+
+
+
+
+
+
+
+
+
+
+$ Separate Compilation $
+
+> Package subfiles
+
+This package provides a way to compile a section of a document using
+the same preamble as the main document.
+
+To include files use \subfile{filename}
+
+The child documents must look like:
+
+\documentclass[base.tex]{subfiles}
+\begin{document}
+...
+\end{document}
+
+
+
+
+
+
+
+
+
+
+$ My Package $
+
+Instead of putting all the packages needed at the beginning of the
+document, load all packages inside another dummy package style.sty
+
+Then usepackage style.sty in the base.tex file, or on the individual
+working subfiles.
+
+
+Format of style.sty:
+
+\ProvidesPackage{style}
+\usepackage{package1}
+\usepackage{package2}
+...
+\usepackage{packageN}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### Package MegaList
+###################################################
+
+
+
+Numbers from 0 to 5 attempt to provide an idea of how essential the packages are.
+$4 and $5 should be included in pretty much every document.
+
+
+
+§3 amsfonts
+  INCLUDES: amsfonts
+  Adds more available ams fonts, shall you desire them.
+
+  OPTIONS:
+
+
+
+
+
+§4 amsmath
+  INCLUDES: amsmath, amstext, amsopn, amsbsy, amscd, amsxtra
+  Main maths enhancement package.
+  Superseded by mathtools but should still be included.
+  
+  OPTIONS:
+    centertags (default)
+        For a split equation, place equation numbers vertically centered on the
+        total height of the equation.
+    tbtags (Top-or-bottom-tags)
+        For a split equation, place equation numbers level with the last (resp.
+        first) line, if numbers on the right (resp. left).
+    sumlimits (default)
+        For summation symbols and the like, in displayed equations, place
+        subscripts and superscripts below and over the symbol
+    nosumlimits
+        Place the subscripts and superscripts on the side of the summation symbols.
+    intlimits
+        Idem sumlimits for integrals
+    nointlimits (default)
+        Idem nosumlimits for integrals
+    namelimits (default)
+        Idem sumlimits, for operator names such as det, inf, lim, max, min, ...
+    nonamelimits
+        Idem nosumlimits, for operator names such as det, inf, lim, max, min, ...
+  Document Class Options:
+    fleqn, leqno, reqno
+
+
+
+
+
+§3 amssymb
+  INCLUDES: amssymb
+  Includes hundreds of extra mathematical symbols.
+
+  OPTIONS: none
+
+
+
+
+
+§3 amsthm
+  INCLUDES: amsthm
+  Gives access to \newtheorem command, which allows for user-defined environmentsl.
+
+  OPTIONS: none
+
+
+
+
+
+§4 babel
+  INCLUDES: babel
+  Specifies the document's languages.
+  The last options given to the usepackage command is the main language.
+
+  OPTIONS:
+  english, american, british
+  portuguese, portuges, brazilian, brazil
+  ...
+
+
+
+
+
+§3 biblatex
+  INCLUDES: biblatex, biber, etoolbox, xstring, ...
+  For bibliography management.
+
+  Load before hyperref.
+  OPTIONS:
+    style (file)
+        Loads bibliography style file.bbx and citation style file.cbx
+    bibstyle (file)
+        Loads bibliography style file.bbx
+    citestyle (file)
+        Loads citation style file.cbx
+    sorting (nty (default), nyt, anyt, anyvt, ynt, ydnt, none, debug, name)
+        The sorting order of the bibliography. Sort ascending order.
+          nty       Sort by name, title, year
+          nyt       Sort by name, year, title
+          nyvt      Sort by name, year, volume, title
+          anyt      Sort by alphabetic label, name, year, title
+          anyvt     Sort by alphabetic label, name, year, volume, title
+          ynt       Sort by year, name, title.
+          ydnt      Sort by year descending, name, title.
+          none      Do not sort, process entries in citation order.
+          debug     Sort by entry key, for debugging.
+          name      as defined with \DeclareSortingTemplate.
+
+
+
+
+
+§4 calc
+  INCLUDES: calc
+  Allows much easier manipulation of lengths.
+
+  OPTIONS: none
+
+
+
+
+
+§4 caption
+  INCLUDES: caption
+  Allows customization of appearance and placement of captions for floats.
+
+  OPTIONS:
+    normal (default)
+        Normal captions.
+    hang or isu
+        Captions with hanging indentation.
+    center
+        Captions where each line is centered.
+    centerlast
+        Provides captions where the last line of the paragraph is centered.
+    nooneline
+        If a captions fits on one line on the page, it is centered.
+        Provide this option to disable this behavior.
+    scriptsize, ..., Large
+        Sets the font size of the captions.
+    up, it, sl, sc, md, bf, rm, sf, tt
+        Sets the font attribute of the caption labels.
+    ruled
+        Supports ruled floats of the float package.
+
+
+
+
+
+§1 cancel
+  INCLUDES: cancel
+  Provides commands to strike out mathematical expressions.
+  \cancel (positive slope), \bcancel (negative slope), \xcancel (X), \cancelto
+
+  OPTIONS:
+    thicklines
+        Use thicker lines.
+
+
+
+
+
+§3 cleveref
+  INCLUDES: cleveref
+  Allows referencing labels in a pre-formatted way.
+
+  Allows load last.
+  OPTIONS: none
+
+
+
+
+
+§2 enumitem
+  INCLUDES: enumitem
+  Adds support of arbitrarility-deep nested lists.
+
+  OPTIONS:
+
+
+
+
+
+§2 esint
+  INCLUDES: esint
+  Adds additional integral symbols, for integrals over squares,
+  clockwise integrals over sets, etc.
+
+  OPTIONS:
+
+
+
+
+
+§2 float
+  INCLUDES: float
+  Improves interface for defining floating objects such as figures and tables.
+  Introduces new floating object environments.
+  Provides ability to define custom floats.
+
+  OPTIONS:
+
+
+
+
+
+§5 fontenc
+  INCLUDES: fontenc
+  To choose the font encoding of the output text.
+  Necessary if the document is not in english.
+  For latin languages, use T1.
+
+  OPTIONS:
+    T1
+        Encode the file in Extendes Cork (EC)
+    OT1 (default)
+    ...
+
+
+
+
+§2 gensymb
+  INCLUDES: gensymb
+  Provides generic commands such as
+  \degree, \celsius, \perthouseand, \micro, \ohm, ...
+  which work both in text and math mode.
+
+  OPTIONS:
+
+
+
+
+
+§5 geometry
+  INCLUDES: geometry
+  Provides an interface to change the sizes and the geometry of the document's pages.
+
+  OPTIONS:
+    Paper
+        paper
+            Chooses the paper size for the document
+            a0paper, ..., a6paper,
+            b0paper, ..., b6paper,
+            c0paper, ..., c6paper,
+            letterpaper, executivepaper, legalpaper,
+            ...
+        paperwidth, paperheight, papersize
+        landscape, portrait (default)
+
+
+    Layout
+        ...
+
+
+    Total Body
+        width=LENGTH
+            Width of the total body
+        height=LENGTH
+            Height of the total body
+        total={width,height}
+            Width and height of the total body
+        scale={hscale,vscale}
+            Defines the total body size by a ratio to the paper size
+
+        includehead
+            Include the head of the page, \headheight and \headsep,
+            into the total body.
+        includefoot
+            Includes the foot of the page, \footskip, into total body.
+        includeheadfoot
+            Sets includehead and includefoot
+        ignorehead, ignorefoot, ignoreheadfoot (default)
+
+        hdivide={left,width,right}
+            Specifies horizontal partitions
+                left: left margin
+                width: total body width
+                right: rightmargin
+            ! Do not specify all three parameters, only two.
+        vdivide={top,height,bottom}
+            Specifies vertical partitions
+                top: top margin
+                height: total body height
+                bottom: bottom margin
+            ! Do not specify all three parameters, only two.
+
+
+    Margin size
+        Consider using hdivide and vdivide instead.
+        left | lmargin | inner
+            left margin (distance of left of paper to left of total body)
+        right | rmargin | outer
+            right margin (distance of right of paper to right of total body)
+        top | tmargin
+            top margin. Does not interfere with \topmargin
+        bottom | bmargin
+            bottom margin.
+        hmargin={left,right}
+        vmargin={top,bot}
+
+
+    Document Class Options:
+    oneside (default), twoside, onecolumn (default), twocolumn
+        Changes the document's page layout.
+        There will be odd and even pages. Check LaTeX documentation for implications.
+
+
+    Modifiers
+        headheight | head
+            Modifies \headheight, the height of the header
+        headsep
+            Modifies \headsep, separation between header and body.
+        footskip | foot
+            Modifies \footskip, distance between baseline of last line of text
+            and baseline of footer.
+        nohead, nofoot, noheadfoot (sets above to 0pt)
+
+        footnotesep
+            ...
+
+        marginpar
+            Modifies \marginparwidth, width of the marginal notes.
+        marginparsep
+            Modifies \marginparsep, separation between body and marginal notes.
+        nomarginpar
+
+        columnsep
+            Modifies \columnsep, the separation between two columns in twocolumn mode.
+        hoffset
+            Modifies \hoffset
+        voffset
+            Modifies \voffset
+        offset={hoffset,voffset}
+
+        textwidth
+            Modifies \textwidth
+        textheight
+            Modifies \textheight
+
+        reversemp | reversemarginpar
+            Makes marginal notes appear in the left inner margin,
+            instead of on the right margin.
+
+    Driver
+        Chooses the processor:
+        dvips, dvipdfm, pdftex, xetex, vtex
+
+    verbose
+        Display the parameter results on the terminal.
+
+    showframe
+        Shows visible frames for the text area and page, and the lines
+        for the head and foot on the first page.
+
+    showcrop
+
+    ...
+
+
+
+
+
+§3 graphicx
+  INCLUDES: graphicx
+  Used to include graphic files, such as images, in the document.
+
+  OPTIONS:
+
+
+
+
+
+§3 hyperref
+  INCLUDES: hyperref
+  Allows the creation of clickable URL links, among a few other things.
+
+  OPTIONS:
+
+
+
+
+
+§2 indentfirst
+  INCLUDES: indentfirst
+  Once loaded, the beginning of any chapter/section is indented by
+  the usual paragraph indentation.
+
+  OPTIONS:
+
+
+
+
+
+§5 inputenc
+  INCLUDES: To choose the encoding of the input text.
+  Choose the encoding of the input text.
+  Use utf8.
+
+  OPTIONS:
+    ascii
+    latin1, ..., latin10
+    applemac
+    ansinew
+    utf8
+    ...
+
+
+
+
+
+§3 listings
+  INCLUDES: listings
+  To insert programming source code within the document, verbatim.
+  Supports tons of programming languages' syntax.
+
+  OPTIONS:
+
+
+
+
+
+§4 mathtools
+  INCLUDES: mathtools, amsmath
+  Successor of amsmath. Includes advanced math symbols, environments,
+  and bugfixes on amsmath.
+
+  OPTIONS:
+
+
+
+
+
+§5 microtype
+  INCLUDES: microtype
+  Provides an improvement to LaTeX's default typographic extensions,
+  improvements in areas such as character protrusion, font expansion,
+  interword spacing, additional kerning, hyphenatable letter-spacing.
+
+  OPTIONS: none
+
+
+
+
+
+§2 multicol
+  INCLUDES: multicol
+  Provides the multicols environments for typeseting text in multiple columns.
+
+  OPTIONS:
+
+
+
+
+
+§2 showkeys
+  INCLUDES: showkeys
+  For debugging refs and labels.
+
+  OPTIONS:
+
+
+
+
+
+§2 showidx
+  INCLUDES: showidx
+  Prints out all index entries in the left margin of the text.
+
+  OPTIONS:
+
+
+
+
+
+§4 siunitx
+  INCLUDES: siunitx
+  Allows correct typeseting for SI-units with
+  \SI{}{}.
+
+  OPTIONS:
+
+
+
+
+
+§4 subfiles
+  INCLUDES: subfiles
+  Allows compilation of child documents following the root's style.
+
+  OPTIONS:
+    Document Class Options: main.tex
+    None more
+
+
+
+
+
+§3 subcaption
+  INCLUDES: subcaption
+  Allows to define multiple floats within one environment giving
+  individual captions and labels in the form 1a, 1b, ...
+
+  OPTIONS:
+
+
+
+
+
+§4 syntonly
+  INCLUDES: syntonly
+  Suppresses output with command \syntaxonly, making the engine skim through
+  the document only checking for proper syntax and usage of commands.
+
+  USAGE: \usepackage{syntonly}
+         \syntaxonly
+
+
+
+
+
+§4 textcomp
+  INCLUDES: textcomp
+  Provides hundreds of new extra text symbols.
+
+  OPTIONS: none
+
+
+
+
+
+§3 theorem
+  INCLUDES: theorem
+  Allows to change the style of newly defined theorems.
+  Used in conjunction with amsthm.
+
+  OPTIONS:
+
+
+
+
+
+§2 todonotes
+  INCLUDES: todonotes
+  Allows one to insert notes of stuff to do with the syntax
+  \todo{...}. These appear in the margin.
+
+  OPTIONS: none
+
+
+
+
+
+§2 ulem
+  INCLUDES: ulem
+  Allows to underline text with \uline{}.
+
+  OPTIONS:
+
+
+
+
+
+§1 url
+  INCLUDES: url
+  Defines the URL command. Not clickable.
+  Not compatible with hyperref package.
+
+  OPTIONS:
+
+
+
+
+
+§3 verbatim
+  INCLUDES: verbatim
+  Improves the verbatim environment, fixing some bugs.
+  Also provides the comment environment, for multiline comments.
+
+  OPTIONS:
+
+
+
+
+
+§3 xcolor
+  INCLUDES: xcolor
+  Adds support for colored text.
+
+  OPTIONS:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
