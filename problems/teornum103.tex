@@ -1,0 +1,73 @@
+\documentclass[main.tex]{subfiles}
+% TeorNum 103
+
+\renewcommand*{\ord}[1]{\ensuremath{\text{ord}_#1\:}}
+
+\begin{document}
+
+\begin{problem}{TeorNum 103}
+Quais os pares de primos $(p,q)$ tais que $pq|p^p+q^q+1$?
+\end{problem}
+
+\begin{solution}
+\begin{note}
+Recordemos que, se $a\in\mathbb{Z}_m^\times$ - conjunto dos inteiros $\leq m$ coprimos com $m$ - e a ordem multiplicativa de $a$ módulo $m$ é $d$ (i.e. $d$ é o menor natural tal que $a^d\equiv_m 1$), então $d$ divide todo natural $k$ tal que $a^k\equiv_m 1$.
+Uma demonstração simples: se $k=nd+r$ com $0\leq r<d$ então
+$a^k\equiv_m a^{nd+r}\equiv_ma^{nd}a^r\equiv_ma^r$. Para não se contradizer $d$ ser o menor natural tal que $a^d\equiv_m 1$, então $a^k\equiv_m 1$ sse $r=$, i.e. sse $d|k$.
+\end{note}
+
+Os primos $p$ e $q$ podem ser permutados. Suponhamos por agora que um dos primos $p$ e $q$ é igual a $2$, por exemplo $p=2$. A divisibilidade fica simplesmente $2q|q^q+5$. Em particular $q|2q|q^q+5$ logo $q|5\Rightarrow q=5$.
+Por outro lado os pares $(p,q)=(2,5),(5,2)$ satisfazem o enunciado, pois
+$p^p+q^q+1=2^2+5^5+1\equiv 4+5+1\equiv 0\pmod{pq=10}$.
+
+Agora suponhamos que $p$ e $q$ são primos ímpares tais que $pq|p^p+q^q+1$.
+$p=q$ claramente não funciona, pois conduz a $p^2=pq|p^p+q^q+1=2p^p+1\Rightarrow p^2|1$, um absurdo.
+Logo $p\coprime q$, e a divisibilidade $pq|p^p+q^q+1$ é equivalente às duas divisibilidades, simultâneas, seguintes:
+$p|p^p+q^q+1$ e $q|p^p+q^q+1$, ou seja,
+
+\begin{equation*}
+p|q^q+1 \qquad q|p^p+1
+\end{equation*}
+
+Podemos então escrever
+\begin{align}
+q^q&\equiv_p -1 & p^p&\equiv_q -1\\
+q^{2q}&\equiv_p +1 & p^{2p}&\equiv_q +1
+\end{align}
+
+Notemos que $1\not\equiv -1$ módulo $p$ ou $q$ pois estes são primos ímpares.
+
+Seja $d_q=\ord{p} q$ a ordem multiplicativa de $q$ módulo $p$,
+e $d_p=\ord{q} p$ a ordem multiplicativa de $p$ módulo $q$.
+Então, de acordo com $(2)$ e com as considerações iniciais, $d_q|2q$ e $d_p|2p$.
+
+Por pequeno Fermat $q^{p-1}\equiv_p 1$ e $p^{q-1}\equiv_q 1$,
+logo $d_q|p-1$ e $d_p|q-1$.
+
+Juntando as duas divisibilidades temos $d_q|\mdc(2q,p-1)$ e $d_p|\mdc(2p,q-1)$, ou seja,
+
+\begin{equation}
+d_q|2\mdc(q,p-1)\qquad d_p|2\mdc(p,q-1)
+\end{equation}
+
+Note-se que $\mdc(q,p-1)\in\{1,q\}$ e $\mdc(p,q-1)\in\{1,p\}$.
+Suponhamos que temos $\mdc(q,p-1)=q$ e $\mdc(p,q-1)=p$.
+Então $q|p-1$ e $p|q-1$, logo, respetivamente, $p-1\geq q$ e $q-1\geq p$.
+Isto implica $p-1\geq q\geq p+1$, que é absurdo.
+
+Logo pelo menos um dos mdc referidos é 1, digamos, spdg por simetria, $\mdc(q,p-1)=1$.
+Então $(3)$ diz-nos que $d_q|2$.
+Se fosse $d_q=1$ (i.e. $q^1\equiv_p 1$ então teríamos $q\equiv_p 1\Rightarrow q^q\equiv_p 1$, uma contradiçao com a congruência $(1)$.
+Logo $d_q=2$ e $q\equiv_p -1\Rightarrow p|q+1$.
+
+Agora $p>2$ implica $p\nmid q-1$ logo $\mdc(p,q-1)=1$ e $(3)$ diz-nos que $d_q|2$. De forma análoga $d_p=1$ leva a $p\equiv_q 1\Rightarrow p^p\equiv_q 1$, contradição com $(1)$. Logo $d_p=2$ e $p\equiv_q -1\Rightarrow q|p+1$.
+
+Em suma temos $p|q+1$ e $q|p+1$, logo, respetivamente, $q+1\geq p$ e $p+1\geq q$.
+Juntando as duas desigualdades, $p+1\geq q\geq p-1$.
+Logo $q\in\{p-1,p,p+1\}$.
+Mas $p\neq q$ e $p-1,p+1$ são pares, e portanto não são primos ímpares. Então chegámos a um absurdo. Logo não há mais soluções.
+
+$\therefore$ As únicas soluções são $(p,q)\in\{(2,5),(5,2)\}$.
+\end{solution}
+
+\end{document}

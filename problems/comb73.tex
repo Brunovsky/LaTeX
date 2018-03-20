@@ -1,0 +1,47 @@
+\documentclass[base.tex]{subfiles}
+% Comb 73
+
+\begin{document}
+
+\begin{problem}{Comb 73}
+Seja $m\in\mathbb{Z}$ e seja
+$$C(m)=\max\{k\in\mathbb{N}\suchthat\exists S\subseteq\mathbb{Z}
+\suchthat |S|=m\wedge\{1,2,\dots,k\}\subseteq S\cup(S+S)\}.$$
+Então $\frac{1}{4}m(m+6)\leq C(m)$.
+\end{problem}
+
+\begin{solution}
+Assumo a definição habitual $S+S=\{s_1+s_2\suchthat s_1\in S \wedge s_2\in S\}$.
+
+Considerem-se inteiros positivos $a,b$ tais que $a+b=m$ e escolha-se o conjunto
+$$S=\{1,2,3,\dots,a-1,a,2a+1,3a+2,4a+3,\dots,ba+(b-1),(b+1)a+b\}$$
+
+Temos $|S|=a+b=m$. Um momento de reflexão mostra que
+$\{1,2,3,\dots,(b+2)a+b\}\subseteq S\cup(S+S)$. Provemo-lo:
+
+\begin{anchor}
+Seja, pois, $n\in\{1,2,\dots,(b+2)a+b\}$.
+Se $n\leq a$ então $n\in S$.
+Se existir $i\in\{2,3,\dots,b+1\}$ tal que $n=ia+(i-1)$ então $n\in S$.
+Agora suponhamos $n\not\in S$.
+O conjunto $\{1,2,3,\dots,(b+2)a+b\}\setminus S$ consiste na união disjunta dos $b+1$ intervalos abertos $]ia+(i-1),(i+1)a+i[, i=1,2,\dots,b+1$.
+Logo existe um (único) $i\in\{1,2,3,\dots,b+1\}$ para o qual $n$ pertence ao intervalo aberto de inteiros $]ia+(i-1),(i+1)a+i[, i=1,2,\dots,b+1$.
+Escrevamos $n=ia+r$ onde $i\leq r<a+i$. Então $n=(ia+(i-1))+(r-i+1)$.
+Como $i\leq r<a+i$ então $1\leq r-i+1<a+1$, logo $r-i+1\in\{1,2,\dots,a\}\subset S$.
+Como $ia+(i-1)\in S$ decorre $n\in S+S$. Em todos os casso $n\in S\cup(S+S)$ como queríamos demonstrar.
+\end{anchor}
+
+Concluímos que $C(m)\geq(b+2)a+b$, para todos os tais $a,b$ inteiros positivos sujeitos a $a+b=m$.
+Agora gostaríamos de maximizar $(b+2)a+b$ sujeitos a $a+b=m$ para obter a melhor estimativa para $C(m)$ que este $S$ nos pode oferecer.
+Por AM-GM o máximo de $(b+2)a+b=(b+1)a+m$ ocorre para $b+1=a$, ou seja $2a=m+1$.
+
+Se $m$ for par, digamos $m=2N$ com $N\geq 1$, então a equação fica $a=\frac{2N+1}{2}$, que infelizmente não é inteiro.
+Os pares maximizantes são os arredondamentos: $(a,b)\in\{(N,N),(N+1,N-1)\}$.
+Escolhendo $a=b=N=m/2$, a melhor estimative oferecida pelo nosso conjunto $S$ é $C(m)\geq(b+2)a+b=\frac{m+4}{2}\frac{m}{2}+\frac{m}{2}=\frac{m^2+6m}{4}$.
+
+Se $m$ for ímpar, digamos $m=2N-1$ com $N\geq 1$, então o par maximizante é $a=N=(m+1)/2$ e $b=N-1=(m-1)/2$, que são inteiros. Logo a melhor estimative que o nosso $S$ oferece é $C(m)\geq(b+2)a+b=\frac{m+3}{2}\frac{m+1}{2}=\frac{m^2+6m+1}{4}$.
+
+Conclusão: Para $m$ ímpar tem-se $C(m)\geq\frac{m(m+6)+1}{4}$. Para $m$ par tem-se $C(m)\geq\frac{m(m+6)}{4}$. Em ambos os casos $C(m)\geq\frac{m(m+6)}{4}$, como queríamos demonstrar.
+\end{solution}
+
+\end{document}

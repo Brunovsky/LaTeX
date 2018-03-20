@@ -1,0 +1,118 @@
+\documentclass[main.tex]{subfiles}
+% TeorNum 119
+
+\newcommand*{\nj}{\ensuremath{\{n_j\}_{j\geq N}}}
+\renewcommand*{\=}[1]{\ensuremath{\stackrel{\text{#1}}{=}}}
+
+\begin{document}
+
+\begin{problem}{TeorNum 119}
+Seja $\nj$ uma sucessão de inteiros positivos distintos tal que
+para certas constantes $C$ e $L$ se tem $n_j\leq Cj^L$ para quase todos os $j$.
+Então de entre os divisores dos $n_j$ existem infinitos primos.
+\end{problem}
+
+\begin{solution}
+Existe um $N>0$ tal que $\forall j\geq N$ se tem $n_j\leq Cj^L$; ou seja,
+$n_j=O(j^L)$. $(*)$
+
+Suponhamos o contrário, que
+$D=\{p\in\mathbb{P}\suchthat p|n_j\text{ para algum }j\geq 0\}$ é finito.
+Seja então $D=\{p_1,\dots,p_k\}$, com $k\geq 1$ e $p_1=\min\{p1,\dots,p_k\}$.
+É fácil de ver que $\nj$ não é sucessão limitada pois é uma
+sucessão de inteiros positivos distintos dois a dois.
+
+\begin{observation}{Observação 1}
+Seja $m\geq 0$ um inteiro não negativo qualquer e suponhamos que $n_j\neq p_1^m$
+para todos os $j\geq N$.
+Como $\nj$ não é limitada, existe um $j\geq N$ tal que $n_j>p_1^m$.
+Podemos substituir $n_j$ por $p_1^m$ em $\nj$ e a nova sucessão ainda satisfaz
+$*$, pois $p_1^m<n_j\leq Cj^L$.
+Se por acaso tivermos $n_i=p_1^m$ para algum $i<N$, como $n_i\leq Ci^L$
+não tem de se verificar obrigatoriamente, simplesmente trocamos $n_i$ por $n_j$.
+
+Conclusão: podemos e vamos assumir que todas as potências
+$1,p_1,p_1^2,p_1^3,p_1^4,\dots$ aparecem em $\nj$.
+\end{observation}
+
+\begin{observation}{Observação 2}
+Suponhamos que existem $i>j\geq N$ tal que $n_i<n_j$.
+Como $n_i<n_j\leq Cj^L$ e $n_j\leq Cj^L<Ci^L$ podemos trocar o lugar dos termos
+$n_i, n_j$ na sucessão $\nj$, e $*$ mantém-se para a nova sequência.
+
+Conclusão: podemos e vamos assumir que a sucessão $\nj$ é estritamente crescente.
+\end{observation}
+
+Escrevamos $n_j=p_1^{a_{j1}}p_2^{a_{j2}}\dots p_k^{a_{jk}}$ para cada $j\geq 0$,
+com inteiros $a_{jl}\geq 0$.
+Visto que $\nj$ é uma sucessão de inteiros positivos distintos dois a dois,
+pelo teorema fundamental da aritmética para cada
+$(b_1,\dots,b_k)\in\mathbb{N}_0^k$ existe no máximo um termo $n_j$ na sucessão
+para o qual $n_j=p_1^{b_1}p_2^{b_2}\dots p_k^{b_k}$. $(*)$
+
+Para cada $n_j$ defina-se $d(n_j)=a_{j1}+a_{j2}+\dots+a_{jk}$.
+
+Consideremos a função $s$ definida da seguinte forma:
+para cada $m\geq 0$, $s(m)\geq N$ é o único índice para o qual
+$n_{s(m)}=p_1^m=p_1^mp_2^0\dots p_k^0$
+(impusemos que este índice exista na observação 1).
+Notemos que $s$ é crescente pois $\nj$ é crescente.
+Agora queremos limitar $s(m)$ superiormente para $m$ grande.
+
+\begin{observation}{1ª Consideração}
+Seja $m\geq 0$ um inteiro não negativo. O número de $k$-uplos ordenados
+$(c_1,\dots,c_k)$ de inteiros não negativos que satisfazem
+$c_1+\dots+c_k=m$ é $\binom{m+k-1}{m}$ - isto é,
+$|\{(c_1,\dots,c_k\}\in\{\mathbb{Z}_{\geq 0}^k\suchthat c_1+\dots+c_k=m\}|
+=\binom{m+k-1}{m}$
+(ver, por exemplo, página 7 da Análise Combinatória).
+Logo
+\begin{equation*}
+\left|\left\{(c_1,\dots,c_k)\in\mathbb{Z}_{\geq 0}^k\suchthat
+c_1+\dots+c_k\leq m\right\}\right|
+=\sum_{n=0}^m\binom{n+k-1}{n}\={1}\binom{m+k}{m},
+\end{equation*}
+onde em 1 usámos outra fórmula combinatória, ver por exemplo Comb 50.
+\end{observation}
+
+\begin{observation}{2ª Consideração}
+Para qualquer constante $c>0$ (real), podemos para $m>0$ suficientemente
+grande dizer que
+\begin{equation*}
+\binom{m+k}{m}+(N-1)=\frac{1}{k!}(m+k)(m+k-1)\dots(m+1)+(N-1)
+<\frac{1+c}{k!}m^k+(N-1)<m^{k+1}.
+\end{equation*}
+\begin{footnotesize}
+Nota: Se $k>1$ e $c<k!-1$ podemos melhor a estimativa $m^{k+1}$ para $m^k$.
+\end{footnotesize}
+\end{observation}
+
+Para todo $m\geq 0$ defina-se
+$S_m=\{j\geq N\suchthat d(n_j)=a_{j1}+a_{j2}+\dots+a_{jk}\leq m\}$.
+
+Pela primeira das considerações acima e por $*$ decorre que
+$S_m\leq\binom{m+k}{m}$.
+
+Suponhamos que $s(m)\geq j$ para algum $j\geq N$.
+Pela definição da função $s$ e por $p_i\geq p_1$, temos
+\begin{equation*}
+n_j=p_1^{a_{j1}}\dots p_k^{a_{jk}}
+\geq p_1^{a_{j1}+a_{j2}\dots+a_{jk}}=p_1^{d(n_j)}=n_{s(d(n_j))}.
+\end{equation*}
+
+Como $\nj$ é crescente então $j\geq s(d(n_j))$.
+Logo $s(m)\geq j\geq s(d(n_j))$.
+Como $s$ é crescente então $m\geq d(n_j)$ e pela definição de $S_m$
+temos $j\in S_m$.
+Como $j$ foi arbitrário decorre que $\{N,N+1,N+2,\dots,s(m)\}\subseteq S_m$.
+Tomando cardinalidades, $s(m)\leq |S_m|+N-1\leq\binom{m+k}{m}+N-1$.
+Logo para $m$ suficientemente grande, digamos $m\geq M$,
+pela segunda das considerações acima podemos dizer $s(m)<m^{k+1}$.
+
+Obtemos finalmente $p_1^m=n_{s(m)}<n_{m^{k+1}}\leq Cm^{(k+1)L},\forall m\geq M$.
+Mas esta desigualdade não pode ser verdadeira para $m\geq M$ suficientemente
+grande, pois o lado esquerdo cresce exponencialmente e o lado direito
+cresce polinomialmente em $m$. Isto é uma contradição.
+\end{solution}
+
+\end{document}

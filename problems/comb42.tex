@@ -1,0 +1,54 @@
+\documentclass[base.tex]{subfiles}
+% Comb 42
+
+\newcommand*{\sets}{\{0,1,2\}}
+\newcommand*{\setn}{\{1,2,\dots,n\}}
+
+\begin{document}
+
+\begin{problem}{Comb 42}
+Seja $N(n)$ o número das aplicações
+$f:\setn\to\sets$
+que satisfazem $\sum_{i=1}^n f(i)=n$.
+Então
+$$N(n)=\sum_{k=0}^n\frac{n^{2k}}{k!^2}$$
+\end{problem}
+
+\begin{solution}
+Seja $Q_n=\{f:\setn\to\sets\suchthat\sum_{i=1}^n f(i)=n\}$,
+de modo que $N(n)=|Q_n|$.
+
+Para $f:\setn\to\sets$
+qualquer e cada $k=0,1,2$, seja $c_k(f)=|f^{-1}(k)|$
+o número de $i\in\setn$ tais que $f(i)=k$.
+Então $n=c_0(f)+c_1(f)+c_2(f)$ e $\sum_{i=1}^n f(i)=
+c_1(f)+2c_2(f)$, para qualquer tal $f$.
+
+A condição necessária e suficiente para $f\in Q_n$ é
+$n=\sum_{i=1}^n f(i)$, logo
+\begin{equation*}
+f\in Q_n
+\Leftrightarrow c_0(f)+c_1(f)+c_2(f)=c_1(f)+c_2(f)
+\Leftrightarrow c_0(f)=c_2(f)
+\end{equation*}
+Por outras palavras, $f\in Q_n$ see houver tantos
+$i\in\setn$ tais que $f(i)=2$ como $i$
+tais que $f(i)=0$.
+
+Dada $f\in Q_n$, coloramos o conjunto $\setn$
+do seguinte modo: para $i\in\setn$, $i$ é
+vermelho se $f(i)=0$ ou azul se $f(i)=2$. Nestas
+condições, contar quantas são as funções $f\in Q_n$
+é equivalente a contar de quantas formas podemos, para
+cada $k\leq n$, escolher $k$ números em $\setn$
+para colorir de vermelho e outros $k$ para colorir de azul. Contemos então: para cada $k\leq n$ podemos escolher os $k$ números que vamos colorir de vermelho de entre os $n$ números $\setn$ de $\binom{n}{k}$ maneiras. Os $k$ números que vamos colorir de azul escolhemo-los de entre so restantes $n-k$ números de $\binom{n-k}{k}$ maneiras. Logo no total há $\sum_k\binom{n}{k}\binom{n-k}{k}$ colorações distintas, ou seja, $N(n)=\sum_k\binom{n}{k}\binom{n-k}{k}$.
+
+Finalmente, expandimos os termos no somatório e concluímos o problema:
+\begin{equation*}
+\sum_{k=0}^n\frac{n^{2k}}{k!^2}
+=\sum_k\frac{n^k}{k!}\frac{(n-k)^k}{k!}
+=\sum_k\binom{n}{k}\binom{n-k}{k}.\qedhere
+\end{equation*}
+\end{solution}
+
+\end{document}

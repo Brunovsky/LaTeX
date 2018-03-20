@@ -1,0 +1,69 @@
+\documentclass[main.tex]{subfiles}
+% TeorNum 111
+
+\renewcommand*{\ord}[1]{\ensuremath{\text{ord}_#1\:}}
+
+\begin{document}
+
+\begin{problem}{TeorNum 111}
+Seja $p$ primo. Então $p$ é primo de Fermat sse todo o elemento
+em $\mathbb{Z}_p^*$ é quadrado módulo $p$ ou raíz primitiva módulo $p$.
+\end{problem}
+
+\begin{solution}
+\begin{smallnote}
+Um primo de Fermat é um primo da forma $p=2^{2^n}+1$ onde $n\in\mathbb{N}_0$.
+Equivalente definição é: um primo de Fermat é um primo da forma $p=2^k+1$ onde $k\in\mathbb{N}$.
+Mas se $k$ for uma potência de $2$ então $p$ é certamente composto. Para ver isto escreva-se $k=2^na$ para $n\geq 0$ e $a$ ímpar.
+Então temos a fatorização
+$p=2^{2^na}+1=(2^{2^n}+1)((2^{2^n})^{a-1}-(2^{2^n})^{a-2}+\dots-2^{2^n}+1)$.
+Se $a>1$ então o termo na direita deste produto é $>1$ e portanto $p$ é composto.
+Assim se $p$ é primo então $a=1$, e $k=2^n$ é uma potência de $2$. Notemos que $p$ é primo de Fermat sse todo o divisor de $p-1$ é par.
+\end{smallnote}
+
+Seja $g$ uma raíz primitiva módulo $p$.
+
+Consideremos as $\frac{p-1}{2}$ potências pares
+$g^{2k}\in\{g^0,g^2,\dots,g^{p-3}\}$ de $g$.
+Estas potências são todas distintas módulo $p$ pois $g$ é raíz primitiva,
+e são todas claramente resíduos quadráticos módulo $p$.
+Pela teoria da reciprocidade quadrática sabemos que $\mathbb{Z}_p^*$ tem
+exatamente $\frac{p-1}{2}$ resíduos quadráticos, logo estes são todos os
+resíduos quadráticos de $\mathbb{Z}_p^*$. Por outro lado,
+$(g^{2k})^{(p-1)/2)}\equiv_p (g^{p-1})^k\equiv_p 1$, logo estas potências
+$g^{2k}$ não são raízes primitivas, qualquer que seja o primo $p$.
+
+Logo as restantes $\frac{p-1}{2}$ potências ímpares
+$g^k\in\{g^1,g^3,\dots,g^{p-2}\}$ são os não resíduos quadráticos módulo $p$.
+Queremos mostrar que estes não resíduos quadráticos são todos raízes
+primitivas módulo $p$ sse $p$ é primo de Fermat.
+\\
+
+Suponhamos por agora que $p$ é primo de Fermat.
+Suponhamos para absurdo que existe um $k\in\{1,3,5,\dots,p-2\}$ ímpar para o
+qual $g^k$ não é raíz primitiva módulo $p$, i.e. a ordem $d=\ord{p}g^k<p-1$.
+Então $g^{kd}\equiv_p(g^k)^d\equiv_p 1$.
+Como a ordem de $g$ é $p-1$ concluímos que $p-1|kd$.
+Como assumimos $d<p-1$, então $p-1\nmid d$, e portanto $k$ e $p-1$ não
+podem ser coprimos, i.e. $k$ e $p-1$ têm um fator em comum.
+Como $p-1=2^{2^n}$ é uma potência de 2, então $k$ é par, contradição.
+Logo os $\frac{p-1}{2}$ não resíduos $g^k\in\{g^1,g^3,\dots,g^{p-2}\}$
+são todos raízes primitivas módulo $p$.
+Isto prova uma das implicações: se $p$ é primo de Fermat então todo o
+elemento em $\mathbb{Z}_p^*$ é ou resíduo quadrático módulo $p$ ou raíz
+primitiva módulo $p$.
+\\
+
+Agora suponhamos que $p$ não é primo de Fermat.
+Então $p-1$ tem um divisor ímpar superior a $1$, digamos $d$.
+Então $g^d\in\{g^1,g^3,\dots,g^{p-2}\}$ é um resíduo não quadrático.
+Por outro lado, $(g^d)^{(p-1)/d}=g^{p-1}\equiv_p 1$, logo
+$\ord{p}g^k=\frac{p-1}{d}<p-1$, ou seja, $g^d$ não é raíz primitiva
+módulo $p$.
+Então encontrámos um elemento em $\mathbb{Z}_p^*$ que não é quadrado
+módulo $p$ nem raíz primitiva módulo $p$.
+Logo se $p$ não é primo de Fermat, $\mathbb{Z}_p^*$ tem elementos que
+não são resíduo quadrático módulo $p$ nem raíz primitiva módulo $p$. 
+\end{solution}
+
+\end{document}

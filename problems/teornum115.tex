@@ -1,0 +1,36 @@
+\documentclass[main.tex]{subfiles}
+% TeorNum 115
+
+\begin{document}
+
+\begin{problem}{TeorNum 115}
+Para todo par $(p,a)$, $p$ primo e $a$ inteiro, existem inteiros $x,y$
+tais que $p|x^2+y^2+a$.
+\end{problem}
+
+\begin{solution}
+Se $p=2$ então $y=0$, e $x=0$ ou $x=1$ conforme $a\equiv_2 0$ ou $a\equiv_2 1$
+respetivamente, functiona para cada $a$. Agora seja $p>2$.
+Se $p|a$ podemos escolher $x=y=0$.
+Resta-nos agora $p\coprime a$ e $p>2$.
+Consideremos o sistema de duas congruências
+
+\begin{equation*}
+n\equiv_4 1 \qquad n\equiv_p -a
+\end{equation*}
+
+As soluções deste sistema são os termos da progressão aritmética
+$n\in\{4pm+k\}_{m\in\mathbb{Z}}$, para o único inteiro
+$k\in\{-a,p-a,2p-a,3p-a\}$ que satisfaz $k\equiv_4 1$.
+Este $k$ é coprimo com $p$ pois $-a\coprime p$, e como é ímpar
+então é coprimo com $4p$.
+Logo pelo Teorema de Dirichlet existem infinitos primos $n$
+nesta progressão aritmética, que resolvem o sistema de congruências.
+Seja então $n$ um desses primos.
+Olhando para a primeira congruência, $n\equiv_4 1$, por Fermat-Euler
+podemos escrever $n=x^2+y^2$ para certos inteiros $x,y$.
+Isto implica, na segunda congruência, $x^2+y^2=n\equiv_p -a$,
+que é o procurado $p|x^2+y^2+a$.
+\end{solution}
+
+\end{document}

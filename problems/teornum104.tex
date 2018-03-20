@@ -1,0 +1,77 @@
+\documentclass[main.tex]{subfiles}
+% TeorNum 104
+
+\newcommand*{\id}{\ensuremath{\text{id}}}
+\renewcommand*{\=}[1]{\ensuremath{\stackrel{\text{#1}}{=}}}
+
+\begin{document}
+
+\begin{problem}{TeorNum 104}
+A função $\psi:\mathbb{Z}_{\geq 1}\to\mathbb{Z}_{\geq 1}$
+definida por $\psi(n)=\sum_{k=1}^n\mdc(k,n)$ é multiplicativa.
+\end{problem}
+
+\begin{solution}
+Seja $*$ convolução de Dirichlet, definida por
+$(\alpha*\beta)(n)=\sum_{d|n}\alpha(d)\beta(\frac{n}{d})$
+para duas funções aritméticas $\alpha$ e $\beta$.
+Seja $\id(n)=n$ a função identidade. Usando o conhecido
+$m=\sum_{d|m}\phi(d)$, válido $\forall m\geq 1$, temos:
+
+\begin{align*}
+\psi(n)
+&=\sum_{k=1}^n\mdc(k,n)\\
+&=\sum_{k=1}^n\sum_{d|k\wedge d|n}\phi(d)\\
+&\={1}\sum_{d|n}\bigg(\phi(d)\sum_{d|k,1\leq k\leq n} 1\bigg)\\
+&=\sum_{d|n}\phi(d)\cdot\left|\{k\in\{1,\dots,n\}\suchthat d|k\}\right|\\
+&=\sum_{d|n}\phi(d)\cdot\left|\left\{d,2d,\dots,\frac{n}{d}d\right\}\right|\\
+&=\sum_{d|n}\phi(d)\frac{n}{d}\\
+&=(\phi*\id)(n).
+\end{align*}
+onde em $1$ invertemos a ordem da somação, contando o número de ocorrências de $\phi(d)$ para cada $d$ divisor de $n$.
+
+Ora, $\phi$ é uma função multiplicativa e id é completamente multiplicativa. Vamos agora provar que a convolução de funções multiplicativas é, de facto, multiplicativa, concluindo o problema para o caso particular da convolução das funções $phi$ e id.
+
+\begin{lemma}
+Sejam $n$ e $m$ dois naturais coprimos.
+Se pusermos $d_1\in\mathbb{N}$ a percorrer todos os divisores (naturais) de $n$,
+e para cada um desses divisores pusermos $d_2\in\mathbb{N}$ a percorrer os divisores de $m$,
+então o produto $d_1d_2$ percorre todos os divisores de $nm$, não passando por nenhum mesmo divisor duas vezes.
+Por outras palavras: para cada divisor $d$ de $nm$,
+\emph{existem e são únicos} os dois inteiros $d_1,d_2\in\mathbb{N}$
+para os quais $d=d_1d_2$, $d_1|n$ e $d_2|m$.
+
+\begin{quickproof}
+Seja, pois então, $d$ um divisor qualquer de $nm$.
+Seja $P=\mdc(d,n)$ e $Q=\mdc(d,m)$.
+Então $P|n$ e $Q|m$. Mais, sabemos que $PQ=\mdc(d,n)\mdc(d,m)=\mdc(d,nm)=d$.
+Logo $d_1=P$ e $d_2=Q$ funcionam.
+
+Recriprocamente suponhamos que $d_1,d_2\in\mathbb{N}$ são tais que $d=d_1d_2$,
+$d_1|n$ e $d_2|m$. Como $d_1|d$ e $d_1|n$ temos $d_1|\mdc(d,n)=P$.
+Analogamente $d_2|\mdc(d,m)=Q$.
+Logo $P\geq d_1$ e $Q\geq d_2$.
+Logo $PQ\geq d_1d_2=d=PQ$, e concluímos que $d_1=P$ e $d_2=Q$. Isto prova o lema.
+\end{quickproof}
+\end{lemma}
+
+Sejam $\alpha,\beta$ duas funções aritméticas multiplicativas, $n$ e $m$ dois inteiros coprimos.
+Notemos que para quaisquer divisores $d_1$ e $d_2$ de $n$ e $m$ respetivamente,
+temos $d_1\coprime d_2$, pois qualquer divisor comum de $d_1$ e $d_2$
+é também um divisor comum de $n$ e $m$. Isto justifica o cálculo:
+
+\begin{align*}
+(\alpha*\beta)(n)\cdot(\alpha*\beta)(m)
+&=\left(\sum_{d|n}\alpha(d)\beta(\frac{n}{d})\right)
+\left(\sum_{k|m}\alpha(k)\beta(\frac{m}{k})\right) \\
+&=\sum_{d|n,k|m}\alpha(d)\alpha(k)\beta(\frac{n}{d})\beta(\frac{m}{k}) \\
+&=\sum_{d|n,k|m}\alpha(dk)\beta(\frac{nm}{dk}) \\
+&\={L}\sum_{d|nm}\alpha(d)\beta(\frac{nm}{d}) \\
+&=(\alpha*\beta)(nm).
+\end{align*}
+
+Como $n$ e $m$ foram coprimos arbitrários decorre que $\alpha*\beta$
+é multiplicativa, como queríamos demonstrar.
+\end{solution}
+
+\end{document}

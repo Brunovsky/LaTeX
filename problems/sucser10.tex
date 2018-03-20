@@ -1,0 +1,82 @@
+\documentclass[main.tex]{subfiles}
+% SucSer 10
+
+\begin{document}
+
+\begin{problem}{SucSer 10}
+Seja $m\in\mathbb{Z}_{\geq 0}$. Então para cada $l\in\mathbb{Z}_{\geq 0}$,
+existe um $p\in\mathbb{Z}_{\geq 0}$ tal que
+\begin{equation*}
+(\sqrt{m+1}-\sqrt{m})^l=\sqrt{p+1}-\sqrt{p}
+\end{equation*}
+\end{problem}
+
+\begin{solution}
+Para $m=0$ tem-se $p=0$.
+Agora seja $m>0$.
+Observe-se que, para quaisquer inteiros positivos $m$ e $n$
+(aliás quaisquer reais não negativos):
+\begin{align*}
+(\sqrt{m+1}-\sqrt{m})(\sqrt{n+1}-\sqrt{n})
+=(\sqrt{(m+1)(n+1)}+\sqrt{mn})-(\sqrt{(m+1)n}+\sqrt{m(n+1)}) \\
+=\sqrt{2mn+m+n+2\sqrt{m(m+1)n(n+1)}+1}-\sqrt{2mn+m+n+2\sqrt{m(m+1)n(n+1)}}
+\end{align*}
+
+Este cômputo permite-nos descobrir o $p=p_l\in\mathbb{R}^+$
+do enunciado recursivamente.
+Para $l=1$ funciona $p_1=m$ no lugar de $p$.
+Pondo $n=p_1=m$ no cômputo, o lado esquerdo fica igual a
+$(\sqrt{m+1}-\sqrt{m})^2$ e o lado direito diz
+$p_2=2m^2+m+m+2\sqrt{m(m+1)m(m+1)}$, etc.
+Agora suponhamos que $(\sqrt{m+1}-\sqrt{m})^k=\sqrt{p_k+1}-\sqrt{p_k}$
+para certos $p_k\in\mathbb{R}^+, k=1,2,...l$.
+Pondo $n=p_l$ no cômputo, o lado esquerdo fica igual a
+$(\sqrt{m+1}-\sqrt{m})^{l+1}$, e olhando para o lado direito
+deduzimos a fórmula de recorrência para a sequência $\{p_l\}_{l\geq 1}$:
+\begin{align*}
+p_{l+1}=2mp_l+m+p_l+2\sqrt{m(m+1)p_l(p_l+1)} \\
+(\sqrt{m+1}-\sqrt{m})^l=\sqrt{p_l+1}-\sqrt{p_l},\qquad \forall l\geq 1.
+\end{align*}
+
+O enunciado pede para provar que $\{p_l\}_{l\geq 1}$
+é uma sucessão de inteiros positivos.
+
+Provamos por indução em $l$ as duas seguintes afirmações:
+
+$\rightarrow$  $p_l$ é inteiro (positivo).
+
+$\rightarrow$  $p_l(p_l+1)=S^2m(m+1)$, para algum inteiro positivo $S$.
+
+Vejamos: $p_1=m$ é inteiro, e $p_1(p_1+1)=m(m+1)$. Logo $S=1$ para $l=1$.
+Isto dá o caso-base da indução.
+
+Agora suponhamos que $l\geq 1$, $p_l$ é inteiro e $p_l(p_l+1)=A^2m(m+1)$
+para algum inteiro positivo $A$.
+Temos de provar que $p_{l+1}$ é inteiro e $p_{l+1}(p_{l+1}+1)=S^2m(m+1)$
+para um certo $S>0$.
+
+Pela fórmula de recorrência $p_{l+1}=2mp_l+m+p_l+2Am(m+1)$, um inteiro. E agora calculamos $p_{l+1}(p_{l+1}+1)$, mãos à obra e fé em Deus.
+
+\begin{align*}
+p_{l+1}(p_{l+1}+1)
+&=(2mp_l+m+p_l+2Am(m+1))(2mp_l+m+p_l+2Am(m+1)+1) \\
+&=(2mp_l+m+p_l+2Am(m+1))^2+(2mp_l+m+p_l+2Am(m+1)) \\
+&=(4m^2p_l^2+4m^2p_l+4mp_l^2+m^2+p_l^2+2mp_l+4A^2m^2(m+1)^2 \\
+&\quad +4Am(m+1)(2mp_l+m+p_l)) + (2mp_l+m+p_l+2Am(m+1)) \\
+&=(4m^2p_l^2+4m^2p_l+4mp_l^2+4mp_l+m^2+m+p_l^2+p_l \\
+&\quad +4A^2m^2(m+1)^2+4Am(m+1)(2mp_l+m+p_l)) + 2Am(m+1) \\
+&=4m(m+1)p_l(p_l+1)+m(m+1)+p_l(p_l+1) \\
+&\quad 4A^2m^2(m+1)^2+4Am(m+1)(2mp_l+m+p_l) + 2Am(m+1) \\
+&=4m(m+1)p_l(p_l+1)+m(m+1)+A^2m(m+1) \\
+&\quad 4A^2m^2(m+1)^2+4Am(m+1)(2mp_l+m+p_l) + 2Am(m+1) \\
+&=m(m+1)\Big(4p_l(p_l+1)+1+A^2+4A^2m(m+1)+4A(2mp_l+m+p_l)+2A\Big) \\
+&=m(m+1)\Big(4p_l^2+4p_l+(A+1)^2+4A^2m^2+4A^2m+8Amp_l+4Am+4Ap_l\Big) \\
+&=m(m+1)\Big((A+1)^2+4(A^2m^2+2Amp_l+p_l^2)+4(p_l+A^2m+Am+Ap_l)\Big) \\
+&=m(m+1)\Big((A+1)^2+4(Am+p_l)^2+4(A+1)(Am+p_l)\Big) \\
+&=m(m+1)\big(A+1+2Am+2p_l\big)^2.
+\end{align*}
+E por fim $S=A+1+2Am+2p_l\in\mathbb{Z}_{> 0}$.
+Isto termina o passo de indução e o problema.
+\end{solution}
+
+\end{document}

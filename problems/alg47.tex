@@ -1,0 +1,136 @@
+\documentclass[main.tex]{subfiles}
+% Alg 47
+
+\renewcommand*{\u}[1]{\ensuremath{\uline{#1}}}
+
+\begin{document}
+
+\begin{problem}{Alg 47}
+Seja $e_j(\u{x})=e_j(x_1,\dots,x_n)$ o $j$-ésimo polinómio elementarmente
+simétrico, $j=0,1,\dots,n$.
+Se $\u{r}=(r_1,\dots,r_n)\in\mathbb{R}^n$ e $l$ são tais que
+$e_l(\u{r})=e_{l+1}(\u{r})=0$, então
+$e_{l+2}(\u{r})=e_{l+3}(\u{r})=\dots=e_n(\u{r})$.
+\end{problem}
+
+\begin{solution}
+Admitimos que $l\in\{1,2,\dots,n-2\}$ no enunciado.
+Para $l=n-1$ ou $l=n$ não há nada a provar.
+
+\begin{lemma}
+Seja $p\in\mathbb{R}[x]$ um polinómio de grau $n$ com coeficientes reais,
+cujas $n$ raízes sejam todas reais (o polinómio diz-se hiperbólico).
+Então as $n-1$ raízes de $p'$, a derivada de $p$, também são todas reais.
+
+\begin{quickproof}
+Sejam $\{c_1,\dots,c_l\}$, com $c_1<c_2<\dots<c_l$,
+as raízes \emph{distintas} de $p$.
+Seja $k_i$ a multiplicidade de $c_i$ em $p$.
+
+Para cada $i$ podemos escrever $p(x)=(x-c_i)^k q_i(x)$
+para $q_i\in\mathbb{R}[x]$ tal que $q_i(c_i)\neq 0$
+(aqui $q_i$ tem as outras raízes de $p$).
+Usando a regra do produto e $(y^k)'=ky^{k-1}$,
+\begin{equation*}
+p'(x)=k(x-a)^{k-1} q_i(x)+(x-a)^kq_i'(x)
+=(x-a)^{k-1}(kq_i(x)+(x-a)q_i'(x))
+=(x-a)^{k-1}h_i(x)
+\end{equation*}
+
+Aqui $h_i\in\mathbb{R}[x]$ é tal que $h_i(c_i)=k_iq_i(c_i)\neq 0$.
+Logo $c_i$ tem multiplicidade $k_i-1$ em $p'$.
+
+Concluímos que: se cada uma das raízes $c_i$ tem multiplicidade $k_i$ em $p$,
+então têm multiplicidade total
+$(k_1-1)+(k_2-1)+\dots+(k_l-1)=(k_1+\dots+k_l)-l)=n-l$ em $p'$.
+Pelo teorema de Rolle, $p'$ tem uma raíz real distinta de todas estas $l$
+raízes em cada um dos $l-1$ intervalos $]c_1,c_2[,]c_2,c_3[,\dots,]c_{l-1},c_l[$.
+Logo $p'$ tem pelo mennos mais $l-1$ raízes reais.
+Assim $p'$ tem no mínimo $(n-l)+(l-1)=n-1$ raízes reais.
+Como $\deg p'=n-1$ decorre que estas são todas as raízes de $p'$,
+que são $n-1$ e reais como desejado.
+\end{quickproof}
+\end{lemma}
+
+Provamos a afirmação do enunciado por indução sobre $n$.
+
+Para $n=1,2$ não há nada a provar.
+Para $n=3$ a afirmação só não é trivial para $l=1$.
+Suponhamos, então, que $e_1(\u{r})=e_2(\u{r})=0$ e provemos que $e_3(\u{r})=0$.
+Consideremos $p(x)=(x-r_1)(x-r_2)(x-r_3)=x^3-e_3(\u{r})$.
+As raízes de $p$ são $r_1,r_2,r_3$ por definição.
+Como $p(x)=0\Leftrightarrow x^3=e_3(\u{r})$,
+então $r_1,r_2,r_3$ são as raízes cúbicas (distintas) de $e_3(\u{r})$;
+no entanto, para $e_3(\u{r})\neq 0$, $2$ delas são complexas e só $1$ é real.
+Logo $e_3(\u{r})=0$ pois $r_1,r_2,r_3$ devem ser reais.
+
+Isto dá o caso-base. Agora suponhamos o enunciado provado para $n\geq 3$,
+para cada $l\in\{1,2,\dots,n-2\}$, e provemo-lo para $n+1$,
+para cada $l\in\{1,2,\dots,n-1\}$.
+Seja então $\u{r}=(r_1,\dots,r_{n+1})\in\mathbb{R}^{n+1}$ qualquer.
+Supondo que $l\in\{1,2,\dots,n-1\}$ é tal que $e_l(\u{r})=e_{l+1}(\u{r})=0$,
+devemos provar $e_{l+2}(\u{r})=e_{l+3}(\u{r})=\dots=e_{n+1}(\u{r})$.
+Calculamos
+\begin{equation*}
+p'(x)=(n+1)x^n-ne_1(\u{r})x^{n-1}+(n-1)e_2(\u{r})x^{n-2}
+-\dots+(-)^ne_n(\u{r}).
+\end{equation*}
+
+Pelo lema, $p'$ tem $n$ raízes reais, digamos $c_1,c_2,\dots,c_n$.
+O coeficiente líder de $p'$ é $n+1$, logo podemos escrever
+\begin{equation*}
+p'(x)=(n+1)(x-c_1)(x-c_2)\dots(x-c_n)
+=(n+1)(x^n-e_1(\u{c})x^{n-1}+e_2(\u{c})x^{n-2}-\dots+(-)^ne_n(\u{c})
+\end{equation*}
+onde $\u{c}=(c_1,\dots,c_n)$. Comparando ao que escrevemos acima temos
+$(n+1)e_i(\u{c})=(n+1-i)e_i(\u{r})$ para $i=1,2,\dots,n$.
+O que interessa é:
+\begin{equation*}
+e_i(\u{c})=0
+\qquad \text{sse} \qquad
+e_i(\u{r})=0,
+\qquad i=1,2,\dots,n
+\end{equation*}
+
+Agora temos $\deg p'=n,\u{c}\in\mathbb{R}^n$, e por hipótese
+$e_l(\u{r})=e_{l+1}(\u{r})=0$.
+Logo $e_l(\u{c})=e_{l+1}(\u{c})=0$.
+
+Se $l<n-1$ podemos aplicar a hipótese de indução em $n$ já provada
+(com o mesmo $l$) no $n$-uplo $\u{c}\in\mathbb{R}^n$, e obtemos
+$e_{l+2}(\u{c})=\dots=e_n(\u{c})=0$.
+Logo $e_{l+2}(\u{r})=\dots=e_n(\u{r})=0$.
+
+Agora resta-nos provar que $e_{n+1}(\u{r})=0$.
+Como $e_{n+1}(\u{r})=r_1r_2\dots r_{n+1}$, então $e_{n+1}(\u{r})=0$
+sse um de $r_1,\dots,r_{n+1}$ for zero.
+Suponhamos o contrário, que nenhum dos $r_i$ é zero e
+$e_{n+1}(\u{r})\neq 0$.
+Qualquer que seja $l\neq n-1$ concluímos acima ($l<n-1$) ou temos
+por hipótese ($l=n-1$) que $e_{n-1}(\u{r})=e_n(\u{r})=0$.
+Isto escreve-se
+\begin{align*}
+e_n(u{r})=r_1r_2\dots r_{n+1}\left(\frac{1}{r_1}+\frac{1}{r_2}
++\dots+\frac{1}{r_{n+1}}\right)=0, \\
+e_{n-1}(\u{r})=r_1r_2\dots r_{n+1}\left(\frac{1}{r_1r_2}+
+\frac{1}{r_1r_3}+\dots+\frac{1}{r_nr_{n+1}}\right)=0,
+\end{align*}
+onde a soma da segunda linha percorre todo os produtos $r_ir_j$
+com $1\leq i<j\leq n+1$ (igual abaixo).
+
+Como $e_{n+1}(\u{r})=r_1r_2\dots r_{n+1}\neq 0$, são as duas
+somas acima que são iguais a zero.
+Mas então calculamos
+\begin{align*}
+\frac{1}{r_1^2}+\frac{1}{r_2^2}+\dots+\frac{1}{r_{n+1}^2}
+=\left(\frac{1}{r_1}+\dots+\frac{1}{r_{n+1}}\right)^2
+-2\left(\frac{1}{r_1r_2}+\frac{1}{r_1r_3}
++\dots+\frac{1}{r_nr_{n+1}}\right)=0
+\end{align*}
+que é claramente absurdo pois os $r_i$ são reais.
+Logo também $e_{n+1}(\u{r})=0$.
+
+Isto termina o passo de indução e o problema.
+\end{solution}
+
+\end{document}

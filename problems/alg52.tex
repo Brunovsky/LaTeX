@@ -1,0 +1,82 @@
+\documentclass[main.tex]{subfiles}
+% Alg 52
+
+\begin{document}
+
+\begin{problem}{Alg 52}
+Seja $f\in\mathbb{Z}[x]$ mónico de grau $n\geq 2$, e tal que existam infinitos
+$n_i\in\mathbb{Z}, i=1,2,3,\dots$ para os quais $f(n_i)$ é $n$-ésima potência
+perfeita. Mostra que $f(x)=(x+c)^n$ para algum $c\in\mathbb{Z}$.
+\end{problem}
+
+\begin{solution}
+Escrevamos $f(x)=x^n+c_1x^{n-1}+c_2x^{n-2}+\dots+c_n$
+para inteiros $c_i\in\mathbb{Z}$.
+
+Podemos encontrar um $j\in\mathbb{Z}$ tal que $nj\leq c_1<n(j+1)$.
+\\
+
+Para $x>0$ suficientemente grande, e para $x<0$ suficientemente pequeno
+se $n-1$ for par, podemos dizer
+\begin{equation*}
+f(x)=x^n+c_1x^{n-1}+\dots+c_n
+<x^n+n(j+1)x^{n-1}+\dots+n(j+1)^{n-1}x+(j+1)^n
+=(x+(j+1))^n
+\end{equation*}
+porque o termo líder $(n(j+1)-c_1)x^{n-1}\gg 0$, da diferença dos dois
+polinómios acima, domina quando $x\to\pm\infty$.
+
+Analogamente para $x<0$ suficientemente pequeno se $n-1$ for ímpar,
+podemos dizer
+\begin{equation*}
+f(x)=x^n+c_1x^{n-1}+\dots+c_n
+>x^n+n(j+1)x^{n-1}+\dots+n(j+1)^{n-1}x+(j+1)^n
+=(x+(j+1))^n
+\end{equation*}
+pois o termo líder $(n(j+1)-c_1)x^{n-1}\ll 0$ domina a mesma diferença de polinómios quando $x\to -\infty$.
+\\
+
+Agora fazemos um raciocínio semelhante para a desigualdade $c_1>n(j-1)$.
+
+Para $x>0$ suficientemente grande, e para $x<0$ suficientemente pequeno
+se $n-1$ for par, podemos dizer
+\begin{equation*}
+f(x)=x^n+c_1x^{n-1}+\dots+c_n
+>x^n+n(j-1)x^{n-1}+\dots+n(j-1)^{n-1}x+(j-1)^n
+=(x+(j-1))^n
+\end{equation*}
+porque o termo líder $(c_1-n(j+1))x^{n-1}\gg 0$ domina a diferença de polinómios
+$f(x)-(x+(j-1))^n$ quando $x\to\pm\infty$.
+
+Para $x<0$ suficientemente pequeno se $n-1$ for ímpar, podemos dizer
+\begin{equation*}
+f(x)=x^n+c_1x^{n-1}+\dots+c_n
+<x^n+n(j-1)x^{n-1}+\dots+n(j-1)^{n-1}x+(j-1)^n
+=(x+(j-1))^n
+\end{equation*}
+pois o termo líder $(c_1-n(j+1))x^{n-1}\ll 0$ domina a diferença de polinómios
+$f(x)-(x+(j-1))^n$ quando $x\to -\infty$.
+\\
+
+Em suma, para $x>0$ suficientemente grande,
+e para $x<0$ suficientemente pequeno se $n-1$ for par, temos
+o par de desigualdades
+$(x+(j-1))^n<f(x)<(x+(j+1))^n$,
+e para $x<0$ suficientemente pequeno se $n-1$ for ímpar temos
+$(x+(j-1))^n>f(x)>(x+(j+1))^n$.
+\\
+
+Como há infinitos $n_i$ para os quais $f(n_i)$ é $n$-ésima potência perfeita,
+podemos, em particular, encontrar infinitos tais $n_i$ com módulo arbitrariamente
+grande - suficientemente grande para o devido par de desigualdades em
+$f(n_i)$ se verificar (qual par de desigualdades depende do sinal de tal $n_i$
+e da paridade de $n$). Para todos os tais $n_i$ só nos resta a possibilidade
+$f(n_i)=(n_i+j)^n$.
+
+Agora consideremos o polinómio $q(x)=f(x)-(x+j)^n$. Pela discussão anterior $q$
+tem infinitos zeros em $\mathbb{Z}$.
+Logo $q\equiv 0$ como polinómio, ou seja, $f(x)=(x+j)^n$ para todo $x$,
+como desejado.
+\end{solution}
+
+\end{document}
