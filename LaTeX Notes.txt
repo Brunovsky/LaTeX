@@ -1,22 +1,108 @@
+/***
+ *
+ * TeX and LaTeX Quick Reference
+ *
+ * Search what you need by keyword
+ *
+ * Bruno Carvalho
+ *
+ */
+
+Primary Source: https://en.wikibooks.org/wiki/LaTeX
+
+
+
+
+
 ###################################################
 ##### (1.1) Getting started > Introduction
 ###################################################
 
 
 
-$ Engines $
+$$ Formats and Languages $$
 
-tex, latex
-Original engines, support DVI output.
+$ TeX $
+The original macro language specification, created by Donald Knuth in 1978.
+A typesetting/formatting system for preparing documents such as
+	Books, Papers, Articles, Newspapers, Slideshows, ...
+Makes it easy to typeset mathematical formulas in the midst of regular text,
+organizing float elements such as tables and figures, leaving most of the
+tedious stylizing work to the Engine/artist and away from the writer
+
+
+
+$ LaTeX $
+An extension of the TeX language specification, created by Leslie Lamport in 1985.
+Adds many new macros to those of the TeX specification, along with support
+for new output formats and more stylizing capabilities.
+
+LaTeX's philosophy is that all or almost all of the document-wide
+or section-wide styling of a document should be done apart from
+the document's content itself.
+
+In other words, the writer of the document and the stylist are different entities.
+
+A writer of a paper, book or newspaper should abstract from
+the style of the output of what he writes and instead focus on
+writing the content of the document as best as possible.
+
+Once all content has been written (or before any content has been written)
+then the writer or the publishing artist takes care of stylizing the document
+by formatting headers, titles, footnotes, paper size, fonts, fontsizes, etc.
+and fixing possible unaesthetic portions of content, for example widow lines of
+text, nearly empty white pages, big portion of empty paper, etc.
+
+
+
+$ ConTeXt $
+Another extension of the TeX language specification, created by Hans Hagen
+and Ton Otten circa 1991. It is very similar to LaTeX.
+
+ConTeXt's philosophy is the opposite of that of LaTeX. It should be used
+when styling of a document needs or should not be done apart from the
+document's content itself.
+
+In other words, the writer of the document and the stylist are the same person.
+
+The writer, along with focusing on writing the content of the document,
+can simultaneously focus on its styling. This allows for greater diversity of
+style accross the document and in different sections, at the cost of
+adding styling markup in the middle or between various portions of content.
+
+
+
+
+
+
+
+
+
+
+$ Engines and Programs $
 
 xetex, xelatex
-Engines with support for Unicode input and .ttf and .otf fonts.
+Engine with support for Unicode input and .ttf and .otf fonts.
+The xelatex engine uses LaTeX language format.
 
 luatex, lualatex
-Engines with support for Unicode input with embedded Lua support
+Engines with support for Unicode input with embedded Lua support.
+The lualatex engine uses LaTeX language format.
 
 pdftex, pdflatex
-Engines with support for PDF output generation
+Engines with support for PDF output generation.
+The pdflatex engine uses LaTeX language format.
+
+
+
+
+
+
+
+
+
+
+$ Distributions $
 
 MiKTeX
 LaTeX package distribution for windows.
@@ -44,13 +130,91 @@ A cross-platform LaTeX distribution.
 
 
 ###################################################
-##### (1.2) Getting started > Installation
+##### LaTeX Setup
 ###################################################
+
+
+
+$ LaTeX Distributions $
+
+MiKTeX
+LaTeX package distribution for windows.
+https://miktex.org/download
+As of 21 March 2018.
+
+
+TeX Live
+A cross-platform LaTeX distribution.
+https://www.tug.org/texlive/
+As of 21 March 2018.
+
+
+
+
+
+
+
 
 
 $ Editors $
 
-Texmaker, TeXstudio, TeXworks.
+https://tex.stackexchange.com/questions/339/latex-editors-ides
+
+
+
+> IDE Texmaker (Midway)
+Supports LaTeX syntax
+Built-in Viewer: Yes
+Console: No
+Project Management: Yes
+
+
+
+> IDE TeXStudio (Advanced)
+Supports LaTeX syntax
+Built-in Viewer: Yes
+Console: No
+Project Management: Yes
+
++ Multi views
++ Multiple cursors
+
+
+
+> IDE TeXworks (Beginner)
+Supports LaTeX syntax
+Built-in Viewer: Yes
+Console: No
+Project Management: No
+
+- Code Folding
+
+
+
+> IDE Kile (Midway)
+Supports LaTeX syntax
+Built-in Viewer: Limited
+Console: Yes
+Project Management: Yes
+
++ Code Folding customizable
+
+
+
+> IDE Emacs with AUCTeX (Advanced)
+Supports LaTeX, ConTeXt, docTeX syntax
+Built-in Viewer: Yes
+Project Management: Limited
+
+
+
+> IDE Vim with LaTeX-suite (Advanced)
+Supports LaTeX syntax
+Built-in Viewer: No
+Project Management: No
+
++ Code Completion extremely customizable
++ Regular Expressions
 
 
 
@@ -72,56 +236,96 @@ Texmaker, TeXstudio, TeXworks.
 
 
 ###################################################
-##### (2.1) Common Elements > Document Structure
+##### Top Matter
+##### LaTeX Mechanics and Advanced Mechanics
 ###################################################
 
 
 
-$ Document class $
+The top matter consists of the preamble of a TeX document.
+Usually starts with a document class declaration, followed by
+multiple package include commands, followed by style declarations
+and command definitions.
 
-\documentclass
+
+
+
+
+$ Document Class $
+
 \documentclass[OPTIONS]{CLASS}
 
 Declares the document class type, and further options (optional).
 
-Common:
-\documentclass{article}
-\documentclass[12pt,a4paper,oneside]{article}
-\documentclass[12pt,a4paper,titlepage,twoside,leqno]{article}
-
-#### CLASS
-Specifies document class. One only
+Class
+Specifies document class. One only.
 
 	article
-		- usual
+		- Does not support chapters.
+		- Does not support matter sectioning.
+		+ Supports abstract.
+		The default settings favour short documents and papers.
+		Used for scientific papers, journals, short reports, ...
+	
 	report
+		+ Supports chapters.
+		- Does not support matter sectioning.
+		+ Supports abstract.
+		The standard for longer scientific reports, thesis, small books.
+	
 	book
-	...
+		+ Supports chapters.
+		+ Supports matter sectioning.
+		- Does not support abstract.
+		The standard for writing to be printed book documents.
 
-#### OPTIONS
-Optional.
+	OTHER Standard classes:
+	letter
+	slides
+	subfiles
+		To be used with the subfiles package. Check the package info.
+
+	
+
+Options
+Everything is optional. Some options are forwarded to packages.
 Specifies document options. Comma separated.
 Bold is default options for article class.*
 
 	[10pt], 11pt, 12pt, ...
-		- document default font size
+		- Specifies the document's normal font size.
+		All other font sizes are a function of this font size.
+
 	[a4paper], a5paper, letterpaper, ...
-		- document paper size. Default for pdfLaTeX is a4paper
-	leqno
-		- numbers the formulas on the left side instead of the right side
+		- Document paper size. Default for pdfLaTeX is a4paper.
+		The paper size should be kept unmodified throughout the document.
+
+	leqno, [reqno]
+		- Number equations and formulas on the left or right side.
+
 	[notitlepage], titlepage
-		- do or do not create new page after first document title page
-	twocolumn
-		- typeset document in two columns instead of just one
+		- Include a separate page for the document's title page,
+		which includes title, author, date.
+
+	[onecolumn], twocolumn
+		- Typeset document in one or two columns.
+
 	[oneside], twoside
-		- single or double sided output (not relevant for printing)
-	landscape
-		- changes the layout of the document to print in landscape mode
+		- In twoside mode, pages alternate between odd sided and even sided.
+		The layout of the page's content in the page itself depends on whether
+		it is an odd or an even numbered page.
+
+	landscape, [portrait]
+		- Layout of the document's content in the pages.
+
 	fleqn
-		- typesets formulas left-aligned instead of center-aligned
+		- Typesets formulas left-aligned instead of center-aligned.
+		They may then be indented from the left side of the paper by
+		a fixed preset amount.
+
 	draft
-		- indicate hyphenation and justification problems
-		- do not build images, only include frame for them
+		- Indicate hyphenation and justification problems
+		- Do not build images, only include frame for them
 
 
 
@@ -134,18 +338,30 @@ Bold is default options for article class.*
 
 $ Package $
 
+\RequirePackage{PACKAGE}
 \usepackage{PACKAGE}
 \usepackage[OPTIONS]{PACKAGE}
 
-Includes designated package into the document.
+Includes designated package PACKAGE into the document.
 Options are package specific.
 
+A package in LaTeX is like an include in C++ or an import in Java:
+It brings forth extra features for LaTeX, a better user interface to accomplish
+mundane or tedious and long tasks with shorter and easier to understand command,
+or even both.
+
+Usual entry level examples of packages include inputenc, amsmath and geometry.
+
+At the end of this text you'll find a list of packages and their features.
+
+\RequirePackage can be used before a document class declaration, while a \usepackage
+declaration cannot.
+
+In LaTeX .tex files, \usepackage should be used, after loading the document class.
+In package files or style .sty files, \RequirePackage should be used instead.
+
 ! Search for "> Package NAME" in this document to find places that NAME appears in.
-
-Most Important packages:
-
-inputenc, lmodern, babel, geometry, amsmath, mathtools, amsthm, hyperref, cleverref,
-graphicx, array,
+! Searching for "§ NAME" will redirect you to that package's summary immediately.
 
 
 
@@ -158,9 +374,18 @@ graphicx, array,
 
 $ Environment $
 
-\begin{ENVIRONMENT}, \end{ENVIRONMENT}
+\begin{ENVIRONMENT}
+...
+\end{ENVIRONMENT}
 
-Everything in between \begin and \end will be affected by the ENVIRONMENT settings.
+An environment is a delimited region of a TeX document which is affected by some
+predefined settings, say a different font or fontsize, a different alignment, etc.
+
+Internally, \begin{ENVIRONMENT} is an alias for some sequence of TeX commands,
+and \end{ENVIRONMENT} is an alias for another such sequence.
+The \end tends to reset settings changed by the \begin, such as entering
+math mode or increasing font size, and also closes other nested environments
+that were created with \begin
 
 ! Search for "> Environment NAME" in this document to find places that NAME appears in.
 
@@ -173,15 +398,28 @@ Everything in between \begin and \end will be affected by the ENVIRONMENT settin
 
 
 
-$ Header $
+$ Document Title $
 
-\title, \author, \date, \maketitle
-\title{TITLE}
-\author{AUTHOR}
-\date{DATE}
+(1) \title{TITLE}
+(2) \author{AUTHOR}
+(3) \date{DATE}
+(4) \maketitle
 
-Declares the document's title, author and date.
-Finally \maketitle typesets the document's header, with title, author and date.
+Declares the document's title (1), author (2) and date (3).
+If the date is not set, the current date is used automatically,
+written in full in the document's current language.
+
+To change the document's default language, use babel or polyglossia packages.
+
+> Package babel: To set the document's languages.
+> Package polyglossia
+
+Finally, the command \maketitle (4) somewhere inside the document environment
+typesets the document's header, with title, author and date.
+
+This header, along with many others, may be costumised with the titlesec package.
+
+> Package titlesec: Formatting and styling titles, headers and sections.
 
 
 
@@ -194,9 +432,13 @@ Finally \maketitle typesets the document's header, with title, author and date.
 
 $ Document Environment $
 
-\begin{document}, \end{document}
+\begin{document}
+...
+\end{document}
 
 Declares the beginning and end of the document's contents, respectively.
+All of the document's actual content goes inside this environment.
+The end of the TeX file should coincide with the \end{document} command in most cases.
 
 > Environment document
 
@@ -211,13 +453,15 @@ Declares the beginning and end of the document's contents, respectively.
 
 $ Abstract Environment $
 
-\begin{abstract}, \end{abstract}
+\begin{abstract}
+...
+\end{abstract}
 
 \abstractname
 \renewcommand{\abstractname}{My Abstract Title}
 
 Declares the beginning and end of the article's abstract section.
-The default title \abstractname is "Abstract", it may be changed with renewcommand.
+The default title \abstractname is "Abstract", it may be changed with \renewcommand.
 
 > Environment abstract
 
@@ -234,7 +478,7 @@ $ Sections $
 
 \part, \chapter, \section, \subsection, \subsubsection, \paragraph, \subparagraph
 
-DEPTH   levels				DEFAULT NUMBERING
+DEPTH   levels (...)		DEFAULT NUMBERING
  -1  =  \part				Part I, Part II, ...
   0  =  \chapter			Decimal numbering
   1  =  \section 			Decimal numbering
@@ -243,48 +487,530 @@ DEPTH   levels				DEFAULT NUMBERING
   4  =  \paragraph
   5  =  \subparagraph
 
+Using ... as an alias of any of the levels part, chapter, ..., subparagraph above:
+
 (1) \...{NAME}
-(2) \...[Alternative]{NAME}
-(3) \setcounter{secnumdepth}{X}
-(4) \setcounter{tocdepth}{X}
-(5) \...*{NAME}
+(2) \...[ALT]{NAME}
+(3) \...*{NAME}
+(4) \setcounter{secnumdepth}{X}
+(5) \addcontentsline{toc}{...}{NAME}
 
 Sectioning commands for the document.
 All types of sections are opened and never closed.
 
-Use (1) to open a section with NAME in the document.
-Use (2) when NAME is long. Alternative will be the placeholder in the Table of Contents.
+Use (1) to open a given level with NAME in the document.
 
-Numbering by default is set to depth 3, that is, levels -1 through 3 get numbered,
-paragraphs do not. To change numbering depth, use (3).
+Use (2) when the given level's NAME is long, or you'd prefer a different title
+to show up in the Table of Contents.
+ALT will be the placeholder in the Table of Contents.
 
-To specify the depth of the Table of Contents, use (4).
+Use (3) to specify an unnumbered section which is not to be
+included in the Table of Contents.
 
-To specify an unnumbered section which is not included in the Table of Contents,
-use (5).
+> Package unnumberedtotoc: to add unnumbered sections to the Table of Contents.
 
-> Package unnumberedtotoc: to add unnumbered section to the Table of Contents.
+Numbering in the article class by default is set to depth 3, that is,
+levels -1 (part) through 3 (subsubsection) get assigned number, and paragraphs do not.
+(4) To edit numbering depth, change the value of the counter secnumdepth.
 
-
-
-
-
-
+Use (5) to manually include a section ... in the Table of Contents.
 
 
 
 
-$ Table of Contents $
+
+
+
+
+
+
+$ Table of Contents, List of Figures and Tables $
 
 \tableofcontents, \listoffigures, \listoftables
 
+(1) \setcounter{tocdepth}{X}
+
 \contentsname, \listfigurename, \listtablename
-\renewcommand{\...name}{NAME}
+(2) \renewcommand{\...name}{NAME}
 
-Prints the Table of Contents of the entire document in this location.
-The other two print a list of figures and a list of tables.
 
-These tables' default name may be changed.
+The document's Table of Contents is a formatted sublisted list of all parts,
+chapters and sections of the document, which is to say it is the document's index.
+
+The Table of Contents may be printed anywhere on the document with \tableofcontents,
+and it will include all sectioning commands declared prior and after this command.
+This may, however, require compiling the document twice with the Engine, so it may
+build an index file on the first compilation and build the Table from it on the
+second compilation.
+
+The other two commands \listoffigures and \listoftables are similar and should
+be used in par. For more information see floats and the respective environments.
+
+Use (1) to change the depth to which the Table of Contents lists the various
+subsectioning commands in the document. Default for tocdepth is 3, meaning
+the Table of Contents will list up to subsubsections but not paragraphs.
+
+Use (2) with the appropriate command to change one of the table's title.
+
+> Environment figure
+> Environment table
+
+
+
+
+
+
+
+
+
+
+$ Style Files $
+
+User created .sty files behave (and are) TeX packages, which may contain other
+package includes themselves, new environment definitions, new commands,
+style declarations, etc. for use in TeX documents.
+
+The syntax inside a .sty is the same as that of the preamble of a .tex file.
+Keep in mind that a package should be included with \RequirePackage in a .sty file,
+to allow including said package in a TeX document prior to a document class declaration.
+
+To include file.sty in your TeX file document.tex, use
+
+\usepackage{/absolute/path/to/file.sty}
+or
+\usepackage{./relative/path/to/file.sty}
+
+
+
+
+
+
+
+
+
+
+$ Comments $
+
+% COMMENT
+
+To write a comment in TeX you use the above syntax.
+Whatever follows % will be commented out.
+
+For multiline comments:
+
+> Package comment
+> Package verbatim
+> Environment comment
+
+
+
+
+
+
+
+
+
+
+$$ Command Syntax and Definition, Macros, Environment Definition $$
+
+$ Command Syntax $
+
+\command{Arg#1}{Arg#2}[(Opt) Arg#3]...{Arg#n}[(Opt) Arg#m]
+	% n >= 0, m >= 0.
+
+A command in LaTeX has the above syntax. The arguments of command are written in
+between {} or [], according to whether they are mandatory or optional, respectively.
+
+The command does not need to be written all in one line.
+
+A special syntax case: when \command takes only one non-alphabetic character
+as argument, for example '|'. Then it may be called as \command|, without the {}.
+When \command takes only one argument, if that argument is another macro the {}
+around Arg#1 are optional. The \command behaves as a modifier for the argument macro.
+
+Examples: \begin and \end are important commands, which take as first argument
+the name of a previously declared environment. Then the argument passed to 
+begin{ENVIRONMENT} are forwarded to the environment definition macro.
+
+
+
+$ Command Definition $
+
+The standard TeX way:
+(0.1) \def\COMMAND#1#2...#n{BODY}
+(0.2) \long\def\COMMAND#1#2...#n{BODY}
+Suggestion: use this syntax only inside command definitions.
+
+The standard LaTeX way:
+(1) \newcommand{\COMMAND}[ARGC]{BODY} 				% 0 <= ARGC <= 9
+(2) \newcommand*{\COMMAND}[ARGC]{BODY} 				% 0 <= ARGC <= 9
+(3) \newcommand*{\COMMAND}[ARGC][DEF1]{BODY}		% 0  < ARGC <= 9
+
+Creates a command with name COMMAND which may be "called" anywhere after in the
+document by simply writing \COMMAND.
+
+The command will be replaced inplace with BODY, just like a macro.
+Thus commands are often called "macros".
+
+The macro may take a number of arguments given by ARGC.
+If ARGC is 0, i.e. it takes no argument, it may be ommited.
+
+Inside BODY, the arguments may be accessed by #1, #2, ...
+
+The difference between \newcommand and \newcommand* is merely technical:
+Only the first one accepts arguments with multiple paragraphs, either those
+separated by two blank lines or by explicit \par tokens.
+If your command's arguments are short and you can guarantee they should not
+take multi paragraph arguments, use (2). For commands with no arguments,
+the convention is to use (2) as well.
+
+Formats (1) and (2) only take mandatory arguments.
+Format (3) takes ARGC arguments but the first one is optional, written with []
+instead of {}, and takes by default the value DEF1 if not specified.
+
+With standard LaTeX new commands may only have one default argument and up to
+9 total arguments.
+
+
+
+$ Command Definition Improvements $
+
+To write more complex commands, consider using packages:
+
+> Package xparse
+> Package xargs
+> Package xifthen: Implements \ifthenelse{}{}, \isempty{} and \equal{},
+very useful and intuitive commands for macro writing.
+
+
+
+$ Argument Relaying $
+
+Another option for achieving more than one default argument is command relaying.
+Better explained with an example:
+
+\newcommand{\COMMAND}[2][DEF1]{
+  \def\ArgI{{#1}} 		% Relay #1 into \ArgI
+  \COMMANDRelay1
+}
+\newcommand{\COMMANDRelayI}[1][DEF2]{
+  % #1 from \COMMAND is in \ArgI
+  % \ArgI
+  % #2 from \COMMAND is #1 here.
+  % You can relay further and further.
+  ...
+}
+
+The trick here is the argument {#1} is stored into a private command \ArgI
+(and wrapped around {} to avoid errors) which only exists inside \COMMAND.
+\COMMANDRelayI has access to this argument through \ArgI.
+
+You can relay as deep as you wish.
+
+
+
+$ Makeatletter, Makeatother $
+
+Because in LaTeX there is no concept of closure, any variables declared inside
+loaded packages are accessible to the end user.
+
+To create a level of abstraction and prevent the user from overwriting some
+package internal command, the '@' character is a special character reserved for
+package commands. The user cannot in a normal situation include the @ symbol
+in a command call, command definition, etc.
+
+To access an internal macro written with '@' in a TeX file, you must explicitely
+declare you want permission to access the @ commands with \makeatletter.
+Once done you recall such a permission with \makeatother.
+
+\makeatletter
+% Can use commands with @, such as \abc@def.
+\makeatother
+% Can no longer access such commands.
+
+
+
+$ Redefine Commands $
+
+(1) \renewcommand{\COMMAND}[ARGC]{BODY} 			% 0 <= ARGC <= 9
+(2) \renewcommand*{\COMMAND}[ARGC]{BODY} 			% 0 <= ARGC <= 9
+(3) \renewcommand*{\COMMAND}[ARGC][DEF1]{BODY}		% 0  < ARGC <= 9
+
+To redefine \COMMAND, use (1) through (3) just like you would
+if you were defining the command for the first time.
+
+To "create" a command if it doesn't exist, and guarantee you can use
+\renewcommand* instead of \newcommand* everywhere
+(useful when you're writing style files or packages):
+
+\providecommand{\COMMAND}{}		% before \renewcommand*
+
+
+
+$ Define Environments, Redefine Environments $
+
+\newenvironment{ENV}[ARGC]{BEGIN}{END} 				% 0 <= ARGC <= 9
+\newenvironment*{ENV}[ARGC]{BEGIN}{END} 			% 0 <= ARGC <= 9
+\newenvironment*{ENV}[ARGC][DEF1]{BEGIN}{END}		% 0  < ARGC <= 9
+
+The syntax is very similar to that of \newcommand.
+
+When defining a command, the BODY replaces the \COMMAND...{...} declaration.
+Here, BEGIN replaces the \begin{ENV} declaration and END replaces the \end{ENV}
+declaration.
+
+Only the BEGIN part has access to the environment's arguments, accessible
+through #1, #2, ...
+
+To make them accessible to \end, you can relay them inside BEGIN,
+just like relaying commands.
+
+You can also redefine environments just like commands:
+
+\newenvironment{ENV}[ARGC]{BEGIN}{END} 				% 0 <= ARGC <= 9
+\newenvironment*{ENV}[ARGC]{BEGIN}{END} 			% 0 <= ARGC <= 9
+\newenvironment*{ENV}[ARGC][DEF1]{BEGIN}{END}		% 0  < ARGC <= 9
+
+The provide environment command is not standard LaTeX however. You'll
+need a package to use it.
+
+
+
+$ Star Version $
+
+Commands and environments have starred versions
+
+\COMMAND{...} 		\begin{ENV}  ... \end{ENV} 			% Non-starred version
+\COMMAND*{...} 		\begin{ENV*} ... \end{ENV} 			% Starred version
+
+The normally defined version is the starred version.
+There are multiple ways to define the starred version.
+
+The standard way without packages is using the @ idiom, relaying the public
+command to one of two private commands:
+
+\makeatletter
+\def\COMMAND{\@ifstar\@COMMAND\@@COMMAND}
+\def\@COMMAND#1...{...}
+\def\@@COMMAND#1...{...}
+\makeatother
+
+
+
+$ Command Packages $
+
+There are infinitely many packages out there to facilitate command definition,
+although as you can see above none of them are explicitely required.
+
+Repo of packages I've found so far:
+> Package xparse (LaTeX3)
+> Package suffix: Provides \WithSuffix for star version of commands.
+> Package ifthen
+> Package xifthen (LaTeX3)
+> Package xargs (LaTeX3)
+> Package keyval
+> Package xkeyval (LaTeX3)
+
+
+
+$ Switch Command, Blocks, Groups $
+
+A switch command is a command that in some way modifies all document content
+placed thereafter, but doesn't output any content itself.
+
+The scope of the switch command can be reduced by surrounding all the content
+it is meant to modify with {}, creating a group.
+
+{\someswitchcommand ... CONTENT ...}
+
+Some TeX editors allow groups to be code-folded, so creating these can
+be beneficial to decrease complexity.
+
+
+
+
+
+
+
+
+
+
+$ \the Command $
+
+Source: https://tex.stackexchange.com/questions/38674/the-the-command
+
+The Engine's TeX core keeps many registers and internal parameters of different types
+(lengths, counters, ...) who value can be retrieved explicitely using \the.
+
+\the\COMMAND
+
+In general, \the extracts a representation of the value assigned to \command.
+
+That assignment to \command can be
+  explicit (user or package defined):
+	\COMMAND=2cm 	% Explicit length assignment
+  implicit (core defined):
+    \year			% Assigned its value by the Engine, at the start
+  read only (engine defined):
+    \badness 	    % Changes throughout the processing of the document
+
+» If \COUNTER was defined as a counter, \the\COUNTER gives the counter's decimal value
+
+» If \LENGTH was defined as a length, \the\LENGTH gives the length stored value
+as a float pt string, such as 2.0pt
+
+
+
+
+
+
+
+
+
+
+$$ Lengths, Units and Counters $$
+
+$ Length $
+In TeX, a length is:
+
+- A floating point number followed by a UNIT,
+optionally followed by stretching values.
+
+Ex:
+	3.5pt plus 1pt minus 2pt
+	5cm plus 2pt
+
+- A floating point factor followed by a macro
+that expands to a length. % Requires package calc
+
+Ex:
+	1.7\textwidth
+	.5\textheight
+
+Default length everywhere if unspecified: 1pt
+
+> Package calc: infix notation arithmetic.
+
+
+
+
+
+$ Length Manipulation $
+
+% TeX
+(0.1) \newdimen\mylength
+(0.2) \mylength=LENGTH
+
+
+% High-Level LaTeX (some require package calc)
+(1) \newlength{\mylength} 	
+(2) \setlength{\mylength}{LENGTH}
+(3) \addtolength{\mylength}{LENGTH}
+
+(4) \settowidth{\mylength}{some text}
+(5) \settoheight{\mylength}{some text}
+(6) \settodepth{\mylength}{some text}
+(7) \settototalheight{\mylength}{some text}
+
+(0.1, 1) Create a new Length (register) variable named mylength.
+(0.2, 2) Set the value of the mylength variable.
+
+(3) (Arithmetic) Add a LENGTH value to the mylength variable.
+
+(4,5,6,7) See text box dimensions below.
+
+\the\somelength
+
+Returns the value of the length variable, coerced to a string.
+
+> Package pgfmath: Length manipulation, conversion between units.
+
+
+
+
+
+$ Units $
+
+ABBREV          DEFINITION                  VALUE IN pt
+pt              -- (typographic unit)       1
+mm              A millimeter                2.84 = 7227/2540
+cm              A centimer                  28.4 = 7227/2540
+in              An inch                     72.27
+ex              Roughly the height of an x in the current font
+em              Roughly the width of an M in the current font
+Others: bp, pc, dd, cc, nd, nc, sp
+
+Default unit: pt
+
+
+
+
+
+$ Box Dimensions $
+
+All boxes in TeX have three dimensions, given in units:
+
+height          The length between the baseline and the top of the box.
+depth           The length between the baseline and the bottom of the box.
+width           Width of the box.
+
+This means the visual width of the box is width,
+while the visual height of the box is height+depth.
+
+
+
+
+
+$ Default Lengths $
+
+\baselineskip
+The normal vertical distance between lines in a paragraph.
+
+\baselinestretch
+A factor multiplying \baselineskip.
+Has to be set with \renewcommand{\baselinestretch}{factor}
+
+\columnsep
+The distance between columns.
+
+\columnwidth
+The width of the column.
+
+\evensidemargin
+The margin for 'even' pages (think of a printed booklet).
+
+\linewidth
+The width of a line in the local environment.
+
+\oddsidemargin
+The margin for 'odd' pages (think of a printed booklet).
+
+\paperwidth
+The width of the page.
+
+\paperheight
+The height of the page.
+
+\parindent
+The normal paragraph indentation.
+
+\parskip
+The extra vertical space between paragraphs.
+
+\tabcolsep
+The default separation between columns in a tabular environment.
+
+\textheight
+The height of text on the page.
+
+\textwidth
+The width of the text on the page.
+
+\topmargin
+The size of the top margin.
+
+\unitlength
+Units of length in picture environment.
 
 
 
@@ -306,198 +1032,239 @@ These tables' default name may be changed.
 
 
 ###################################################
-##### (2.2) Common Elements > Text Formatting
+##### Text Spacing
 ###################################################
 
 
 
-$ Spacing $
+$$ General Text Spacing $$
+
+$ Basic Spacing (Horizontal and Vertical) $
+
+\hspace{LENGTH}, \vspace{LENGTH}
+\hspace*{LENGTH}, \vspace*{LENGTH}
+
+Inserts a fixed-length space.
+
+If the space should be kept even if it falls at the end or the start
+of a line, or the top or the bottom of a page, use star version.
+
+
+
+
+
+$ Predefined Horizontal Spacing (Horizontal) $
+
+% More professional (font dependent sizes)
+\, 			%  0.1667 em 		3/18 of a quad
+\: 			%  0.2227 em 		4/18 of a quad
+\; 			%  0.2777 em 		5/18 of a quad
+\! 			% -0.1667 em 	   -3/18 of a quad 			
+\enskip 	%  0.5 em
+\quad 		%  1.0 em
+\qquad 		%  2.0 em
+
+Insert a space in horizontal mode.
+
+
+
+
+
+$ Predefined Vertical Spacing (Vertical) $
+
+% Style enforcing
+\smallskip
+\medskip
+\bigskip
+
+Insert a space in vertical mode (between two paragraphs).
+
+% More professional
+\smallbreak
+\medbreak
+\bigbreak
+
+Do almost the same, but remove a preceding vertical space if it would be less
+than what they would insert, and don't otherwise. They terminate the paragraph
+and pinpoint a good page break position.
+
+\newline
+\\
+\\*
+\\[EXTRA-SPACE]
+\\*[EXTRA-SPACE]
+
+If used in the middle of a line, it breaks the line, meaning that following text
+continues on the next line. If used at the end of a line, the next line begins on
+the next line. If used at the end of a paragraph, adds a virtual space equivalent
+of one line of text before the next paragraph.
+
+\newline and \\ are equivalent in running text. \\ has wildly different
+meanings when used inside many tabular-like environments.
+
+The star version \\* newlines and prevents a page break.
+The EXTRA-SPACE argument specifies the space between the lines.
+
+Also: \linebreak[N], \par.
+
+
+
+
+
+$ Stretch, Fill Line (Horizontal and Vertical, Alignment) $
+
+\stretch{FACTOR}
+
+Stretches until all the remaining space on a line is filled up.
+
+Use in conjunction with \vspace(*) and \hspace(*).
+
+» Horizontal stretch:
+TEXT \hspace{\stretch{1}} TEXT \hspace{\stretch{4}} TEXT
+
+becomes ...
+
+|TEXT    TEXT                TEXT|
+
+» Vertical stretch:
+TEXT
+\vspace{\stretch{1}}
+TEXT
+\vspace{\stretch{3}}
+TEXT
+
+becomes ...
+
+----
+TEXT
+
+TEXT
+
+
+
+TEXT
+----
+
+
+
+Line Fillings:
+
+\hfill      	% produces empty space.
+\dotfill    	% produces dots.
+\hrulefill  	% produces a rule.
+
+
+
+
+
+$ Line Spread, Line Distance (Vertical) $
 
 \linespread{FACTOR}
 
 Changes the default line spread in the document.
-Default FACTOR is 1.
-FACTOR 1.3 is "one and a half" line spacing.
-FACTOR 1.6 is "double" line spacing.
+FACTOR = 1   is default.
+FACTOR = 1.3 is considered "one and a half" line spacing.
+FACTOR = 1.6 is considered "double" line spacing.
+Experiment with various values!
 
-> Package setspace: better line spacing control.
+> Package setspace: provides better line spacing control.
 
 
 
 
+
+$ Non Breaking Space, Tilde (Vertical) $
 
 ~
 
-Use '~' instead of ' ' for a whitespace which cannot be newlined.
-Useful if it is important for two words to be read on the same line, as separating them
-might affect readability.
+Use '~' instead of ' ' (a space) for a whitespace which cannot be newlined
+(in TeX terminology, it cannot be broken).
+Example: D.~E.~Knuth
+Useful if it is important for two words to be read on the same line,
+as separating them might affect readability,
+or to enforce a specific layout of elements, or to fix a bad hbox, etc...
 
 
 
 
 
-\hfill
-\vfill
+$ Space Fill (Horizontal and Vertical) $
 
-Insert an horizontal stretched space. Everything after gets pushed to the right margin.
-Insert a vertical stretched space. Everything is pushed to the end of the page.
+(1) \hfill 		<=> 	\hspace\fill
+(2) \vfill 		<=> 	\vspace\fill
+(3) \fill
 
+(1) Inserts an horizontal stretched space.
+Everything after gets pushed to the right margin.
 
+(2) Inserts a vertical stretched space.
+Everything is pushed to the end of the page.
 
-
-
-\mbox{TEXT}
-\fbox{TEXT}
-
-The given TEXT cannot be hyphenated or broken into multiple lines.
-The fbox additionally adds a box around TEXT.
+(3) This is meant to be used in conjunction with other commands.
 
 
 
 
+
+$ Symbol Ligature (Aesthetic) $
 
 {}
 
-Prohibit a symbol ligature, like f{}f instead of ff.
+Prohibit a symbol ligature, like f{}f (separated fs) instead of ff (connected fs).
 
 
 
 
 
-\slash
-/\hspace{0pt}
-\slash\hspace{0pt}
+$ Slash (Horizontal) $
 
-Using '/' prohibits newlining, \slash allows newlining after it.
-To allow hyphenation of the second word, use the one of the other forms.
+(1) /
+(2) \slash
+(3) /\hspace{0pt}
+(4) \slash\hspace{0pt}
 
+(1) Using 'WORD/WORD2' prohibits newlining, forcing WORD and WORD2 to be written
+in the same line. This goes against LaTeX philosophy.
 
+(2) \slash allows newlining after it, and writes the same character.
 
+(3) Allows hyphenation of the second word, that is, allows WORD2 to be broken
+into two lines and properly hyphenated. Still does not allow breaking at the '/'.
 
+(4) Allows hyphenation and breaking at the '/'.
 
 
 
 
 
 
-$ Quotes $
 
-The characters " " are different entities.
 
-A `quote' in LaTeX.
-A ``quote'' in LaTeX.
 
 
+$$ Paragraphs $$
 
+To start a new paragraph, leave an empty blank line (that is, 2 consecutive newlines):
+TEXT...
 
+TEXT...
 
+\par
+To force a new paragraph.
 
 
-
-
-
-$ Macros $
-\newcommand{\COMMAND}[ARGC]{BODY}
-\renewcommand{\COMMAND}[ARGC]{BODY}
-
-Creates a macro command with given name \COMMAND.
-The macro may take a number of arguments given by ARGC. If ARGC is 0 it should be ommited.
-BODY is the macro body. The arguments may be accessed by #1, #2, ...
-
-
-
-
-
-
-
-
-
-
-\textsubscript{TEXT}
-\textsuperscript{TEXT}
-
-For subscripting and superscripting text (not math).
-
-
-
-
-
-
-
-
-
-
-$ Dashes Hyphens $
-
-(1) -		Hyphen 			Inter-word
-(2) --		En Dash 		Page range
-(3) --- 	Em Dash 		Punctuation dash
-(4) $-$		Math minus
-
-Use 1,2,3 naturally. Use 4 inside math mode.
-
-
-
-
-
-
-
-
-
-
-$ Ellipsis $
-
-...				Three very close dots
-\ldots			An ellipsis
-\textellipsis 	Allows spacing between dots to vary
-
-
-
-
-
-
-
-
-
-
-$ Default strings $
-\today			Current date
-\tex, \LaTeX, \LaTeXe
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-###################################################
-##### (2.3) Common Elements > Paragraph Formatting
-###################################################
 
 
 
 $ Paragraph Alignment $
 
-JUSTIFICATION 	ENVIRONMENT		COMMAND
+JUSTIFICATION 	ENVIRONMENT		SWITCH
 Left			flushleft		\raggedright
 Right			flushright		\raggedleft
 Center			center 			\centering
 
 All text between \begin{ENV} and \end{ENV} will be justified accordingly.
-Use commands as {\COMMAND{} TEXT}.
+Use switches as {\COMMAND{} TEXT}.
 
 > Environment flushleft
 > Environment flushright
@@ -507,13 +1274,9 @@ Use commands as {\COMMAND{} TEXT}.
 
 
 
-
-
-
-
-
 $ Paragraph Indentation $
 
+LENGTHS
 \parindent, \setlength{\parindent}{LENGTH}
 \parskip, \setlength{\parskip}{LENGTH}
 
@@ -528,13 +1291,9 @@ indentation and line spacing.
 
 
 
-
-
 \indent, \noindent
 
 Force paragraph indentation with \indent or \noindent.
-
-
 
 
 
@@ -552,48 +1311,268 @@ Add additional space at the left or right sides of each line of the following pa
 
 
 
+$$ Text Boxes $$
 
-$ Paragraph Section $
+$ Paragraph box, Parbox (Aesthetic) $
 
-\paragraph{TITLE} TEXT
-\paragraph{TITLE} \hspace{0pt} \\
-\paragraph{TITLE} ~\\
+% Very artificial and hard to make it look aesthetically good.
 
-In the first syntax, TEXT is written directly in front of TITLE.
-To write TEXT in a new line, use the second or third syntax.
+\parbox[pos][height][contentpos]{width}{TEXT}
+\usepackage{pbox}
+\pbox[pos][height]{width}{TEXT}
 
+> Package pbox
 
+Creates a paragraph box.
 
+width: the width of the paragraph box.
+The TEXT, which is written in a single line,
+is broken into lines and justified so that it fits inside the box.
 
+contentpos: how the TEXT is to be justified inside the box. Optional
+c   center
+t   top
+b   bottom
+s   spread
+Irrelevant if the box height is unspecified or the box is small.
 
+height: height of the parbox. Optional
 
-
-
-
-
-$ Manual Breaks $
-
-\newline, \\, \\*, \\[EXTRA-SPACE], \\*[EXTRA-SPACE]
-
-Variants that force break the line.
-\newline and \\ are usually equivalent.
-\\* newlines and prevents a page break.
-The EXTRA-SPACE argument changes the default space between the lines.
-
-Also: \linebreak[N], \par.
-
-
-
-
+pos: which baseline inside the box to align with the baseline outside the box.
+c   center
+t   top
+b   bottom
 
 
 
 
 
+$ Makebox, Mbox (Horizontal and Vertical) $
 
-$ Verbatim $
+\mbox{text}
+\makebox[width][pos]{text}
 
-\begin{verbatim}, \end{verbatim}
+The given text cannot be hyphenated nor broken into multiple lines.
+
+pos: how to fill the box
+c   center
+l   flushleft
+r   flushright
+s   spread
+
+width: the box width
+
+
+
+
+
+$ Framebox, Fbox (Aesthetic) $
+
+\fbox{text}
+\framebox[width][pos]{text}
+
+Same as Mbox, but additionally draws a box around its contents.
+
+Lengths related to fboxes:
+\fboxsep: distance between the frame and the content
+\fboxrule: the thickness of the 
+
+See also:
+\fcolorbox
+
+
+
+
+
+$ Savebox, Usebox $
+
+(1) \newsavebox{NAME}
+(2) \savebox{NAME}{CONTENT}
+(3) \usebox{NAME}
+
+(1) Creates a placeholder for storing content. Then (2) stores the specified
+content in the placeholder, not rendering it in the document. Then (3)
+renders the placeholder in the document at the present position.
+
+Use only in text mode.
+
+
+
+
+
+$ Fancybox, Doublebox, Ovalbox, Shadowbox $
+
+\usepackage{fancybox}
+\doublebox, \ovalbox, \shadowbox
+
+> Package fancybox
+
+
+
+
+
+
+
+
+
+
+$$ Miscellaneous Text Elements $$
+
+$ Quotes $
+
+The characters " " are different entities.
+
+A `quote' in LaTeX.
+A ``quote'' in LaTeX.
+
+
+
+
+
+$ Text Subscript, Superscript $
+\textsubscript{TEXT}
+\textsuperscript{TEXT}
+
+For subscripting and superscripting text (not math).
+
+
+
+
+
+$ Dashes Hyphens $
+
+(1) -		Hyphen 			Inter-word
+(2) --		En Dash 		Page range
+(3) --- 	Em Dash 		Punctuation dash
+
+Use naturally.
+
+
+
+
+
+$ Ellipsis $
+
+...				Three very close dots
+\dots, \ldots	An ellipsis
+\textellipsis 	Allows spacing between dots to vary
+
+
+
+
+
+$ Some default strings $
+\today			Current date
+\TeX
+\LaTeX
+\LaTeXe
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### Standard Environments
+###################################################
+
+Source: http://www.personal.ceu.hu/tex/environ.htm
+
+
+
+$ Center Environment, Center Paragraph $
+
+\begin{center}
+Text on line 1 \\
+Text on line 2 \\
+...
+\end{center}
+
+The center environment allows you to create a paragraph consisting of lines
+that are centered within the left and right margins on the current page.
+Each line must be terminated with \\.
+
+> Environment center
+
+{\centering ...}
+
+This switch is equivalent to the center environment.
+It may be used inside other environments.
+
+
+
+
+
+$ Description Environment, Labeled List $
+
+\begin{description}
+\item [label] First item
+\item [label] Second item
+...
+\end{description}
+
+Used to make labeled lists.
+The label is bold face and flushed right.
+
+> Environment description
+
+
+
+
+
+$ Enumerate Environment, List $
+
+\begin{enumerate}
+\item First item
+\item Second item
+\end{enumerate}
+
+The enumerate environment produces a numbered list.
+Enumerations can be nested within one another, up to four levels deep.
+They can also be nested within other paragraph-making environments.
+There must be at least one \item command within the environment.
+
+> Environment enumerate
+
+
+
+
+
+$ Eqnarray Environment, Equation Array $
+
+\begin{eqnarray}
+Math formula 1 & Math formula 1 \\
+Math formula 2 & Math formula 1 \\
+...
+\end{eqnarray}
+
+The eqnarray environment is used to display a sequence of equations or inequalities.
+It is very much like a three-column array environment, with consecutive rows
+separated by \\ and consecutive items within a row separated by an &.
+An equation number is placed on every line unless that line has a \nonumber command.
+
+
+
+
+$ Verbatim Environment $
+
+\begin{verbatim}
+...
+\end{verbatim}
 
 Everything written within the environment is reproduced verbatim,
 including spaces, newlines, indentation, ...
@@ -628,26 +1607,6 @@ Provided by package hyperref or url.
 
 > Package hyperref: The URL is clickable in the PDF.
 > Package url: The URL is not clickable
-
-
-
-
-
-
-
-
-
-
-$ Comment $
-
-% COMMENT
-
-COMMENT is not interpreted by the engine.
-For multiline comments:
-
-> Package comment
-> Package verbatim
-> Environment comment
 
 
 
@@ -4195,3 +5154,4 @@ $4 and $5 should be included in pretty much every document.
 
 
 
+§4 layout
