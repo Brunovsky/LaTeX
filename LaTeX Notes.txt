@@ -1494,6 +1494,56 @@ Source: http://www.personal.ceu.hu/tex/environ.htm
 
 
 
+$ Array Environment, Math Array $
+
+\begin{array}[pos]{col1col2…coln}		% tablespec=col1col2...coln
+item11 & item12 … & item1n \\
+item21 & item22 … & item2n \\
+
+...
+itemm1 & itemm2 … & itemmn %\\
+\end{array}
+
+The array math environment (within math mode) begins a math table,
+and is the math equivalent of the tabular environment.
+
+The pos argument specifies position relative to surrounding text
+b: bottom, c: center, t: top.
+If the array is in a paragraph of its own this is irrelevant.
+
+The tablespec argument describes the table columns (the number of columns is deduced).
+
+l               left-justified column
+c               centered column
+r               right-justified column
+p{'width'}      for wrapping cells
+m{'width'}      for wrapping cells
+b{'width'}      for wrapping cells
+|               vertical line column
+||              double vertical line column
+
+The | and || columns are implicit within the environment, and do not need to be
+delineated between &s.
+
+Within the environment:
+
+&               Column separator
+\\              Start new row
+\hline          Horizontal line spanning all columns. Write immediately after \\
+\newline        Newline within a cell
+\cline{i-j}     Partial horizontal line, spanning just columns i to j
+
+> Environment array
+
+
+
+
+
+
+
+
+
+
 $ Center Environment, Center Paragraph $
 
 \begin{center}
@@ -1502,9 +1552,11 @@ Text on line 2 \\
 ...
 \end{center}
 
-The center environment allows you to create a paragraph consisting of lines
+The center text environment allows you to create a paragraph consisting of lines
 that are centered within the left and right margins on the current page.
 Each line must be terminated with \\.
+
+This environments starts a new paragraph, and when it ends starts a new one.
 
 > Environment center
 
@@ -1512,6 +1564,11 @@ Each line must be terminated with \\.
 
 This switch is equivalent to the center environment.
 It may be used inside other environments.
+
+
+
+
+
 
 
 
@@ -1525,10 +1582,15 @@ $ Description Environment, Labeled List $
 ...
 \end{description}
 
-Used to make labeled lists.
+The description text environment is used to make labeled lists.
 The label is bold face and flushed right.
 
 > Environment description
+
+
+
+
+
 
 
 
@@ -1541,12 +1603,19 @@ $ Enumerate Environment, List $
 \item Second item
 \end{enumerate}
 
-The enumerate environment produces a numbered list.
+The enumerate text environment produces a numbered list.
 Enumerations can be nested within one another, up to four levels deep.
 They can also be nested within other paragraph-making environments.
 There must be at least one \item command within the environment.
 
+To get a bullet list instead use itemize.
+
 > Environment enumerate
+
+
+
+
+
 
 
 
@@ -1560,10 +1629,453 @@ Math formula 2 & Math formula 1 \\
 ...
 \end{eqnarray}
 
-The eqnarray environment is used to display a sequence of equations or inequalities.
+The eqnarray math environment is used to display a sequence of equations or inequalities.
 It is very much like a three-column array environment, with consecutive rows
 separated by \\ and consecutive items within a row separated by an &.
 An equation number is placed on every line unless that line has a \nonumber command.
+
+> Environment eqnarray
+
+
+
+
+
+
+
+
+
+
+$ Equation Environment $
+
+\begin{equation}
+Math formula
+\end{equation}
+
+The equation math environment centers your equation on the page
+and places the equation number in the right margin.
+The star version equation* does not number the equation (skips it).
+
+> Environment equation
+
+
+
+
+
+
+
+
+
+
+$ Figure Environment $
+
+\begin{figure}[placement]
+...
+\caption{figure title}
+...
+\end{figure}
+
+The figure environment creates a float of type figure.
+
+placement (default tbp) is an ordered sequence of preferences relating to the
+preferred positioning of the float in the document:
+
+VALUE 	 PREFERABLE POSITION
+h 		Here, in this position
+t 		Top of the next page
+b 		Bottom of a text page
+p 		Page of floats only
+
+The caption given is the figure's title.
+
+> Environment figure
+
+
+
+
+
+
+
+
+
+
+$ Flushleft Environment $
+
+\begin{flushleft}
+Text on line 1 \\
+Text on line 2 \\
+...
+\end{flushleft}
+
+The flushleft text environment pushes all lines to the left edge of the body,
+not justifying them with the right edge.
+
+> Environment flushleft
+
+{\raggedright ...}
+
+This switch is equivalent to the flushleft environment.
+It may be used inside other environments.
+
+
+
+
+
+
+
+
+
+
+$ Flushright Environment $
+
+\begin{flushright}
+Text on line 1 \\
+Text on line 2 \\
+...
+\end{flushright}
+
+The flushright text environment pushes all lines to the left edge of the body,
+not justifying them with the right edge.
+
+> Environment flushright
+
+{\raggedleft ...}
+
+This switch is equivalent to the flushright environment.
+It may be used inside other environments.
+
+
+
+
+
+
+
+
+
+
+$ Itemize Environment $
+
+\begin{itemize}
+\item First item
+\item Second item
+. . .
+\end{itemize}
+
+The itemize text environment produces a bullet list.
+Enumerations can be nested within one another, up to four levels deep.
+They can also be nested within other paragraph-making environments.
+There must be at least one \item command within the environment.
+
+To get a numbered list instead use enumerate.
+
+> Environment itemize
+
+
+
+
+
+
+
+
+
+
+$ List Environment $
+
+\begin{list}{label}{spacing}
+\item First item
+\item Second item
+...
+\end{list}
+
+The list text environment produces a list of items with customizable labels.
+The label argument specifies how items should be labeled.
+This argument is a piece of text that is inserted in a box to form the label.
+This argument can and usually does contain other commands.
+
+The spacing argument contains commands to change the spacing parameters for the list.
+
+> Environment list
+
+
+
+
+
+
+
+
+
+
+$ Minipage Environment $
+
+\begin{minipage}[position]{width}
+...
+\end{minipage}
+
+The minipage text environment produces a box similar to a parbox command.
+It creates a page abstraction inside a page itself.
+
+You may use other paragraph making environment inside a minipage, math environments,
+and so on.
+
+Footnotes in a minipage declared with \footnote or \footnotetext are kept inside
+the minipage environment, and put at the bottom of the minipage box instead of at
+the bottom of the page.
+
+The position argument specifies the minipage's baseline position with respect to
+the external baseline. If the minipage environment is in a paragraph of its own
+this will not matter.
+
+The width argument specifies the width of the minipage box.
+The height of the minipage is calculated automatically as a best fit.
+
+> Environment minipage
+
+
+
+
+
+
+
+
+
+
+$ Picture Environment $
+
+\begin{picture}(width,height)(x offset,y offset)
+...
+picture commands
+...
+\end{picture}
+
+The picture environment allows you to create just about any kind of picture
+you want containing text, lines, arrows and circles.
+
+Elements of the picture are specified through their position, which is
+a pair of coordinates.
+
+A coordinate is an integer or float measured in the default length \unitlength.
+
+A position is a pair of coordinates X,Y and denotes position of the element with
+respect to the origin of the picture, which is the lower-left corner.
+
+The picture environment has one mandatory argument, a position width,height.
+It specifies its nominal size. The environment produces a rectangular box
+with width and height determined by this argument, and reserves that much room
+for the picture.
+
+> Environment picture
+
+$ Picture Contents $
+
+Everything insude the picture is drawn by the \put command.
+
+\put (X,Y){TYPE}
+
+This puts the object specified by TYPE in the picture with its reference point at
+coordinates X,Y. The reference point depends on the TYPE.
+The \put command creates an LR box, so you can put anything in the text argument
+that you'd put into the argument of an \mbox and related commands. When you do this,
+the reference point will be the lower left corner of the box.
+
+	\circle{diameter}
+		Produces a circle of the specified diameter.
+		The star version circle* produces a filled circle.
+
+	\dashbox{dash length}(width,height){}
+
+	\frame{...}
+		Puts a rectangular frame around the object specified in the argument.
+		The reference point is the lower-left corner of the frame.
+		No extra space is put between the frame and the object.
+		Analogous to the \fbox text command
+
+	\framebox(width,height)[position]{...}
+		Analogous to the \framebox text command, but with specified height.
+
+	\line(x slope,y slope){length}
+		Draws the line with specified length and slope.
+
+	\linethickness{dimension}
+		Declares the thickness of horizontal and vertical lines only.
+		It does not affect slanted lines, circles, or boxes.
+
+	\makebox(width,height)[position]{...}
+		Analogous of the \makebox text command, but with specified height.
+		The optional argument position specifies the alignment of the text ...:
+		t, b, l, r.
+
+	\muliput(x coord,y coord)(delta x,delta y){number of copies}{object}
+		Use to place the same object in a regular pattern across a picture.
+
+	\oval(width,height)[portion]
+		Produces a rectangle with rounded corners.
+		The option portion selects part of the oval:
+		t, b, l, r.
+
+	\put(x,y){...}
+		Places the item specified in ... into position x,y.
+
+	\shortstack[position]{...\\...\\...}
+		Produces a stack of objects.
+		The valid positions are:
+		r Moves the objects to the right of the stack
+		l Moves the objects to the left of the stack
+		c Moves the objects to the center of the stack (default)
+
+	\vector(x slope,y slope){length}
+		Draws a line with an arrow of specified length and slope.
+		x and y in [-4, 4].
+
+
+
+
+
+
+
+
+
+
+$ Quotation Environment $
+
+\begin{quotation}
+...
+\end{quotation}
+
+The quotation text environment produces an environment indented on the left
+and on the right appropriate for insertion of quoted text.
+
+This environment can take multiple paragraphs.
+
+The text is justified and the first line in each paragraph is indented.
+
+> Environment quotation
+
+
+
+
+
+
+
+
+
+
+$ Quote Environment $
+
+\begin{quotation}
+...
+\end{quotation}
+
+The quote text environment produces an environment indented on the left
+and on the right appropriate for insertion of quoted text.
+
+This environment can take multiple paragraphs.
+
+All text is justified at both margins, with no paragraph indentation.
+
+> Environment quote
+
+
+
+
+
+
+
+
+
+
+$ Tabbing Environment $
+
+\begin{tabbing}
+text 1,1 \= text 1,2 \= ... \= text 1,m \\
+text 2,1 \> text 2,2 \> ... \> text 2,m \\
+text 3,1 \< text 3,2 \< ... \< text 3,m \\
+text 4,1 \+ text 4,2 \+ ... \+ text 4,m \\
+...
+text n,1 \- text n,2 \- ... \- text n,m %\\
+\end{tabbing}
+
+The tabbing text environment provides a way to align text in columns.
+It works by setting tab stops on the first line
+and tabbing to them on subsequent lines, like an ordinary typewriter.
+
+
+Tab Stops
+	First line:
+	\= Sets a TAB STOP at current column position.
+	\kill If used at the end of the line, the line's content will not
+	  be included in the output. The \=, \+ and \- included will remain in effect.
+
+	Within a line:
+	\> Advances to the next TAB STOP.
+
+	At the start of a line:
+	\< Writes something to the left of the margin.
+
+	Before the end of a line:
+	\+ Indent, move margin right one TAB STOP.
+	  Which is to say next line starts one TAB ahead.
+	\- Unindent, move margin left one TAB STOP.
+	  Which is to say next line starts one TAB behind.
+
+	\' Moves the current cell's contents to the left of the most
+	  recent tab stop (instead of the right as normal).
+	  Content not yet typed will not be moved.
+	\` All content that follows should be a single cell.
+	  Such content will be flushed to the right margin of the entire
+	  tabbing environment.
+	\\ Ends the current line, starting a new one and resetting the TAB STOP.
+
+
+
+
+
+
+
+
+
+
+$ Table Environment $
+
+\begin{table}[placement]
+...
+\caption{table title}
+...
+\end{table}
+
+\begin{figure}[placement]
+...
+\caption{figure title}
+...
+\end{figure}
+
+The figure environment creates a float of type figure.
+
+placement (default tbp) is an ordered sequence of preferences relating to the
+preferred positioning of the float in the document:
+
+VALUE 	 PREFERABLE POSITION
+h 		Here, in this position
+t 		Top of the next page
+b 		Bottom of a text page
+p 		Page of floats only
+
+The caption given is the figure's title.
+
+> Environment figure
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

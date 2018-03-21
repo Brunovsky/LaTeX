@@ -1,0 +1,128 @@
+\documentclass[environments-demo.tex]{subfiles}
+
+\begin{document}
+\section{array}
+\subsection{Making a Sudoku Board}
+
+A poor attempt at a sudoku matrix with array environment:
+
+$$
+\begin{array}[c]{c|c|c|c|c|c|c|c|c}
+5 & 3 &   &   & 7 &   &   &   &   \\
+6 &   &   & 1 & 9 & 5 &   &   &   \\
+  & 9 & 8 &   &   &   &   & 6 &   \\
+
+8 &   &   &   & 6 &   &   &   & 3 \\
+4 &   &   & 8 &   & 3 &   &   & 1 \\
+7 &   &   &   & 2 &   &   &   & 6 \\
+
+  & 6 &   &   &   &   & 2 & 8 &   \\
+  &   &   & 4 & 1 & 9 &   &   & 5 \\
+  &   &   &   & 8 &   &   & 7 & 9 \\
+\end{array}
+\qquad
+f(x)=ax^2+bx+c.\text{ I'm (c)enter aligned!}
+$$
+\bigskip
+
+Now with every third column double lined, and columns before and after too.
+
+Also, adding a few \textbackslash{cline\{i-j\}} here and there.
+
+$$
+\begin{array}[b]{|c|c|c||c|c|c||c|c|c|}
+5 & 3 &   &   & 7 &   &   &   &   \\
+6 &   &   & 1 & 9 & 5 &   &   &   \\\cline{4-6}
+  & 9 & 8 &   &   &   &   & 6 &   \\
+
+8 &   &   &   & 6 &   &   &   & 3 \\\cline{1-6}
+4 &   &   & 8 &   & 3 &   &   & 1 \\
+7 &   &   &   & 2 &   &   &   & 6 \\\cline{1-4}\cline{7-8}
+
+  & 6 &   &   &   &   & 2 & 8 &   \\
+  &   &   & 4 & 1 & 9 &   &   & 5 \\\hline\cline{5-9}
+  &   &   &   & 8 &   &   & 7 & 9 \\
+\end{array}
+\qquad
+f(x)=bx^2+cx+a.\text{ I'm (b)ottom aligned!}
+$$
+\bigskip
+
+Now adding horizontal lines with \textbackslash{line}.
+
+Also, you can have multiple math environments side by side!
+
+$$
+\begin{array}[t]{|c|c|c||c|c|c||c|c|c|}
+5 & 3 &   &   & 7 &   &   &   &   \\\hline
+6 &   &   & 1 & 9 & 5 &   &   &   \\\hline
+  & 9 & 8 &   &   &   &   & 6 &   \\\hline
+
+8 &   &   &   & 6 &   &   &   & 3 \\\hline
+4 &   &   & 8 &   & 3 &   &   & 1 \\\hline
+7 &   &   &   & 2 &   &   &   & 6 \\\hline
+
+  & 6 &   &   &   &   & 2 & 8 &   \\\hline
+  &   &   & 4 & 1 & 9 &   &   & 5 \\\hline
+  &   &   &   & 8 &   &   & 7 & 9 \\\hline
+\end{array}
+\qquad
+\qquad
+\begin{array}[t]{|c|c|c||c|c|c||c|c|c|}
+  &   &   & 5 & 4 &   &   &   & 8 \\\hline
+6 &   &   &   &   & 2 & 3 &   &   \\\hline
+  &   & 7 &   &   & 3 &   & 9 &   \\\hline
+
+  & 3 & 1 &   & 5 &   &   & 2 &   \\\hline
+  &   &   &   &   &   &   &   &   \\\hline
+  & 4 &   &   & 3 &   & 7 & 1 &   \\\hline
+
+  & 9 &   & 7 &   &   & 2 &   &   \\\hline
+  &   & 8 & 6 &   &   &   &   & 5 \\\hline
+1 &   &   &   & 2 & 4 &   &   &   \\\hline
+\end{array}
+$$
+\bigskip
+
+Finally adding the missing line on top and doubling every third line.
+
+Makes up for a pretty decent and quick sudoku. Solve it!
+
+
+$$
+\begin{array}[t]{|c|c|c||c|c|c||c|c|c|}
+\hline
+5 & 3 &   &   & 7 &   &   &   &   \\\hline
+6 &   &   & 1 & 9 & 5 &   &   &   \\\hline
+  & 9 & 8 &   &   &   &   & 6 &   \\\hline\cline{1-9}
+
+8 &   &   &   & 6 &   &   &   & 3 \\\hline
+4 &   &   & 8 &   & 3 &   &   & 1 \\\hline
+7 &   &   &   & 2 &   &   &   & 6 \\\hline\cline{1-9}
+
+  & 6 &   &   &   &   & 2 & 8 &   \\\hline
+  &   &   & 4 & 1 & 9 &   &   & 5 \\\hline
+  &   &   &   & 8 &   &   & 7 & 9 \\\hline
+\end{array}
+\qquad
+\qquad
+\begin{array}[t]{|c|c|c||c|c|c||c|c|c|}
+\hline
+  &   &   & 5 & 4 &   &   &   & 8 \\\hline
+6 &   &   &   &   & 2 & 3 &   &   \\\hline
+  &   & 7 &   &   & 3 &   & 9 &   \\\hline\hline
+
+  & 3 & 1 &   & 5 &   &   & 2 &   \\\hline
+  &   &   &   &   &   &   &   &   \\\hline
+  & 4 &   &   & 3 &   & 7 & 1 &   \\\hline\hline
+
+  & 9 &   & 7 &   &   & 2 &   &   \\\hline
+  &   & 8 & 6 &   &   &   &   & 5 \\\hline
+1 &   &   &   & 2 & 4 &   &   &   \\\hline
+\end{array}
+$$
+\bigskip
+
+Exercise (hard): Can you create the environment sudoku which is a wrapper for the above?
+
+\end{document}

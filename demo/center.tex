@@ -1,0 +1,65 @@
+\documentclass[environments-demo.tex]{subfiles}
+
+\begin{document}
+\section{center, flushleft, flushright, verbatim, quotation, quote, tabbing}
+
+A regular paragraph
+(first in the section, therefore not indented).
+\blindtext
+
+Another regular paragraph
+(not first in the section, therefore indented).
+\blindtext
+
+\begin{center}
+> Now a paragraph inside a center environment.
+\blindtext
+
+\blindtext
+\end{center}
+\begin{flushleft}
+> Now a paragraph inside a flushleft environment.
+Notice the space before and after the environment.
+The center environment automatically created a new paragraph.
+\blindtext
+\end{flushleft}
+
+\begin{flushright}
+> Now a paragraph inside a flushright environment.
+The flush environments do not automatically create new paragraphs. They also do not "indent" the first line.
+\blindtext
+\end{flushright}
+
+\begin{verbatim}
+    Inside the verbatim environment I can write
+               whatever I want,
+                               wherever I want!
+    Even commands \renewcommand{\documentclass}{} are ignored. \xesde
+\end{verbatim}
+
+\begin{quotation}
+A quotation environment.
+\blindtext
+\end{quotation}
+
+\begin{quote}
+A quote environment.
+\blindtext
+\end{quote}
+
+The following is a tabbing environment. It is pretty nasty and complicated,
+but extremely flexible and useful for creating new environments.
+
+\begin{tabbing}
+texttext 1,1 \= texttext 1,2 \= texttext 1,3 \= texttext 1,4 \= texttext 1,5 \= texttext 1,6 \kill
+text 2,1 \> text 2,2 \> text 2,3 \> text 2,4 \+\\
+text 3,1 \> text 3,2 \> text 3,3 \> text 3,4 \-\\
+text 4,1 \> text 4,2 \> text 4,3 \> text 4,4 \+\+\\
+text \' 5,1 \> text 5,2 \> text 5,3 \> text 5,4 \-\\
+text 6,1 \> text 6,2 \> text 6,3 \> text 6,4 \-\\
+text 7,1 \> text 7,2 \> text 7,3 \` text 7,4 \\
+text 8,1 \> text 8,2 \> text 8,3 \> text 8,4 \> text 8,5 \+\+\\
+\< hello \> text n,1 \> text n,2 \> text n,3 \> text n,4 %\\
+\end{tabbing}
+
+\end{document}
