@@ -71,7 +71,7 @@
 
 \newenvironment{anchor}
     {$\downharpoonright$}
-    {$\upharpoonleft$\\}
+    {$\upharpoonleft$}
 
 \newenvironment{note}
     {\small \begin{anchor}}
@@ -86,11 +86,11 @@
     {\end{anchor}}
 
 \newenvironment{lemma}[1][Lema]
-    {\bigskip\uline{#1} }
-    {\\}
+    {\uline{#1} }
+    {}
 
 \newenvironment{observation}[1]
-    {\bigskip\uline{#1.} \begin{note}}
+    {\uline{#1.} \begin{note}}
     {\end{note}}
 
 
