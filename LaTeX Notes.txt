@@ -1515,16 +1515,40 @@ strictly not necessary at all.
 Just like in the equation environment, the equations inside the align environment
 are automatically numbered. To disable equation numbering use the star version.
 
-> Package amsmath
-> Environment align
-
 To display various equations side-by-side leave an extra & in between equation
 columns, as such:
 
-equation1a&equation1b & equation2a&equation2b & ... & equationna&equationnb
+eq1a&eq1b & eq2a&eq2b & ... & eqna&eqnb
 
-The idea here is that odd numbered columns get flushed right while even numbered
-columns get flushed left. Between column pairs a small horizontal space is added.
+The idea here is that odd numbered columns get flushed right (r) while even numbered
+columns get flushed left (l). So they are often referred to as rl column pairs.
+Between rl column pairs a small horizontal space is added.
+The number of rl column pairs is calculated automatically.
+
+\begin{alignat}{number}
+exp11 & exp12 & ... & exp1m \\ 		% Equation #1
+exp21 & exp22 & ... & exp2m \\ 		% Equation #2
+...
+expn1 & expn2 & ... & expnm %\\ 	% Equation #n
+\end{alignat}
+
+The alignat math evironment is similar to the align environment. Its primary purpose
+is to allow finer control on the horizontal spacing between rl column pairs.
+
+It takes a number argument, specifying the number of rl column pairs: (#& + 1) / 2.
+It does not add horizontal spacing between adjacent rl column pairs.
+
+This environment allows manually specification of the distance between various columns,
+and also allows one to right ll column pairs or rr column pairs with a bit of hacking:
+
+&eq1a &&eq1b \\ 		% ll column pair
+
+Just like in the equation environment, the equations inside the alignat environment
+are automatically numbered. To disable equation numbering use the star version.
+
+> Package amsmath
+> Environment align
+> Environment alignat
 
 
 
@@ -1535,7 +1559,7 @@ columns get flushed left. Between column pairs a small horizontal space is added
 
 
 
-$ Aligned Environment, Aligned Equation, Alignedat $ (amsmath, mathtools)
+$ Aligned Environment, Alignedat, Aligned Equation $ (amsmath, mathtools)
 
 \begin{equation (?)}
 \begin{aligned}[pos]
@@ -1549,20 +1573,23 @@ The aligned math environment is used inside an equation-like environment
 to split a single equation over multiples lines, and keep various pinpointed
 positions on every line aligned (using &), allowing for much better aesthetics.
 
-Tradition is to align every line on the = sign, as in &=, but that is
-strictly not necessary at all.
+It is the "inside equation" equivalent of the align environment.
 
 Aligned environment does not have a starred version: it is up to the enclosing
 environment to number or not number the equation provided by aligned.
 
-Alignedat environment is deprecated. It is equivalent to aligned but
-takes a mandatory argument specifying the number of columns.
+The alignedat math evironment is similar to the aligned environment.
+Its primary purpose is to allow finer control on the horizontal spacing
+between rl column pairs in the equation
+
+Is is the "inside equation" equivalent of the alignat environment.
+
+Alignedat environment does not have a starred version: it is up to the enclosing
+environment to number or not number the equation provided by alignedat.
 
 > Package amsmath
 > Environment aligned
 > Environment alignedat
-
-
 
 
 
