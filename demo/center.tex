@@ -1,7 +1,7 @@
 \documentclass[environments-demo.tex]{subfiles}
 
 \begin{document}
-\section{center, flushleft, flushright, verbatim, quotation, quote, tabbing}
+\section{center, flushleft, flushright, verbatim, quotation, quote, tabbing, verse}
 
 A regular paragraph
 (first in the section, therefore not indented).
@@ -29,6 +29,10 @@ The center environment automatically created a new paragraph.
 The flush environments do not automatically create new paragraphs. They also do not "indent" the first line.
 \blindtext
 \end{flushright}
+
+A \verb+VERB+ written with the \verb+\verb+ command
+looks just like text written inside a verbatim environment
+using a typewriter:
 
 \begin{verbatim}
     Inside the verbatim environment I can write
@@ -61,5 +65,34 @@ text 7,1 \> text 7,2 \> text 7,3 \` text 7,4 \\
 text 8,1 \> text 8,2 \> text 8,3 \> text 8,4 \> text 8,5 \+\+\\
 \< hello \> text n,1 \> text n,2 \> text n,3 \> text n,4 %\\
 \end{tabbing}
+
+\begin{verse}
+O amor, quando se revela,\\
+Não se sabe revelar.\\
+Sabe bem olhar p'ra ela,\\
+Mas não lhe sabe falar.
+
+Quem quer dizer o que sente\\
+Não sabe o que há de dizer.\\
+Fala: parece que mente...\\
+Cala: parece esquecer...
+
+Ah, mas se ela adivinhasse,\\
+Se pudesse ouvir o olhar,\\
+E se um olhar lhe bastasse\\
+P'ra saber que a estão a amar!
+
+Mas quem sente muito, cala;\\
+Quem quer dizer quanto sente\\
+Fica sem alma nem fala,\\
+Fica só, inteiramente!
+
+Mas se isto puder contar-lhe\\
+O que não lhe ouso contar,\\
+Já não terei que falar-lhe\\
+Porque lhe estou a falar...
+
+Fernando Pessoa
+\end{verse}
 
 \end{document}

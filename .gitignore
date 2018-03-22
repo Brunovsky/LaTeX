@@ -1,10 +1,24 @@
+// pdflatex generated auxiliary files
 *.aux
+
+// miktex auto-generated backup files
 *.bak
+
+// pdflatex generated log files
 *.log
+
+// pdflatex output pdf files
 *.pdf
+
+// other generated files
 *.gz
 *.bz2
 *.dvi
 *.out
+
+// pdflatex table of contents
 *.toc
 *.tks
+
+// Docs
+Documentation/

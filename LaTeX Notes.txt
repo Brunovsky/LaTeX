@@ -1487,21 +1487,99 @@ $ Some default strings $
 
 
 ###################################################
-##### Standard Environments
+##### Environments
 ###################################################
 
 Source: http://www.personal.ceu.hu/tex/environ.htm
 
+We have already covered the document and abstract environments.
 
 
-$ Array Environment, Math Array $
+
+$ Align Environment, Alignat, Align Equations $ (amsmath, mathtools)
+
+\begin{align}
+exp11 & exp12 & ... & exp1m \\ 		% Equation #1
+exp21 & exp22 & ... & exp2m \\ 		% Equation #2
+...
+expn1 & expn2 & ... & expnm %\\ 	% Equation #n
+\end{align}
+
+The align math environment typesets n multiple equations and employs a tab-like
+system (using &) to keeping various pinpointed positions on every equation
+aligned on every line (using &), allowing for much better aesthetics.
+
+Tradition is to align every equation on the = sign, as in &=, but that is
+strictly not necessary at all.
+
+Just like in the equation environment, the equations inside the align environment
+are automatically numbered. To disable equation numbering use the star version.
+
+> Package amsmath
+> Environment align
+
+To display various equations side-by-side leave an extra & in between equation
+columns, as such:
+
+equation1a&equation1b & equation2a&equation2b & ... & equationna&equationnb
+
+The idea here is that odd numbered columns get flushed right while even numbered
+columns get flushed left. Between column pairs a small horizontal space is added.
+
+
+
+
+
+
+
+
+
+
+$ Aligned Environment, Aligned Equation, Alignedat $ (amsmath, mathtools)
+
+\begin{equation (?)}
+\begin{aligned}[pos]
+equation1aa & equation1ab & ... \\
+equation1ba & equation1bb & ... \\
+...
+\end{aligned}
+\end{equation (?)}
+
+The aligned math environment is used inside an equation-like environment
+to split a single equation over multiples lines, and keep various pinpointed
+positions on every line aligned (using &), allowing for much better aesthetics.
+
+Tradition is to align every line on the = sign, as in &=, but that is
+strictly not necessary at all.
+
+Aligned environment does not have a starred version: it is up to the enclosing
+environment to number or not number the equation provided by aligned.
+
+Alignedat environment is deprecated. It is equivalent to aligned but
+takes a mandatory argument specifying the number of columns.
+
+> Package amsmath
+> Environment aligned
+> Environment alignedat
+
+
+
+
+
+
+
+
+
+
+
+
+$ Array Environment, Math Array $ (Standard, amsmath, mathtools)
 
 \begin{array}[pos]{col1col2…coln}		% tablespec=col1col2...coln
-item11 & item12 … & item1n \\
-item21 & item22 … & item2n \\
-
+math11 & math12 … & math1n \\
+math21 & math22 … & math2n \\
 ...
-itemm1 & itemm2 … & itemmn %\\
+mathm1 & mathm2 … & mathmn %\\
 \end{array}
 
 The array math environment (within math mode) begins a math table,
@@ -1544,12 +1622,51 @@ Within the environment:
 
 
 
-$ Center Environment, Center Paragraph $
+$ Cases Environment, Piecewise Multivalue Function $ (amsmath, mathtools)
+
+\begin{cases}
+math1 & case1 \\
+math2 & case2 \\
+...
+\end{cases}
+
+The cases math environment provides a display style solution to the burden
+of writing a multivalue function say of the style
+	    /  a(x) 	if c(y)
+f(x) = |
+		\  b(x) 	if d(y)
+
+It provides the content following and including the opening brace {.
+
+In every row of the cases environment, math and case are math cells.
+
+This environment is greatly improved by mathtools. It adds its sibling
+environments dcases, rcases and drcases, plus their star versions.
+
+The d prefix means the lines are set in display mode.
+The r prefix means the bracket is on the right side instead of the left.
+The star version formats the second column (case) in text mode instead of math.
+
+> Package amsmath
+> Package mathtools
+> Environment cases
+> Environment dcases
+> Environment rcases
+> Environment drcases
+
+
+
+
+
+
+
+
+
+
+$ Center Environment, Center Paragraph $ (Standard)
 
 \begin{center}
-Text on line 1 \\
-Text on line 2 \\
-...
+text
 \end{center}
 
 The center text environment allows you to create a paragraph consisting of lines
@@ -1574,12 +1691,12 @@ It may be used inside other environments.
 
 
 
-$ Description Environment, Labeled List $
+$ Description Environment, Labeled List $ (Standard)
 
 \begin{description}
 \item [label] First item
 \item [label] Second item
-...
+... more labeled items ...
 \end{description}
 
 The description text environment is used to make labeled lists.
@@ -1596,11 +1713,12 @@ The label is bold face and flushed right.
 
 
 
-$ Enumerate Environment, List $
+$ Enumerate Environment, List $ (Standard)
 
 \begin{enumerate}
 \item First item
 \item Second item
+... more items ...
 \end{enumerate}
 
 The enumerate text environment produces a numbered list.
@@ -1621,15 +1739,17 @@ To get a bullet list instead use itemize.
 
 
 
-$ Eqnarray Environment, Equation Array $
+$ Eqnarray Environment, Equation Array $ (Standard)
 
 \begin{eqnarray}
-Math formula 1 & Math formula 1 \\
-Math formula 2 & Math formula 1 \\
-...
+math11 & math12 & math13 \\
+math21 & math22 & math23 \\
+... more math cells ...
 \end{eqnarray}
 
-The eqnarray math environment is used to display a sequence of equations or inequalities.
+The eqnarray math environment is used to display
+a sequence of equations or inequalities.
+
 It is very much like a three-column array environment, with consecutive rows
 separated by \\ and consecutive items within a row separated by an &.
 An equation number is placed on every line unless that line has a \nonumber command.
@@ -1645,15 +1765,16 @@ An equation number is placed on every line unless that line has a \nonumber comm
 
 
 
-$ Equation Environment $
+$ Equation Environment $ (Standard, amsmath, mathtools)
 
 \begin{equation}
-Math formula
+Math
 \end{equation}
 
 The equation math environment centers your equation on the page
-and places the equation number in the right margin.
-The star version equation* does not number the equation (skips it).
+and places the equation number in the right margin (or left margin).
+
+The star version equation* does not number the equation.
 
 > Environment equation
 
@@ -1666,10 +1787,10 @@ The star version equation* does not number the equation (skips it).
 
 
 
-$ Figure Environment $
+$ Figure Environment $ (Standard)
 
 \begin{figure}[placement]
-...
+figure
 \caption{figure title}
 ...
 \end{figure}
@@ -1698,12 +1819,10 @@ The caption given is the figure's title.
 
 
 
-$ Flushleft Environment $
+$ Flushleft Environment $ (Standard)
 
 \begin{flushleft}
-Text on line 1 \\
-Text on line 2 \\
-...
+text
 \end{flushleft}
 
 The flushleft text environment pushes all lines to the left edge of the body,
@@ -1725,12 +1844,10 @@ It may be used inside other environments.
 
 
 
-$ Flushright Environment $
+$ Flushright Environment $ (Standard)
 
 \begin{flushright}
-Text on line 1 \\
-Text on line 2 \\
-...
+text
 \end{flushright}
 
 The flushright text environment pushes all lines to the left edge of the body,
@@ -1752,12 +1869,65 @@ It may be used inside other environments.
 
 
 
-$ Itemize Environment $
+$ Gather Environment $ (amsmath, mathtools)
+
+\begin{gather}
+equation1 \\
+equation2 \\
+...
+\end{gather}
+
+The gather math environment produces a centered series of display style equations.
+
+Just like in the equation environment, the equations inside the gather environment
+are automatically numbered. To disable equation numbering use the star version.
+
+> Package amsmath
+> Environment gather
+
+
+
+
+
+
+
+
+
+
+$ Gathered Environment $ (amsmath, mathtools)
+
+\begin{equation (?)}
+\begin{gathered}
+equation1a \\
+equation1b \\
+...
+\end{gathered}
+\end{equation (?)}
+
+The gathered math environment produces a single equation which can be split
+over multiple lines and every of its portions centered.
+
+Gathered environment does not have a starred version: it is up to the enclosing
+environment to number or not number the equation provided by gathered.
+
+> Package amsmath
+> Environment gathered
+
+
+
+
+
+
+
+
+
+
+$ Itemize Environment $ (Standard)
 
 \begin{itemize}
 \item First item
 \item Second item
-. . .
+... more items ...
 \end{itemize}
 
 The itemize text environment produces a bullet list.
@@ -1778,12 +1948,12 @@ To get a numbered list instead use enumerate.
 
 
 
-$ List Environment $
+$ List Environment $ (Standard)
 
 \begin{list}{label}{spacing}
 \item First item
 \item Second item
-...
+... more items ...
 \end{list}
 
 The list text environment produces a list of items with customizable labels.
@@ -1804,10 +1974,59 @@ The spacing argument contains commands to change the spacing parameters for the 
 
 
 
-$ Minipage Environment $
+$ matrix Environment $ (amsmath, mathtools)
+
+\begin{Xmatrix}[pos]
+math11 & math12 \\
+math21 & math22 \\
+...
+\end{Xmatrix}
+
+The matrix math environment creates a display style matrix.
+This is very similar to LaTeX's default array environment.
+The matrix environment is slightly more ergonomic and concise horizontally,
+with each cell taking less horizontal padding space by comparison.
+
+The matrix environment provided by amsmath does not include any left
+or right delimiters, those have to be manually added, e.g. \big( \big).
+
+It also includes sibling environments Xmatrix, which provide such delimiters,
+where X takes the following values:
+
+Xmatrix  X     Delims
+ matrix  		 non 		Unbracketed matrix.
+pmatrix  p 		 ( ) 		Parentheses around matrix.
+vmatrix  v 		 | | 		Single vertical lines around matrix.
+Vmatrix  V 		|| || 		Double vertical lines around matrix.
+bmatrix  b 		 [ ] 		Square brackets around matrix.
+Bmatrix  B 		 { } 		Brackets around matrix.
+
+This environments are improved by mathtools. The star version of these
+environments accepts the optional pos argument (l, c, r) specifying the
+alignment of the content within the cells.
+
+> Package amsmath
+> Package mathtools
+> Environment matrix
+> Environment pmatrix
+> Environment vmatrix
+> Environment Vmatrix
+> Environment bmatrix
+> Environment Bmatrix
+
+
+
+
+
+
+
+
+
+
+$ Minipage Environment $ (Standard)
 
 \begin{minipage}[position]{width}
-...
+text
 \end{minipage}
 
 The minipage text environment produces a box similar to a parbox command.
@@ -1838,12 +2057,40 @@ The height of the minipage is calculated automatically as a best fit.
 
 
 
-$ Picture Environment $
+$ Multline Environment $ (amsmath, mathtools)
+
+\begin{multline}
+equation1a \\
+equation1b \\
+...
+\end{multline}
+
+The multline math environment delimits one equation which may be split in
+multiple lines with various line breaks \\.
+This is the environment of choice for very long equation which need to be broken
+into two or three lines, but retain a single equation number.
+
+This environment specifies no alignment points.
+
+Just like in the equation environment, the equations inside the multline environment
+are automatically numbered. To disable equation numbering use the star version.
+
+> Package amsmath
+> Environment multline
+
+
+
+
+
+
+
+
+
+
+$ Picture Environment $ (Standard)
 
 \begin{picture}(width,height)(x offset,y offset)
-...
-picture commands
-...
+... picture commands ...
 \end{picture}
 
 The picture environment allows you to create just about any kind of picture
@@ -1934,10 +2181,10 @@ the reference point will be the lower left corner of the box.
 
 
 
-$ Quotation Environment $
+$ Quotation Environment $ (Standard)
 
 \begin{quotation}
-...
+text
 \end{quotation}
 
 The quotation text environment produces an environment indented on the left
@@ -1958,10 +2205,10 @@ The text is justified and the first line in each paragraph is indented.
 
 
 
-$ Quote Environment $
+$ Quote Environment $ (Standard)
 
 \begin{quotation}
-...
+text
 \end{quotation}
 
 The quote text environment produces an environment indented on the left
@@ -1982,21 +2229,177 @@ All text is justified at both margins, with no paragraph indentation.
 
 
 
-$ Tabbing Environment $
+$ Smallmatrix Environment $ (amsmath, mathtools)
+
+\begin{Xsmallmatrix}[pos]
+math11 & math12 \\
+math21 & math22 \\
+...
+\end{Xsmallmatrix}
+
+The smallmatrix math environment creates a very small matrix suitable for use
+inline, i.e. use in running text. To effectively not increase the height of
+the lines, the matrix should not have more than 2 rows. With 3 rows the height
+increase is still acceptable.
+
+The smallmatrix environment provided by amsmath does not include any left
+or right delimiters, those have to be manually added, e.g. \big( \big).
+
+This environment is greatly improved by mathtools. The star version of smallmatrix
+accepts the optional pos argument (l, c, r) specifying the alignment of the content
+in each of the cells.
+
+It also adds the sibling environments Xsmallmatrix,
+where X takes the following values:
+
+Xsmallmatrix  X    Delims
+ smallmatrix  		 non 		Unbracketed matrix.
+psmallmatrix  p 	 ( ) 		Parentheses around matrix.
+vsmallmatrix  v 	 | | 		Single vertical lines around matrix.
+Vsmallmatrix  V 	|| || 		Double vertical lines around matrix.
+bsmallmatrix  b 	 [ ] 		Square brackets around matrix.
+Bsmallmatrix  B 	 { } 		Brackets around matrix.
+
+All the environments have the star version.
+
+> Package amsmath
+> Package mathtools
+> Environment smallmatrix
+> Environment psmallmatrix
+> Environment vsmallmatrix
+> Environment Vsmallmatrix
+> Environment bsmallmatrix
+> Environment Bsmallmatrix
+
+
+
+
+
+
+
+
+
+
+$ Split Environment, Split Equations $ (amsmath, mathtools)
+
+\begin{equation (?)}
+\begin{split}
+equation1aa & equation1ab \\
+equation1ba & equation1bb \\
+...
+\end{split}
+\end{equation (?)}
+
+The split math environment should be used inside an equation environment or
+single equation like-environment to allow breaking the equation into multiple
+aligns and still number it as a unit, as a single equation.
+
+Split environment does not have a starred version: it is up to the enclosing
+environment to number or not number the equation provided by split.
+
+> Package amsmath
+> Environment split
+
+
+
+
+
+
+
+
+
+
+$ Subarray Environment, Subscripting, Superscripting $ (amsmath, mathtools)
+
+\begin{subarray}[pos]
+math
+\end{subarray}
+
+The subarray math environment is used to typeset simple multiline math,
+usually for multiline subscripts and superscripts of limit and summation symbols.
+
+pos specifies the alignment of the subarray's contents: l, c, r.
+
+> Package amsmath
+> Environment subarray
+
+\substack{math}
+
+Does exactly the same thing as the subarray environment, but does not allow
+specification of the alignment of its contents.
+
+
+
+
+
+
+
+
+
+
+$ Subequation Environment $ (amsmath, mathtools)
+
+\begin{subequation}
+\begin{equation} 
+	equation1.1a
+	equation1.1b
+	...
+\end{equation}
+\begin{align}
+	equation1.2a
+	equation1.2b
+	...
+\end{align}
+...
+\end{subequation}
+
+The subequation environment provides an area where equation numbering is done
+in a subordinate faction, starting at the subequation environment root.
+
+The subequation environment root is given an equation number I which is the
+primary equation number of all its subequations.
+
+All equation environments included within the subequation environment get
+themselves a primary equation number J, starting at 1 for each subequation environment.
+
+All equations within these equation environments are assigned an equation index s,
+which by default is alphabetical (a, b, c, ...).
+
+The equations' numbering is then displayed as (I.Js).
+
+> Package amsmath
+> Environment subequations
+
+To reference the subequations they have to be labeled at their own line.
+
+
+
+
+
+
+
+
+
+
+$ Tabbing Environment, Tabstop $ (Standard)
 
 \begin{tabbing}
-text 1,1 \= text 1,2 \= ... \= text 1,m \\
-text 2,1 \> text 2,2 \> ... \> text 2,m \\
-text 3,1 \< text 3,2 \< ... \< text 3,m \\
-text 4,1 \+ text 4,2 \+ ... \+ text 4,m \\
-...
+text 1,1 \= text 1,2 \= ... \= text 1,m % \+ \-
+\\
+text 2,1 \> text 2,2 \> ... \> text 2,m % \+ \-
+\\
+text 3,1 \> text 3,2 \> ... \> text 3,m % \+ \-
+\\
+text 4,1 \+ text 4,2 \+ ... \+ text 4,m % \+ \-
+\\
+... more cells ...
 text n,1 \- text n,2 \- ... \- text n,m %\\
 \end{tabbing}
 
 The tabbing text environment provides a way to align text in columns.
-It works by setting tab stops on the first line
-and tabbing to them on subsequent lines, like an ordinary typewriter.
-
+It works by setting multiple tab stops on the first line and possibly even more
+along the other lines, and tabbing to them on subsequent lines;
+like an ordinary typewriter, you advance a tab to move to the next table cell.
 
 Tab Stops
 	First line:
@@ -2024,6 +2427,7 @@ Tab Stops
 	  tabbing environment.
 	\\ Ends the current line, starting a new one and resetting the TAB STOP.
 
+> Environment tabbing
 
 
 
@@ -2033,21 +2437,16 @@ Tab Stops
 
 
 
-$ Table Environment $
+
+$ Table Environment $ (Standard)
 
 \begin{table}[placement]
-...
+table text
 \caption{table title}
 ...
 \end{table}
 
-\begin{figure}[placement]
-...
-\caption{figure title}
-...
-\end{figure}
-
-The figure environment creates a float of type figure.
+The table environment creates a float of type table.
 
 placement (default tbp) is an ordered sequence of preferences relating to the
 preferred positioning of the float in the document:
@@ -2058,13 +2457,11 @@ t 		Top of the next page
 b 		Bottom of a text page
 p 		Page of floats only
 
-The caption given is the figure's title.
+The caption given is the table's title.
 
-> Environment figure
+Usually coupled with tabular, array or matrix environments. Or an image.
 
-
-
-
+> Environment table
 
 
 
@@ -2075,32 +2472,283 @@ The caption given is the figure's title.
 
 
 
+$ Tabular Environment $ (Standard)
+
+\begin{tabular}[pos]{cols}
+column 1 entry & column 2 entry ... & column n entry \\
+... more cells ...
+\end{tabular}
+
+\begin{tabular*}{width}[pos]{cols}
+column 1 entry & column 2 entry ... & column n entry \\
+...
+\end{tabular*}
+
+The tabular text environment begins a text table.
+
+The pos argument specifies position relative to surrounding text
+b: bottom, c: center, t: top.
+If the tabular is in a paragraph of its own this is irrelevant.
+
+The tablespec argument describes the table columns (the number of columns is deduced).
+
+l               left-justified column
+c               centered column
+r               right-justified column
+p{'width'}      for wrapping cells
+m{'width'}      for wrapping cells
+b{'width'}      for wrapping cells
+|               vertical line column
+||              double vertical line column
+
+The | and || columns are implicit within the environment, and do not need to be
+delineated between &s.
+
+Within the environment:
+
+&               Column separator
+\\              Start new row
+\hline          Horizontal line spanning all columns. Write immediately after \\
+\vline 			Vertical line spanning just the current cell.
+\newline        Newline within a cell
+\cline{i-j}     Partial horizontal line, spanning just columns i to j
+\multicolumn{cols}{pos}{text}
+				Used to make an entry that spans several columns.
+				cols, number of columns to span
+				pos, alignment of content: c, l, r.
+
+> Environment tabular
 
 
 
 
 
-$ Verbatim Environment $
+
+
+
+
+
+$ Thebibliography Environment, Bibliography $ (Standard)
+
+\begin{thebibliography}{widest-label}
+\bibitem[label]{cite_key}
+more bib items
+\end{thebibliography}
+
+The thebibliography text environment produces a bibliography or reference list.
+It does not generate any output.
+In article this reference list is "References". In report it is "Bibliography".
+
+widest-label: Text that, when printed, is approximately as wide as the widest
+item label produced by any of the \bibitem commands.
+
+\bibitem[label]{cite_key}
+	Generates an entry labeled label. If the argument label is missing, a
+	number is generated for the label.
+	The cite_key is any sequence of letters, numbers and punctuation symbols
+	not containing a comma or whitespace.
+	This command writes an entry on the .aux file containing cite_key and the
+	item's label. When this aux file is read by \begin{document}, the item's
+	label is associated with cite_key, causing the reference to cite_key by a
+	\cite command to produce the associated label.
+
+\cite[text]{key_list}
+	They key_list argument is a list of cite_keys. This command generates an
+	in-text citation to the references associated with the keys in key_list
+	by entries on the .aux file read by the \begin{document} command.
+
+\nocite{key_list}
+	Produces no text, but writes key_list on the .aux file.
+
+> Environment thebibliography
+
+
+
+
+
+
+
+
+
+
+$ Theorem Environment $ (Standard)
+
+\begin{theorem}
+text
+\end{theorem}
+
+The theorem text environment includes an internal theorem counter an produces
+a "Theorem X" followed by the theorem text, where X is the counter value.
+
+Method overwritten by multiple different packages.
+
+> Environment theorem
+
+
+
+
+
+
+
+
+
+
+$ Titlepage Environment $ (Standard)
+
+\begin{titlepage}
+text
+\end{titlepage}
+
+The titlepage environment should be used in the start of a document to create
+a custom titlepage, as it prints on a page with no page number or heading,
+and resets the following pages' numbering to 1.
+
+
+
+
+
+
+
+
+
+
+$ Verbatim Environment $ (Standard)
 
 \begin{verbatim}
-...
+text
 \end{verbatim}
 
 Everything written within the environment is reproduced verbatim,
 including spaces, newlines, indentation, ...
+
+Nothing is parsed.
+
 Once in the environment only the command \end{verbatim} is recognized.
 
+Enhancements with package verbatim.
 > Package verbatim
+
 > Environment verbatim
 
+\verb*DELIMTEXTDELIM
+
+Prints TEXT verbatim. DELIM should be just 1 character, such as ',' or '.' or 'a'.
 
 
 
 
-\verb
-\verbDELIM TEXT DELIM
 
-Prints TEXT verbatim. DELIM should be just 1 character, such as ',' or '.'
+
+
+
+
+
+$ Verse Environment, Stanza $ (Standard)
+
+\begin{verse}
+verse 1 \\
+verse 2 \\
+verse 3 \\
+verse 4
+% end of stanza
+verse 1
+...
+\end{verse}
+
+The verse text environment is designed to typeset poetry,
+though you may find other uses for it.
+
+Write every verse separated by a newline \\.
+Do not newline after the last verse in a stanza, just add a blank line.
+
+Enhancements in package verse.
+> Package verse
+
+> Environment verse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
