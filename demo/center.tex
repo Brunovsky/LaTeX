@@ -1,8 +1,14 @@
 \documentclass[environments-demo.tex]{subfiles}
 
+\newcommand{\getlength}[2]{
+    \newlength\abc
+    #1\settowidth\abc{#2}
+    \the\abc\relax
+}
+
+
 \begin{document}
 \section{center, flushleft, flushright, verbatim, quotation, quote, tabbing, verse}
-
 A regular paragraph
 (first in the section, therefore not indented).
 \blindtext
@@ -94,5 +100,21 @@ Porque lhe estou a falar...
 
 Fernando Pessoa
 \end{verse}
+
+\begin{center}
+\emph{Emphasized and \emph{not emphasized} text}
+
+\textit{Italicized and \textit{still italicized} text}
+
+\textbf{Bold and \textbf{still bold} text}
+
+\textsc{Small capitals and \textsc{still small capitals} text}
+
+\uline{Underlined and \uline{double underlined} text}
+
+\end{center}
+
+\getlength{\tiny
+}{11}
 
 \end{document}

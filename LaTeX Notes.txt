@@ -15,7 +15,7 @@ Primary Source: https://en.wikibooks.org/wiki/LaTeX
 
 
 ###################################################
-##### (1.1) Getting started > Introduction
+##$## Formats and Languages
 ###################################################
 
 
@@ -130,7 +130,7 @@ A cross-platform LaTeX distribution.
 
 
 ###################################################
-##### LaTeX Setup
+##$## LaTeX Setup
 ###################################################
 
 
@@ -236,8 +236,8 @@ Project Management: No
 
 
 ###################################################
-##### Top Matter
-##### LaTeX Mechanics and Advanced Mechanics
+##$## Top Matter
+##$## LaTeX Mechanics and Advanced Mechanics
 ###################################################
 
 
@@ -278,6 +278,9 @@ Specifies document class. One only.
 		+ Supports matter sectioning.
 		- Does not support abstract.
 		The standard for writing to be printed book documents.
+	beamer
+		For creating slideshow presentations.
+		The content of the presentation is split in various frames.
 
 	OTHER Standard classes:
 	letter
@@ -292,6 +295,7 @@ Everything is optional. Some options are forwarded to packages.
 Specifies document options. Comma separated.
 Bold is default options for article class.*
 
+	Options for article class and many other standard classes:
 	[10pt], 11pt, 12pt, ...
 		- Specifies the document's normal font size.
 		All other font sizes are a function of this font size.
@@ -673,20 +677,9 @@ With standard LaTeX new commands may only have one default argument and up to
 
 
 
-$ Command Definition Improvements $
-
-To write more complex commands, consider using packages:
-
-> Package xparse
-> Package xargs
-> Package xifthen: Implements \ifthenelse{}{}, \isempty{} and \equal{},
-very useful and intuitive commands for macro writing.
-
-
-
 $ Argument Relaying $
 
-Another option for achieving more than one default argument is command relaying.
+An option for achieving more than one default argument is command relaying.
 Better explained with an example:
 
 \newcommand{\COMMAND}[2][DEF1]{
@@ -778,7 +771,7 @@ need a package to use it.
 
 $ Star Version $
 
-Commands and environments have starred versions
+Commands and environments provided by packages often have starred versions
 
 \COMMAND{...} 		\begin{ENV}  ... \end{ENV} 			% Non-starred version
 \COMMAND*{...} 		\begin{ENV*} ... \end{ENV} 			% Starred version
@@ -795,6 +788,8 @@ command to one of two private commands:
 \def\@@COMMAND#1...{...}
 \makeatother
 
+Or you can just make them two entirely separated commands or environments.
+
 
 
 $ Command Packages $
@@ -804,7 +799,7 @@ although as you can see above none of them are explicitely required.
 
 Repo of packages I've found so far:
 > Package xparse (LaTeX3)
-> Package suffix: Provides \WithSuffix for star version of commands.
+> Package suffix
 > Package ifthen
 > Package xifthen (LaTeX3)
 > Package xargs (LaTeX3)
@@ -1021,6 +1016,291 @@ Units of length in picture environment.
 
 
 
+$$ Penalties $$
+
+Source: https://tex.stackexchange.com/questions/51263/what-are-penalties-and-which-ones-are-defined
+
+Penalties are the main value that the TeX and LaTeX core engines try to minimise
+when "breaking" lines and pages, that is, interrupting the flow of content
+throughout a line or page, which is getting filled, to start a new one.
+
+The higher the penalty is, the more likely it is the engine will not break.
+
+They may be set explicitly at any point:
+
+\penaltyX 			Sets the penalty for breaking -here- to be X.
+\nobreak 			Equivalent to \penalty10000, do not break here.
+
+The core engine defines its own penalties for various places, and then
+inserts them automatically at those points.
+
+Some LaTeX core penalties:
+
+	\linepenalty=10 (vertical)
+		Added to the badness of each line within
+		a paragraph, so that increasing the value
+		makes TeX try to have fewer lines in the paragraph.
+
+	\interlinepenalty=0 (vertical)
+		Value of the penalty (node) added after each line of a paragraph.
+
+	\hyphenpenalty=50 (horizontal)
+		The penalty for line breaking at an automatically inserted hyphen.
+
+	\exhyphenpenalty=50 (horizontal)
+		The penalty for line breaking at an explicit hyphen.
+
+	\binoppenalty=700 (math mode)
+		The penalty for breaking a line at a binary operator.
+
+	\relpenalty=500 (math mode)
+		The penalty for breaking a line at a relation.
+
+	\clubpenalty=150 (vertical)
+		Extra penalty for breaking after the first line of a paragraph.
+		Aka the penalty for having an orphan line as the last line of a page.
+
+	\widowpenalty=150 (vertical)
+		Extra penalty for breaking before the last line of a paragraph.
+		Aka the penalty for having a widow line as the first line of a page.
+
+	\displaywidowpenalty=50 (vertical)
+		Extra penalty for breaking before the last line of display math.
+
+	\brokenpenalty=100 (vertical)
+		Extra penalty for page breaking after a hyphenated line.
+
+	\predisplaypenalty=10000 (vertical)
+		Penalty for breaking before a display.
+
+	\postdisplaypenalty=0 (vertical)
+		Penalty for breaking after a display.
+
+	\floatingpenalty=20000 (vertical)
+		Penalty for splitting an insertion
+
+
+	\@lowpenalty	(for article, 51) 		corresponds to \\[1]
+	\@medpenalty 	(for article, 151) 		corresponds to \\[2]
+	\@highpenalty 	(for article, 301) 		corresponds to \\[3]
+		The penalties set by commands \\, \linebreak and \pagebreak when
+		supplied with the optional argument [n], where n is an expression
+		of the penalty for breaking at that point.
+
+
+	from e-TeX:
+	\interlinepenalties{n i1 i2 ... in}
+		The penalties to be added after each line of a paragraph.
+		The last value in is repeated if the paragraph has more than n lines.
+
+	\clubpenalties{n i1 i2 ... in}
+		The penalties to be added after each line of a paragraph at the end
+		of a page, affecting page breaks.
+	
+	\widowpenalties{n i1 i2 ... in}
+		The penalties to be added after each line of a widow collection of lines.
+		Lines counted backwards from the last line.
+
+	\displaywidowpenalties{n i1 i2 ... in}
+		The penalties to be added after each display math block within a single
+		paragraph. The lines are counter backwards from the last display block.
+
+
+The maximum value of a penalty is 10000, and is usually enforcing.
+The minimum value of a penalty is 0, making it a nopenalty.
+
+
+
+
+
+
+
+
+
+
+$$ Floats $$
+
+Floats are not part of the normal system of text. They are containers for things
+in a document which cannot be broken over a page, like images.
+
+As such, their place in the document is usually not hard-coded, meaning the engine
+will attempt to position the float in the best possible position.
+You may make your preferences about the positioning of the float known to the engine.
+
+Floats are placed in a part of a page reserved specifically for them. They are
+centered as have no content to the left or to the right of them.
+
+They should be captioned with the \caption command.
+
+Every float class is independently numbered,
+and can be refered to from anywhere in the document.
+
+Standard LaTeX Floats: figure, table.
+
+> Package float
+> Environment figure
+> Environment table
+
+
+
+
+$ Standard Floats $
+
+Figure Float
+
+\begin{figure}[PLACEMENT]
+...
+\end{figure}
+
+
+Table Float
+
+\begin{table}[PLACEMENT]
+...
+\begin{tabular} ... \end{tabular}
+...
+\end{table}
+
+
+
+
+
+$ Float Placement, Positioning $
+
+The PLACEMENT optional argument decides where the float is to be placed.
+
+PLACEMENT 		PERMISSION
+h 				Place the float here if you will.
+t 				Position at the top of the next (or subsequent) page if you will.
+b 				Position at the bottom of this (or subsequent) page if you will.
+p 				Place this float in a special page for floats only.
+! 				Override internal parameters for determining good float positions.
+H 				Place the float precisely at this location in LaTeX code
+				Requires \usepackage{float}
+
+Default is per class.
+	Default for article is
+		figure: tbp
+		table:  tbp
+
+
+
+
+
+$ Float Default Behavior $
+
+If a float is encountered LaTeX attempts to place it immediately.
+
+If it succeeds, the float is placed and that decision is never changed.
+	That happens if the float can be placed in the current page, respecting
+	its given permissions (one of h, t, b, p). Notice multiple of these permissions
+	may be satisfied simultaneously.
+
+If it does not succeed, the float is placed in a priority queue.
+
+Every time the page has finished, LaTeX attempts to flush the priority queue,
+trying to place as many floats as possible in the current page.
+
+If a given float cannot be placed in the current page it is skipped.
+
+Afterwards it processes the document material for more content for this page,
+and in the process may encounter further floats.
+
+A \clearpage command finishes the page and ensures all floats are flushed,
+placing them in pure float pages.
+
+
+
+
+
+$ Float Beautification $
+
+To get a thin border around all figures:
+
+\usepackage{float}
+\floatstyle{boxed}
+\restylefloat{figure}
+
+
+
+
+
+> Package placeins
+
+To create a float barrier that queued floats cannot pass:
+
+\usepackage{placeins}
+\FloatBarrier
+
+To include a FloatBarrier at every section start.
+
+\usepackage[section]{placeins}
+
+
+
+
+
+$ Captions and Numbering $
+
+The caption command should be given before the label.
+
+\caption{TEXT}
+\caption[SHORT]{LONG}
+
+Use inside a float environment to add caption TEXT.
+The location of this command dictates the location of the caption.
+
+A figure caption is typeset as
+
+Figure N. TEXT
+
+A table caption is typeset as
+
+Table M. TEXT
+
+
+
+
+
+See also:
+> Package sidecap
+> Package floatrow
+
+
+
+
+
+
+
+
+
+
+$$ Labels, References, Cross-Referencing, URLs $$
+
+(1) \hyperref[LABEL]{LINK}
+(2) \url{URL}
+(3) \href{URL}{DESCRIPTION}
+(4) \hypertarget{LABEL}{TARGET CAPTION}
+(5) \hyperlink{LABEL}{LINK CAPTION}
+(6) \urlstyle{same}
+
+Access to hyperlinks given by
+
+\usepackage{hyperlinks}
+> Package hyperlinks
+
+(1) This makes the ref a link to LABEL. It is clickable in the resulting PDF.
+(2) This makes a URL link in the PDF.
+(3) Shows the string DESCRIPTION and makes a URL link in the PDF.
+(4) Creates an anchor, allowing some other part of the document to link here.
+(5) Links to an anchor.
+(6) Print URLs with the same font as surrounding text.
+
+
+
+
+
+
 
 
 
@@ -1032,7 +1312,7 @@ Units of length in picture environment.
 
 
 ###################################################
-##### Text Spacing
+##$## Text Spacing
 ###################################################
 
 
@@ -1161,7 +1441,7 @@ $ Line Spread, Line Distance (Vertical) $
 
 \linespread{FACTOR}
 
-Changes the default line spread in the document.
+Changes the default line spread in the document, i.e. write line further apart.
 FACTOR = 1   is default.
 FACTOR = 1.3 is considered "one and a half" line spacing.
 FACTOR = 1.6 is considered "double" line spacing.
@@ -1247,7 +1527,7 @@ $$ Paragraphs $$
 To start a new paragraph, leave an empty blank line (that is, 2 consecutive newlines):
 TEXT...
 
-TEXT...
+TEXT... 		% Another paragraph has been started
 
 \par
 To force a new paragraph.
@@ -1262,6 +1542,7 @@ JUSTIFICATION 	ENVIRONMENT		SWITCH
 Left			flushleft		\raggedright
 Right			flushright		\raggedleft
 Center			center 			\centering
+Justified 		--default--     --default--
 
 All text between \begin{ENV} and \end{ENV} will be justified accordingly.
 Use switches as {\COMMAND{} TEXT}.
@@ -1430,6 +1711,7 @@ A ``quote'' in LaTeX.
 
 
 $ Text Subscript, Superscript $
+
 \textsubscript{TEXT}
 \textsuperscript{TEXT}
 
@@ -1462,6 +1744,7 @@ $ Ellipsis $
 
 
 $ Some default strings $
+
 \today			Current date
 \TeX
 \LaTeX
@@ -1487,7 +1770,7 @@ $ Some default strings $
 
 
 ###################################################
-##### Environments
+##$## Environments
 ###################################################
 
 Source: http://www.personal.ceu.hu/tex/environ.htm
@@ -1934,6 +2217,8 @@ equation1b \\
 The gathered math environment produces a single equation which can be split
 over multiple lines and every of its portions centered.
 
+It is the "inside equation" equivalent of the gather environment.
+
 Gathered environment does not have a starred version: it is up to the enclosing
 environment to number or not number the equation provided by gathered.
 
@@ -2001,7 +2286,7 @@ The spacing argument contains commands to change the spacing parameters for the 
 
 
 
-$ matrix Environment $ (amsmath, mathtools)
+$ Matrix Environment $ (amsmath, mathtools)
 
 \begin{Xmatrix}[pos]
 math11 & math12 \\
@@ -2690,7 +2975,6 @@ Do not newline after the last verse in a stanza, just add a blank line.
 
 Enhancements in package verse.
 > Package verse
-
 > Environment verse
 
 
@@ -2712,125 +2996,9 @@ Enhancements in package verse.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$ URL $
-
-\url{URL}
-
-Provided by package hyperref or url.
-
-> Package hyperref: The URL is clickable in the PDF.
-> Package url: The URL is not clickable
-
-
-
-
-
-
-
-
-
-
-$ Quoting Text $
-
-> Environment quote: for short quotation
-> Environment quotation: for longer quotations
-> Environment verse: for poetry
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ###################################################
-##### (2.5) Common Elements > Fonts
+##$## Fonts and Families, Font Manipulation and Styling
+##$## Special Text Characters and Considerations
 ###################################################
 
 
@@ -2842,9 +3010,11 @@ sf      - sans serif
 tt      - monospace
 \familydefault, \rmdefault, \sfdefault, \ttdefault
 
-Default font is \defaultfamily = \rmdefault = Computer Modern.
+Default font is \familydefault = \rmdefault.
 Can be changed with \renewcommand{\familydefault}{FAMILY}
+Consider doing this with packages instead.
 
+To change the actual font, you need to load a package (see further down).
 
 
 
@@ -2854,98 +3024,17 @@ Can be changed with \renewcommand{\familydefault}{FAMILY}
 
 
 
-$ Font Style $
 
-\emph{TEXT}
-\emph{EMPHASIZED \emph{NOT EMPHASIZED
-Switch: {\em ...}
+$ Common Serif Fonts $
 
-Emphasize a portion of text dynamically.
-
-
-
-
-
-\textit{TEXT}
-Switch: {\itshape ...}
-
-Italicize a portion of text.
-
-
-
-
-
-\textbf{TEXT}
-Switch: {\bfseries ...}
-
-Bold a portion of text.
-
-
-
-
-
-\textsc{TEXT}
-Switch: {\scshape ...}
-
-Write a portion of text with small capitals.
-
-
-
-
-
-\textrm{TEXT}, \textsf{TEXT}, \texttt{TEXT}
-Switches: {\rmfamily ...}, {\sffamily ...}, {\ttfamily ...}
-
-Writes a portion of text with a different font family.
-
-
-
-
-
-\underline{TEXT}
-\uline{TEXT}
-
-Writes a portion of text underlined. The second form is preferred because of line breaks.
-
-> Package ulem: underline emphasis. Provides \uline.
-
-
-
-
-
-
-
-
-
-
-$ Font Size $
-
-\tiny, \scriptsize, \footnotesize, \small, \normalsize, \large, \Large, \LARGE, \huge, \Huge
-
-These switches modify the default text size.
-Use as {\switch TEXT}.
-
-
-
-
-
-
-
-
-
-
-$ Common Fonts $
-
- All Serif                  Package         Code
+ All Serif                   Package        Code
 Computer Modern Roman       -default-       cmr
 Latin Modern Roman          lmodern         lmr
 TeX Gyre Termes             tgtermes        qtm
 Times                       times           ptm
 
-Default is Computer Modern Roman. I suggest lmodern everywhere.
+Default is Computer Modern Roman. I suggest Latin Modern Roman everywhere.
 To use lmodern everywhere, include:
-
-§ \usepackage{lmodern}
 
 > Package lmodern
 > Package tgtermes
@@ -2960,6 +3049,43 @@ To use lmodern everywhere, include:
 
 
 
+$ Font Style, Switch Text Style $
+
+(1.1) \emph{TEXT}
+(1.2) \emph{EMPHASIZED \emph{NOT EMPHASIZED} ...}
+(1.3) Switch: {\em ...}
+
+(2.1) \textup{TEXT}
+(2.2) Switch: {\upshape ...}
+
+(3.1) \textit{TEXT}
+(3.2) Switch: {\itshape ...}
+
+(4.1) \textbf{TEXT}
+(4.2) Switch: {\bfseries ...}
+
+(5.1) \textsc{TEXT}
+(5.2) Switch: {\scshape ...}
+
+(6.1) \textsl{TEXT}
+(6.2) Switch: {\slshape ...}
+
+(7.1) \textrm{TEXT}, \textsf{TEXT}, \texttt{TEXT}
+(7.2) Switches: {\rmfamily ...}, {\sffamily ...}, {\ttfamily ...}
+
+(8.1) \underline{TEXT}
+(8.2) \uline{TEXT}
+
+(1) Emphasize a portion of text dynamically.
+(2) Write a portion of text strictly upright.
+(3) Italicize a portion of text.
+(4) Bold a portion of text.
+(5) Write a portion of text will small capitals.
+(6) Write a portion of text slanted (easier on the eyes than italics).
+(7) Write a portion of text with a different font family.
+(8) Underline a portion of text. The second form is preferred.
+
+> Package ulem: underline emphasis. Provides \uline. Load with normalem option.
 
 
 
@@ -2970,28 +3096,21 @@ To use lmodern everywhere, include:
 
 
 
-###################################################
-##### (2.6) Common Elements > List Structures
-###################################################
+$ Font Size, Change Text Font Size $
 
+SWITCH               DELTA APPROXIMATIONS (experimental)
+\tiny 		 		 6.80pt 		 68.0%
+\scriptsize 		 7.97pt 		 79.7%
+\footnotesize 		 8.50pt 		 85.0%
+\small 				 9.25pt 		 92.5%
+\normalsize 		10.00pt 		100.0%
+\large 				11.75pt 		117.5%
+\Large 				14.10pt 		141.0%
+\LARGE 				15.85pt 		158.5%
+\huge 				19.02pt 		190.2%
+\Huge 				22.82pt 		228.2%
 
-
-$ Default Lists $
-
-\begin{itemize}, \end{itemize},
-\begin{enumerate}, \end{enumerate},
-\begin{description}, \end{description},
-\item
-
-Lists can be created with environments and can be nestes within each other.
-Maximum depth four by default, more with packages.
-The TeX engines automatically indent nested lists and items within those lists.
-
-> Environment itemize: bullet list
-> Environment enumerate: numbered list
-> Environment description: descriptive list
-
-To add an item to a list simply write \item. Everything afterwards is that item's text.
+These switches modify the default text size.
 
 
 
@@ -3002,58 +3121,12 @@ To add an item to a list simply write \item. Everything afterwards is that item'
 
 
 
-$ Other Lists $
+$ UTF8 Support, Input Encoding $
 
-> Environment labeling
-> Package scrextend
+To use utf-8 encoding for the file input, include:
 
-\item [LABEL] TEXT
-
-Allows each item to take a label. Then the list is organized in two columns,
-the first with the labels and the second with the text.
-
-
-
-
-
-> Environment tasks
-> Package tasks
-
-\begin{tasks}(N), \end{tasks}
-\task TEXT
-
-Makes a horizontal list.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-###################################################
-##### (2.7) Common Elements > Special Characters
-###################################################
-
-
-
-$ Input encoding $
-
-To use utf-8 encoding, include:
-
-§ \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[utf]{inputenc}
 
 Remember to change your editors settings for decoding/encoding the TeX file.
 
@@ -3066,48 +3139,49 @@ Remember to change your editors settings for decoding/encoding the TeX file.
 
 
 
-$ Special Text Characters $
+$ Special Text Characters, Escaped Characters $
 
-$       \$
+$       \$ 						Dollar
 
-%       \%
+%       \% 						Percentage
 
-{       \{}
+{       \{ 	 					Brackets
 
-}       \}
+}       \} 						Brackets
 
-¶       \P
+¶       \P 						End of line marker
 
-|       \textbar
+|       \textbar 				Vertical bar
 
-<       \textless
+<       \textless 				Text less
 
->       \textgreater
+>       \textgreater 			Text greater
 
-£       \pounds
+£       \pounds 				Pounds
 
-#       \#
+#       \# 						Hashtag, Numeral
 
-&       \&
+&       \& 						Ampersand
 
-S       §
+S       § 						Section sign, Double S, Paragraph Mark
 
-†       \dag
+†       \dag 					Dagger, Obelisk, Obelus
 
-\       \textbackslash
+\       \textbackslash 			Backslash
 
-/       '/' or \slash
+/       '/' or \slash 			Slash, Bar
 
-®       \textregistered
+®       \textregistered 		Registered mark, R
 
-©       \copyright
+©       \copyright 				Copyright symbol
 
-~       \~{}
+~       \~{} 					Tilde
 
-€       \euro{} or '€'
-REQUIRES \usepackage[gen]{eurosym}, \DeclareUnicodeCharacters{20AC}{\euro{}}
+€       \euro or '€' 			Euro
 
 Package textcomp guarantees the complicated symbols are pretty.
+
+Some others:
 \textasciicircum, \textasciitilde, \textasteriskcentered, \textbackslash,
 \textbar, \textbraceleft, \textbraceright, \textbullet, \textcopyright,
 \textdagger, \textdaggerdbl, \textdollar, \textellipsis, \textemdash,
@@ -3118,8 +3192,6 @@ Package textcomp guarantees the complicated symbols are pretty.
 \textvisiblespace
 
 > Packate textcomp
-> Package pifont
-> Package eurosym
 
 
 
@@ -3130,97 +3202,16 @@ Package textcomp guarantees the complicated symbols are pretty.
 
 
 
+$$ Language, Internationalization, Document Language $
 
-
-
-
-
-
-
-
-
-
-###################################################
-##### (2.8) Common Elements > Internationalization
-###################################################
-
-
-
-$ Language $
+Use package babel to set the document's primary and secondary languages.
 
 > Package babel
 
-§ \usepackage{babel} | \usepackage[portuges]{babel}
+\usepackage[primary]{babel}
+\usepackage[secondary,primary]{babel}
 
-Add support for portuguese.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-###################################################
-##### (2.10) Common Elements > Tables
-###################################################
-
-
-
-$ Table $
-
-\begin{tabular}[pos]{tablespec}
-\end{tabular}
-
-> Environment tabular
-
-The tabular environment begins a text table.
-
-The pos argument specifies position relative to surrounding text
-b: bottom, c: center, t: top.
-If the table is in a paragraph of its own this is irrelevant.
-
-The tablespec argument describes the table columns (the number of columns is deduced).
-
-l               left-justified column
-c               centered column
-r               right-justified column
-p{'width'}      for wrapping cells
-m{'width'}      for wrapping cells
-b{'width'}      for wrapping cells
-|               vertical line column
-||              double vertical line column
-
-The | and || columns are like the lcr columns, but are very thin and feel like separators.
-
-
-Within the environment:
-
-&               Column separator
-\\              Start new row
-\hline          Horizontal line spanning all columns. Write after \\
-\newline        Newline within a cell
-\cline{i-j}     Partial horizontal line, spanning just columns i to j
-
-
-See also:
-> Package tabularx
-> Package tabulary
-
-
-For further options check documentation.
+Includes english, portuguese.
 
 
 
@@ -3242,52 +3233,47 @@ For further options check documentation.
 
 
 ###################################################
-##### (2.12) Common Elements > Page Layout
+##$## Page Layout, Size, Breaks, Margins, Header, Footnotes
 ###################################################
 
 
 
- ____________________________________
-|                                    |
-|                                    |
-|                                    |
-|                                    |
-|                                    |
-|                                    |
-|                                    |
-|                                    |
-|                                    |
-|                PAGE                |
-|                                    |
-|                                    |
-|                                    |
-|                                    |
-|               LAYOUT               |
-|                                    |
-|                                    |
-|                                    |
-|                                    |
-|                                    |
-|                                    |
-|                                    |
-|                                    |
-|                                    |
-|____________________________________|
+ _____________________________________
+|                                     |
+|                                     |
+|         |                 |         |
+|         |     HEADER      |         |
+|         | _ _ _ _ _ _ _ _ |         |
+|         |                 |         |
+|         |                 |         |
+|         |                 |         |
+|         |                 |         |
+|         |                 |         |
+|         |                 |         |
+|         |                 |         |
+|         |      BODY       |         |
+|         |                 |         |
+|         |                 |         |
+|         |                 |         |
+|         |                 |         |
+|         |                 |         |
+|         |                 |         |
+|         | _ _ _ _ _ _ _ _ |         |
+|         |                 |         |
+|         |    FOOTNOTES    |         |
+|         |                 |         |
+|                                     |
+|_____________________________________|
 
 
-To render a frame marking margins,
-\usepackage{showframe}  or  \usepackage[showframe]{geometry}
+To render a frame marking margins on all pages,
+\usepackage{showframe}
+\usepackage[showframe]{geometry}
 
 > Package showframe
 
 
 
-$ Geometry $
-
-The geometry package allows customization of page size and layout.
-\usepackage[OPTIONS]{geometry}
-
-> Package geometry
 
 
 
@@ -3295,28 +3281,17 @@ The geometry package allows customization of page size and layout.
 
 
 
-
-
-
-$ Manual Page Formatting $
+$ Manual Page Formatting, Page Break $
 
 \newpage            End current page, start new one
 \pagebreak          Breaks current page at this point
-\pagebreak[N]
-\nopagebreak        Stops the page from being broken at this point
-\nopagebreak[N]
+\pagebreak[N] 		With severity N
 \clearpage          Ends the current page, flushes floats
 
+\nopagebreak        Stops the page from being broken at this point
+\nopagebreak[N] 	With severity N
 
-To avoid widow lines (single lines at the beginning of a page):
-\widowpenalty=X        X higher, higher penalty. 10000 MAX
-Recommended: 2000
-Also: \usepackage[all]{nowidow}
-> Package nowidow
-
-To avoid orphan lines (single lines at the end of a page):
-\clubpenalty=X         X higher, higher penalty. 10000 MAX
-Recommended: 200
+See also Penalties.
 
 
 
@@ -3324,22 +3299,6 @@ Recommended: 200
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-###################################################
-##### (2.13) Common Elements > Page Headers and Footers
-###################################################
 
 
 
@@ -3367,8 +3326,9 @@ $ Page Style $
 \thispagestyle{STYLE}
 
 The first applies the style to all pages, the second to the current page.
+Default page style is plain.
 
-Styles:
+Default Styles:
 
 empty               Header blank, Footer blank
 plain               Header blank, Footer contains page number in center
@@ -3379,198 +3339,14 @@ myheadings          Page number top right, Header writable
 
 \markright{TEXT}
 
-Changes the contents of the header to TEXT.
+Changes the contents of the current page's header to TEXT.
 
 
-> Package lastpage
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-###################################################
-##### (2.14) Common Elements > Importing Graphics
-###################################################
-
-
-To import external graphics, use package graphicx
-
-> Package graphicx
-
-Extensions supported: .pdf, .png, .jpeg
-To include a graphics image img.jpeg:
-
-\includegraphics[OPTIONS]{img.jpeg}
-
-Options:
-
-height=X, width=X,
-width=\linewidth,
-width=.5\linewidth,
-...
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-###################################################
-##### (2.14) Common Elements > Floats, Figures, Tables, Captions
-###################################################
-
-
-
-$ Floats $
-
-Floats are not part of the normal system of text.
-They are placed in the part of the page reserved specifically for them.
-They are captioned and numbered, and can be refered to form anywhere in the document.
-Automatic floats: table, figure.
-
-The engine will attempt to print the float at the current position, if there is
-not enough room it will print it at the top of the next page.
-
-
-Figure Float
-
-\begin{figure}[PLACEMENT]
-\end{figure}
-
-
-Table Float
-
-\begin{table}[PLACEMENT]
-\begin{tabular} ... \end{tabular}
-\end{table}
-
-> Environment figure
-> Environment table
-
-
-
-Placement can be multiple of:
-h           Place FLOAT approximately here.
-t           Position FLOAT at the top of the page.
-b           Position FLOAT at the bottom of the page.
-p           Put on a special page for FLOATs only.
-!           Override internal parameters LaTeX uses for determining "good" positions.
-H           Places FLOAT exactly here. REQUIRES \usepackage{float}
-
-You decide which placement permissions to give to LaTeX.
-
-
-
-
-
-> Package float
-
-To get a thin border around all figures:
-
-\usepackage{float}
-\floatstyle{boxed}
-\restylefloat{figure}
-
-
-
-
-
-> Package placeins
-
-To create a float barrier that queued floats cannot pass:
-
-\usepackage{placeins}
-\FloatBarrier
-
-Use \usepackage[section]{placeins} to include a FloatBarrier at every section start.
-
-
-
-
-
-See also:
-> Package flafter
-> Package endfloat
-> Package caption
-
-
-
-
-
-
-
-
-
-
-$ Captions $
-
-\caption{TEXT}
-\caption[SHORT]{LONG}
-
-Use inside a float environment the add caption TEXT.
-The location of this command dictates the location of the caption.
-
-Unnumbered captions
-Simply do not enclose TEXT within \caption.
-
-
-
-
-
-See also:
-> Package sidecap
-> Package floatrow
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-###################################################
-##### (2.15) Common Elements > Footnotes and Margin Notes
-###################################################
 
 
 
@@ -3578,24 +3354,20 @@ $ Footnotes $
 
 Some random thing.\footnote{TEXT}
 
-Creates a footnote marker at the end of "Some random thing", and the footnote text
-will appear in a footnote in the same page.
+Creates a footnote marker at the end of "Some random thing",
+and the footnote text will appear in a footnote in the same page.
 
-Reset counter
-
-Every Section:
+Footnotes are automatically numbered.
+To reset counter the footnote counter every section, use:
 \makeatletter
 \@addtoreset{footnote}{section}
 \makeatother
 
-Every Page:
+To reset the counter every page:
 \usepackage{perpage}
 \MakePerPage{footnote}
 
 > Package perpage
-
-See also:
-> Package footmisc: \usepackage[bottom]{footmisc}
 
 
 
@@ -3611,9 +3383,13 @@ $ Margin notes $
 \marginpar{TEXT}
 \marginpar[LEFT VARIANT]{RIGHT VARIANT}
 
-TEXT will be placed in the right side margin for oneside documents,
-and for twoside documents on the outside margin (biggest one).
+TEXT will be placed in the right side margin (for oneside documents),
+being centered with respect to the paragraph it is noting.
+
+For twoside documents it is placed on the outside margin (biggest one).
 For two-column layout it is placed in the nearest margin, naturally.
+
+To specify side variants, use the optional argument.
 
 
 
@@ -3629,6 +3405,12 @@ $ TODO Notes $
 \usepackage{todonotes}
 \todo{TODO NOTE}
 
+Adds a todo note, which appears in the paper in a similar fashion to a margin note.
+
+To get a list of todo notes, use
+
+\listoftodos
+
 > Package todonotes
 
 
@@ -3638,6 +3420,135 @@ $ TODO Notes $
 See also:
 > Package mparhack
 > Package marginnote
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################
+##### Graphicx. Import Graphics, Images, Pictures
+###################################################
+
+Source: https://www.sharelatex.com/learn/Inserting_Images
+
+To import external graphics, use package graphicx.
+LaTeX cannot import graphics on its own
+
+> Package graphicx
+
+Extensions supported: .pdf, .png, .jpeg
+
+
+
+
+
+$ Graphics Path $
+
+\graphicspath{{DIR1/}{DIR2/}...{DIRN/}}
+
+Specifies the directories in which graphicx may find the included graphics.
+The current directory is the default.
+
+
+
+
+
+$ Include Graphics, Pictures, Images $
+
+\includegraphics[OPTIONS]{IMAGE}
+
+IMAGE is searched for within the directories provided by graphicspath.
+It may also be an absolute path.
+
+The options are key=val pairs as supplied by the keyval package, comma separated.
+
+The options are processed left to right.
+
+OPTIONS:
+	Scaling:
+		scale=FACTOR
+			A magnification factor for the whole figure.
+
+		width=LENGTH
+			The width to which the figure should be scaled.
+			The height is adjusted accordingly, to maintain proportions.
+
+		height=LENGTH
+			The height to which the figure should be scaled.
+			The width is adjusted accordingly, to maintain proportions.
+
+		width=LENGTH1, height=LENGTH2
+			The width and height are set as shown.
+			The proportions of the figure may be affected.
+
+		totalheight=LENGTH
+			Height plus depth of figure (to be used if figure is rotated).
+
+		keepaspectratio=BOOL (true,false)  or just keepaspectratio
+			Whether to maintain the height/width ratio. Defaults to true.
+
+	Rotation:
+		angle=DEGREES
+			Rotates the figure counterclockwise.
+
+		origin=LOCATION
+			The point at which the rotation is to occur.
+			Any meaningful combination of the flags may be given:
+				b  bottom       t  top          c  center
+				l  left         r  right        B  baseline
+
+	Quality:
+		draft=BOOL (true,false)  or just draft
+			Used to speed up processing.
+			Do not import the picture, only create a named box in its place.
+
+		clip=BOOL (true,false)  or just clip
+			Excludes whatever is outside the bounding box.
+
+		quiet=BOOL (true,false)  or just quiet
+			Turns off writing information about the graphics to the .log file.
+
+	Cropping:
+		viewport={llx lly urx ury} 		(ll=lower left, ur=upper right)
+			Specifies the bounding box with respect to the bottom left
+			of the existing bounding box.
+			Used with clip to select a part of the image.
+
+		trim={left lower right upper}
+			Reduces the bounding box by the amount specified.
+			Used with clip to select a part of the image.
+		 ___________________________________________
+		|             |                             |
+		|             |  upper                      |
+		|        _  _ |_  _  _  _  _.(urx,ury)      |
+		|       |                   |               |
+		|                                           |
+		|_______|                   |               |
+		|  left                      _______________|
+		|       |.  _  _  _  _  _  _|       right   |
+		|        (llx, lly)    | lower              |
+		O______________________|____________________|
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

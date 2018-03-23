@@ -3,16 +3,25 @@
 \usepackage{./styles/mystylecore}
 
 \usepackage{amsmath}
-%\usepackage{mathtools}
+\usepackage{mathtools}
 \usepackage{blindtext}
 
-\title{\LaTeX Standard Environments Demo}
+\usepackage[normalem]{ulem}
+
+\usepackage{layout}
+
+\pagestyle{headings}
+
+\markright{Hello}
+
+\title{\LaTeX\ Standard Environments Demo}
 
 \begin{document}
 \maketitle
 \tableofcontents
 \pagebreak
 
+\markright{Hello}
 \subfile{./demo/array}
 
 \subfile{./demo/center}
